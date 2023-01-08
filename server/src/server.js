@@ -5,6 +5,8 @@ const client = new MongoClient(
   "mongodb+srv://gwhyyy:gwhyyy@cluster0.ktg0sfb.mongodb.net/?retryWrites=true&w=majority"
 );
 const CategoriesCollection = client.db("main_db").collection("categories");
+const matchEventsCollection = client.db("main_db").collection("matchEvents");
+
 app.use(express.json());
 
 app.post("/categories", async (req, res) => {
@@ -202,6 +204,143 @@ app.delete("/categories", async (req, res) => {
     );
   }
 });
+
+app.get("/match_events", async (req, res) => {
+  try {
+    const matchEvents = await matchEventsCollection.find().toArray();
+    res.status(200).send(
+      JSON.stringify({
+        status: 200,
+        message: "Match Events fetched successfully",
+        data: matchEvents,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.get("/match_events/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const matchEvent = await matchEventsCollection.findOne({
+      _id: ObjectId(id),
+    });
+
+    if (matchEvent === null) {
+      res.status(404).send(
+        JSON.stringify({
+          status: 404,
+          message: "Not Found",
+        })
+      );
+    } else {
+      res.status(200).send(
+        JSON.stringify({
+          status: 200,
+          message: "Match Event fetched successfully",
+          data: matchEvent,
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.post("/match_events", async (req, res) => {
+  const matchEventBody = req.body;
+  if (checkMatchEventBody(matchEventBody)) {
+    res.status(400).send(
+      JSON.stringify({
+        status: 400,
+        message: "Bad Request",
+      })
+    );
+    return;
+  }
+
+  try {
+    const insertResult = await matchEventsCollection.insertOne(matchEventBody);
+    res.status(201).send(
+      JSON.stringify({
+        status: 201,
+        message: "Match Event created successfully",
+        createdId: insertResult.insertedId,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.put("/match_events/:id", async (req, res) => {
+  const matchEventBody = req.body;
+  if (checkMatchEventBody(matchEventBody)) {
+    res.status(400).send(
+      JSON.stringify({
+        status: 400,
+        message: "Bad Request",
+      })
+    );
+    return;
+  }
+
+  try {
+    const id = req.params.id;
+    const updateResult = await matchEventsCollection.updateOne(
+      { _id: ObjectId(id) },
+      { $set: matchEventBody }
+    );
+    if (updateResult.modifiedCount === 0) {
+      res.status(404).send(
+        JSON.stringify({
+          status: 404,
+          message: "Not Found",
+        })
+      );
+    } else {
+      res.status(200).send(
+        JSON.stringify({
+          status: 200,
+
+          message: "Match Event updated successfully",
+
+          updatedId: id,
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
 app.listen(8080, () => {
   console.log("Server is running on port 8080. Ready to accept requests!");
 });
@@ -211,5 +350,19 @@ function checkCategoryBody(categoryBody) {
     categoryBody.category_title === undefined ||
     categoryBody.channels === undefined ||
     typeof categoryBody.channels !== "object"
+  );
+}
+
+function checkMatchEventBody(matchEventBody) {
+  return (
+    matchEventBody.first_team === undefined ||
+    matchEventBody.first_team_logo === undefined ||
+    matchEventBody.second_team === undefined ||
+    matchEventBody.cup_name === undefined ||
+    matchEventBody.channel_name === undefined ||
+    matchEventBody.channels_quality === undefined ||
+    matchEventBody.commenter_name === undefined ||
+    matchEventBody.date_of_match_with_time === undefined ||
+    matchEventBody.is_playing === undefined
   );
 }
