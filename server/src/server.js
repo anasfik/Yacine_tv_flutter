@@ -6,6 +6,7 @@ const client = new MongoClient(
 );
 const CategoriesCollection = client.db("main_db").collection("categories");
 const matchEventsCollection = client.db("main_db").collection("matchEvents");
+const drawerMenuCollection = client.db("main_db").collection("drawerMenu");
 
 app.use(express.json());
 
@@ -341,6 +342,142 @@ app.put("/match_events/:id", async (req, res) => {
   }
 });
 
+app.delete("/match_events/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const deleteResult = await matchEventsCollection.deleteOne({
+      _id: ObjectId(id),
+    });
+
+    if (deleteResult.deletedCount === 0) {
+      res.status(404).send(
+        JSON.stringify({
+          status: 404,
+          message: "Not Found",
+        })
+      );
+    } else {
+      res.status(200).send(
+        JSON.stringify({
+          status: 200,
+          message: "Match Event deleted successfully",
+          deletedId: id,
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.delete("/match_events", async (req, res) => {
+  try {
+    const deleteResult = await matchEventsCollection.deleteMany({});
+    res.status(200).send(
+      JSON.stringify({
+        status: 200,
+        message: "Match Events deleted successfully",
+        deletedCount: deleteResult.deletedCount,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.get("/drawer_menu", async (req, res) => {
+  try {
+    const drawerMenu = await drawerMenuCollection.find().toArray();
+    res.status(200).send(
+      JSON.stringify({
+        status: 200,
+        message: "Drawer Menu fetched successfully",
+        data: drawerMenu,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.post("/drawer_menu", async (req, res) => {
+  const drawerMenuItemBody = req.body;
+  if (checkDrawerMenuItemBody(drawerMenuItemBody)) {
+    res.status(400).send(
+      JSON.stringify({
+        status: 400,
+        message: "Bad Request",
+      })
+    );
+  }
+
+  try {
+    const insertResult = await drawerMenuCollection.insertOne(
+      drawerMenuItemBody
+    );
+    res.status(201).send(
+      JSON.stringify({
+        status: 201,
+        message: "Drawer Menu item created successfully",
+        createdId: insertResult.insertedId,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.get("/all_channels", async (req, res) => {
+  try {
+    const allChannels = await CategoriesCollection.find()
+      .project({
+        channels: 1,
+      })
+      .toArray();
+    res.status(200).send(
+      JSON.stringify({
+        status: 200,
+        message: "All Channels fetched successfully",
+        data: allChannels.flatMap((category) => category.channels),
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
 app.listen(8080, () => {
   console.log("Server is running on port 8080. Ready to accept requests!");
 });
@@ -364,5 +501,13 @@ function checkMatchEventBody(matchEventBody) {
     matchEventBody.commenter_name === undefined ||
     matchEventBody.date_of_match_with_time === undefined ||
     matchEventBody.is_playing === undefined
+  );
+}
+
+function checkDrawerMenuItemBody(drawerMenuItemBody) {
+  return (
+    drawerMenuItemBody.title === undefined ||
+    drawerMenuItemBody.icon === undefined ||
+    drawerMenuItemBody.link === undefined
   );
 }
