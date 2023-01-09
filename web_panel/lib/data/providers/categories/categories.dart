@@ -41,6 +41,39 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
+  static delete(String categoryId) async {
+    final res = await http.delete(
+      Uri.http(
+        dotenv.env['API_URL']!,
+        '/categories/$categoryId',
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+    print(res);
+  }
+
+  static put(
+    String categoryId,
+    ChannelsCategory channelsCategory,
+  ) async {
+    http.Response res = await http.put(
+      Uri.http(
+        dotenv.env['API_URL']!,
+        '/categories/$categoryId',
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode(channelsCategory.toMapWithOnlyTitle()),
+    );
+
+    return res.body;
+  }
+
   static deleteChannel(String categoryId, String channelId) async {
     http.Response res = await http.delete(
       Uri.http(

@@ -175,7 +175,12 @@ app.put("/categories/:id", async (req, res) => {
     const id = req.params.id;
     const updateResult = await CategoriesCollection.updateOne(
       { _id: ObjectId(id) },
-      { $set: categoryBody }
+      {
+        $set: {
+          category_title: categoryBody.category_title,
+          updated_at: new Date(),
+        },
+      }
     );
     if (updateResult.modifiedCount === 0) {
       res.status(404).send(
@@ -191,7 +196,6 @@ app.put("/categories/:id", async (req, res) => {
           message: "Category updated successfully",
           updatedId: id,
           updated_at: new Date(),
-          channels_length: categoryBody.channels.length,
         })
       );
     }
@@ -677,11 +681,7 @@ app.listen(8080, () => {
 });
 
 function checkCategoryBody(categoryBody) {
-  return (
-    categoryBody.category_title === undefined ||
-    categoryBody.channels === undefined ||
-    typeof categoryBody.channels !== "object"
-  );
+  return categoryBody.category_title === undefined;
 }
 
 function checkMatchEventBody(matchEventBody) {

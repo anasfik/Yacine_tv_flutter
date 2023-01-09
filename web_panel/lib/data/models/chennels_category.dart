@@ -21,6 +21,10 @@ class ChannelsCategory {
         ),
       );
 
+  Map<String, dynamic> toMapWithOnlyTitle() => {
+        "category_title": categoryTitle,
+      };
+      
   Map<String, dynamic> toMap() => {
         "category_title": categoryTitle,
         "channels": List<dynamic>.from(

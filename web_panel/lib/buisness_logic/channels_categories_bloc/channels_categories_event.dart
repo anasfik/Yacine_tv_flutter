@@ -33,3 +33,15 @@ class NewChannelCreated extends ChannelsCategoriesEvent {
     required this.onError,
   });
 }
+
+class DeleteCategory extends ChannelsCategoriesEvent {
+  final String categoryId;
+
+  final VoidCallback onSuccess;
+  final void Function(String) onError;
+  DeleteCategory({
+    required this.categoryId,
+    required this.onSuccess,
+    required this.onError,
+  });
+}

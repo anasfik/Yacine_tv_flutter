@@ -24,7 +24,24 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
-  Future updateChannel(
+  Future<void> updateChannelsCategory(
+    ChannelsCategory channelsCategory,
+  ) async {
+    final resBody = await CategoriesProvider.put(
+      channelsCategory.id,
+      channelsCategory,
+    );
+    print(resBody);
+  }
+
+  deleteChannelsCategory(
+    String id,
+  ) async {
+    final resBody = await CategoriesProvider.delete(id);
+    print(resBody);
+  }
+
+  Future<void> updateChannel(
     String categoryId,
     Channel channel,
   ) async {

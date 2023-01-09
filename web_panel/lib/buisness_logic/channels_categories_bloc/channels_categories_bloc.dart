@@ -18,6 +18,7 @@ class ChannelsCategoriesBloc
     on<ChannelsCategoryCreated>(_createChannelCategory);
     on<ChannelsCategoryTitleEdited>(_editChannelCategoryTitle);
     on<NewCategoriesGetRequested>(_newCategoriesGetRequested);
+    on<DeleteCategory>(_deleteCategory);
     add(NewCategoriesGetRequested());
   }
 
@@ -60,5 +61,13 @@ class ChannelsCategoriesBloc
     );
   }
 
-  
+  _deleteCategory(
+    DeleteCategory event,
+    Emitter<ChannelsCategoriesState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    await channelsCategoriesRepository.deleteChannelsCategory(event.categoryId);
+    event.onSuccess();
+    emit(state.copyWith(isLoading: false));
+  }
 }
