@@ -5,11 +5,45 @@ const client = new MongoClient(
   "mongodb+srv://gwhyyy:gwhyyy@cluster0.ktg0sfb.mongodb.net/?retryWrites=true&w=majority"
 );
 const CategoriesCollection = client.db("main_db").collection("categories");
+const adminsCollection = client.db("main_db").collection("admins");
 const matchEventsCollection = client.db("main_db").collection("matchEvents");
 const drawerMenuCollection = client.db("main_db").collection("drawerMenu");
 
 app.use(express.json());
 
+app.get("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  const adminDocument = await adminsCollection.findOne({
+    username: username,
+  });
+
+  if (adminDocument === null) {
+    res.status(404).send(
+      JSON.stringify({
+        status: 404,
+        message: "Not Found",
+      })
+    );
+    return;
+  } else {
+    if (adminDocument.password === password) {
+      res.status(200).send(
+        JSON.stringify({
+          status: 200,
+          message: "Login successful",
+        })
+      );
+    } else {
+      res.status(401).send(
+        JSON.stringify({
+          status: 401,
+          message: "Invalid password",
+        })
+      );
+    }
+  }
+});
 app.post("/categories", async (req, res) => {
   const categoryBody = req.body;
   if (checkCategoryBody(categoryBody)) {

@@ -1,0 +1,7 @@
+class L10n {
+  static const String appName = 'Web Panel';
+  static const String welcome = 'Welcome';
+  static const String login = 'Login';
+  static const String username = 'Username';
+  static const String password = 'Password';
+}
