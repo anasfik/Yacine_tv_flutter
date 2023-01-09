@@ -14,6 +14,7 @@ class AppThemes {
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: AppColors.lightGrey,
+    
     ),
     textTheme: TextTheme(
       headline1: GoogleFonts.lato(
@@ -86,7 +87,7 @@ class AppThemes {
         backgroundColor: MaterialStateProperty.all(AppColors.mediumRed),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(3),
           ),
         ),
       ),

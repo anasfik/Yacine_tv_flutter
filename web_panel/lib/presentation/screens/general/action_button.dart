@@ -15,7 +15,7 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 45,
+      height: 40,
       child: ElevatedButton(
         onPressed: onPressed,
         child: isLoading
@@ -31,7 +31,7 @@ class ActionButton extends StatelessWidget {
                 text,
                 style: Theme.of(context).textTheme.button?.copyWith(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 16,
                     ),
               ),
       ),

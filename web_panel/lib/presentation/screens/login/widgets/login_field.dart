@@ -15,18 +15,25 @@ class LoginField extends StatelessWidget {
   final void Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        hintText: label,
+    return Container(
+      height: 40,
+      child: TextField(
+        style: Theme.of(context).textTheme.labelLarge,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          hintText: label,
 
-        // floatingLabelBehavior: FloatingLabelBehavior.auto,
-        // floatingLabelAlignment: FloatingLabelAlignment.center,
-        // labelText: label,
-        // alignLabelWithHint: true,
-        suffixIcon: Icon(icon),
+          // floatingLabelBehavior: FloatingLabelBehavior.auto,
+          // floatingLabelAlignment: FloatingLabelAlignment.center,
+          // labelText: label,
+          // alignLabelWithHint: true,
+          suffixIcon: Icon(
+            icon,
+            size: 18,
+          ),
+        ),
+        controller: controller,
       ),
-      controller: controller,
     );
   }
 }
