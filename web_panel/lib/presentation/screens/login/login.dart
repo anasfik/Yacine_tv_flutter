@@ -68,10 +68,31 @@ class Login extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    ActionButton(
-                      isLoading: false,
-                      onPressed: () {},
-                      text: L10n.login,
+                    BlocConsumer<LoginBloc, LoginBlocState>(
+                      listener: (context, state) {
+                        if (state.isLoading) {
+                          if (state.loginError != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(state.loginError!),
+                              ),
+                            );
+                          } else if (state.canAccess) {
+                            Navigator.of(context)
+                                .pushReplacementNamed("/dashboard");
+                          }
+                        }
+                      },
+                      builder: (context, state) {
+                        return ActionButton(
+                          isLoading: state.isLoading,
+                          onPressed: () {
+                            print("aa");
+                            context.read<LoginBloc>().add(LoginButtonPressed());
+                          },
+                          text: L10n.login,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 15,
