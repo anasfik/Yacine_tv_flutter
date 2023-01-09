@@ -6,39 +6,45 @@ import 'package:web_panel/data/auth_repository/auth_repository.dart';
 part 'login_bloc_event.dart';
 part 'login_bloc_state.dart';
 
-class LoginBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
-  late final TextEditingController usernameController;
-  late final TextEditingController passwordController;
+const String initialUsername = 'admin';
+const String initialPassword = 'admin';
 
+class LoginBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
+  final usernameController = TextEditingController(text: initialUsername);
+  final passwordController = TextEditingController(text: initialPassword);
   AuthRepository authRepository;
 
-  LoginBloc(this.authRepository) : super(const LoginBlocState()) {
-    usernameController = TextEditingController(text: "admin");
-    passwordController = TextEditingController(text: "admin");
+  LoginBloc(this.authRepository)
+      : super(const LoginBlocState(
+          username: initialUsername,
+          password: initialPassword,
+        )) {
+    on<UsernameValueChanged>((event, emit) {
+      emit(state.copyWith(username: event.username));
+    });
+
+    on<PasswordValueChanged>((event, emit) {
+      emit(state.copyWith(password: event.password));
+    });
 
     on<LoginButtonPressed>((event, emit) async {
       try {
-        emit(state.copyWith(isLoading: true));
+        emit(state.copyWith(
+          isLoading: true,
+        ));
+
         final bool shouldAccess = await authRepository.login(
-          username: usernameController.text,
-          password: passwordController.text,
+          username: state.username,
+          password: state.password,
         );
-        emit(state.copyWith(canAccess: shouldAccess));
+        event.onSuccess.call();
       } catch (e) {
-        emit(
-          state.copyWith(
-            loginError: e.toString(),
-          ),
-        );
+        event.onError.call(e.toString());
       } finally {
-        emit(state.copyWith(isLoading: false));
+        emit(state.copyWith(
+          isLoading: false,
+        ));
       }
     });
-  }
-
-  @override
-  close() {
-    usernameController.dispose();
-    return super.close();
   }
 }

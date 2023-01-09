@@ -3,27 +3,28 @@ part of 'login_bloc_bloc.dart';
 
 @immutable
 class LoginBlocState extends Equatable {
+  final String username;
+  final String password;
   final bool isLoading;
-  final String? loginError;
-  final bool canAccess;
+
   const LoginBlocState({
+    this.username = '',
+    this.password = '',
     this.isLoading = false,
-    this.loginError,
-    this.canAccess = false,
   });
 
   @override
-  List<Object?> get props => [isLoading, loginError, canAccess];
+  List<Object?> get props => [isLoading, username, password];
 
   LoginBlocState copyWith({
+    String? username,
+    String? password,
     bool? isLoading,
-    String? loginError,
-    bool? canAccess,
   }) {
     return LoginBlocState(
+      username: username ?? this.username,
+      password: password ?? this.password,
       isLoading: isLoading ?? this.isLoading,
-      loginError: loginError ?? this.loginError,
-      canAccess: canAccess ?? this.canAccess,
     );
   }
 }
