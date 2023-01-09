@@ -11,8 +11,16 @@ class ChannelsCategoriesRepository {
     final resBody = await CategoriesProvider.get();
     final res = jsonDecode(resBody) as Map<String, dynamic>;
     final data = (res["data"] as List).cast<Map<String, dynamic>>();
-    final result = data.map((x) => ChannelsCategory.fromMap(Map.from(x))).toList();
+    final result =
+        data.map((x) => ChannelsCategory.fromMap(Map.from(x))).toList();
 
     return result;
+  }
+
+  Future<void> createChannelsCategory(
+    ChannelsCategory channelsCategory,
+  ) async {
+    final resBody = await CategoriesProvider.post(channelsCategory.toMap());
+    print(resBody);
   }
 }

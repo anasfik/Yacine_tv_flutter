@@ -2,3 +2,22 @@ part of 'channels_categories_bloc.dart';
 
 @immutable
 abstract class ChannelsCategoriesEvent {}
+
+class ChannelsCategoryCreated extends ChannelsCategoriesEvent {
+  final VoidCallback onSuccess;
+  final void Function(String) onError;
+
+  ChannelsCategoryCreated({
+    required this.onError,
+    required this.onSuccess,
+  });
+}
+
+class ChannelsCategoryTitleEdited extends ChannelsCategoriesEvent {
+  final String newValue;
+  ChannelsCategoryTitleEdited(this.newValue);
+}
+
+class NewCategoriesGetRequested extends ChannelsCategoriesEvent {
+  NewCategoriesGetRequested();
+}

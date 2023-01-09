@@ -13,7 +13,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: ".env");
-  final a = await ChannelsCategoriesRepository().getChannelsCategories();
   runApp(const MyApp());
 }
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: AppThemes.light,
         home: const Login(),
         routes: {
-          "/dashboard": (context) => DashBoard(),
+          "/dashboard": (context) => const DashBoard(),
         },
       ),
     );

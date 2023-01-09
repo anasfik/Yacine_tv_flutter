@@ -64,17 +64,18 @@ class ChannelsCategories extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            FutureBuilder<List<ChannelsCategory>>(
-              future: bloc.all(),
-              builder: (_, AsyncSnapshot<List<ChannelsCategory>> snapshot) {
-                if (snapshot.hasData) {
-                  List<ChannelsCategory> data = snapshot.data!;
-                  ChannelsCategory example1 = data[0];
+            BlocBuilder<ChannelsCategoriesBloc, ChannelsCategoriesState>(
+              builder: (context, state) {
+                if (state.isLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       AutoSizeText(
-                        "${data.length} categories",
+                        "${state.allChannelsCategories.length} categories",
                       ),
                       const SizedBox(height: 20),
                       Center(
@@ -82,20 +83,16 @@ class ChannelsCategories extends StatelessWidget {
                           spacing: 20,
                           runSpacing: 20,
                           children: List.generate(
-                            10,
+                            state.allChannelsCategories.length,
                             (index) {
-                              return CategoryCard(category: example1);
+                              return CategoryCard(
+                                category: state.allChannelsCategories[index],
+                              );
                             },
                           ),
                         ),
                       ),
                     ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Text(snapshot.error.toString());
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
                   );
                 }
               },

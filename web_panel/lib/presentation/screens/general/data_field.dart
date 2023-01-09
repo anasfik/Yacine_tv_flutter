@@ -4,11 +4,11 @@ class DataField extends StatelessWidget {
   const DataField({
     super.key,
     required this.hint,
-    required this.controller,
+    required this.onChanged,
   });
 
   final String hint;
-  final TextEditingController controller;
+  final void Function(String) onChanged;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,7 +25,7 @@ class DataField extends StatelessWidget {
           height: 5,
         ),
         TextField(
-          controller: controller,
+          onChanged: onChanged,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),

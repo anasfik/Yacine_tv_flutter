@@ -4,7 +4,6 @@ import 'package:web_panel/buisness_logic/login_bloc/login_bloc_bloc.dart';
 import 'package:web_panel/data/repositories/auth_repository/auth_repository.dart';
 
 import '../../data/repositories/channels_categories_repository/channels_categories_repository.dart';
-import '../add_channels_categories_bloc/add_channels_categories_bloc.dart';
 import '../channels_categories_bloc/channels_categories_bloc.dart';
 import '../dashbord_cubit/dashboard_cubit.dart';
 
@@ -20,9 +19,6 @@ class BlocProviders {
       BlocProvider<ChannelsCategoriesBloc>(
         create: (context) =>
             ChannelsCategoriesBloc(ChannelsCategoriesRepository()),
-      ),
-      BlocProvider<AddChannelsCategoriesBloc>(
-        create: (context) => AddChannelsCategoriesBloc(),
       ),
     ];
   }

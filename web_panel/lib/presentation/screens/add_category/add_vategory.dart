@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_panel/presentation/screens/general/action_button.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 
+import '../../../buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
 import '../general/data_field.dart';
 
 class AddChannelCategory extends StatelessWidget {
@@ -8,16 +11,48 @@ class AddChannelCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = context.read<ChannelsCategoriesBloc>();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Category"),
+        title: const Text("Add Category"),
       ),
       body: MarginedBody(
         child: Column(
           children: <Widget>[
-            DataField(
-              hint: "Category Name",
-              controller: TextEditingController(),
+            BlocBuilder<ChannelsCategoriesBloc, ChannelsCategoriesState>(
+                builder: (context, state) {
+              return DataField(
+                hint: "Category Name",
+                onChanged: (value) {
+                  bloc.add(ChannelsCategoryTitleEdited(value));
+                },
+              );
+            }),
+            ActionButton(
+              onPressed: () {
+                bloc.add(
+                  ChannelsCategoryCreated(
+                    onSuccess: () {
+                      bloc.add(NewCategoriesGetRequested());
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Category Added"),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    },
+                    onError: (error) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Error"),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              },
+              text: "Add",
             ),
           ],
         ),

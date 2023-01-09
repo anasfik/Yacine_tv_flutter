@@ -21,7 +21,6 @@ class ChannelsCategory {
       );
 
   Map<String, dynamic> toMap() => {
-        "_id": id,
         "category_title": categoryTitle,
         "channels": List<dynamic>.from(
           channels.map(

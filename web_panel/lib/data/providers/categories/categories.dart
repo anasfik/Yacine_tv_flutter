@@ -23,4 +23,20 @@ class CategoriesProvider implements DataTypeInterface {
 
     return res.body;
   }
+
+  static Future<String> post(Map<String, dynamic> data) async {
+    http.Response res = await http.post(
+      Uri.http(
+        dotenv.env['API_URL']!,
+        '/categories',
+      ),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode(data),
+    );
+
+    return res.body;
+  }
 }
