@@ -51,7 +51,7 @@ class ChannelsCategoriesBloc
     emit(state.copyWith(isLoading: true));
     final channelsCategories =
         await channelsCategoriesRepository.getChannelsCategories();
-        
+
     emit(
       state.copyWith(
         isLoading: false,
@@ -59,4 +59,6 @@ class ChannelsCategoriesBloc
       ),
     );
   }
+
+  
 }

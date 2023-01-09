@@ -21,3 +21,15 @@ class ChannelsCategoryTitleEdited extends ChannelsCategoriesEvent {
 class NewCategoriesGetRequested extends ChannelsCategoriesEvent {
   NewCategoriesGetRequested();
 }
+
+class NewChannelCreated extends ChannelsCategoriesEvent {
+  final String categoryId;
+  final VoidCallback onSuccess;
+  final void Function(String) onError;
+
+  NewChannelCreated({
+    required this.categoryId,
+    required this.onSuccess,
+    required this.onError,
+  });
+}

@@ -23,4 +23,44 @@ class ChannelsCategoriesRepository {
     final resBody = await CategoriesProvider.post(channelsCategory.toMap());
     print(resBody);
   }
+
+  Future updateChannel(
+    String categoryId,
+    Channel channel,
+  ) async {
+    final resBody = await CategoriesProvider.putChannel(
+      categoryId,
+      channel,
+    );
+    print(resBody);
+  }
+
+  Future<void> deleteChannel(
+    String categoryId,
+    String channelId,
+  ) async {
+    final resBody = await CategoriesProvider.deleteChannel(
+      categoryId,
+      channelId,
+    );
+    print(resBody);
+  }
+
+  Future<void> deleteCategory(
+    String categoryId,
+  ) async {
+    final resBody = await CategoriesProvider.deleteCategory(categoryId);
+    print(resBody);
+  }
+
+  Future addChannel(
+    String categoryId,
+    Channel channel,
+  ) async {
+    final resBody = await CategoriesProvider.postChannel(
+      categoryId,
+      channel,
+    );
+    print(resBody);
+  }
 }

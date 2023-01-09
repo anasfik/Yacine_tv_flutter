@@ -8,6 +8,7 @@ import 'package:web_panel/presentation/screens/general/action_button.dart';
 import '../../../buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
 import '../../config/colors/colors.dart';
 import '../add_category/add_vategory.dart';
+import '../edit_channels_category/edit_channels_category.dart';
 import '../general/category_card.dart';
 import '../general/margined_body.dart';
 
@@ -85,8 +86,21 @@ class ChannelsCategories extends StatelessWidget {
                           children: List.generate(
                             state.allChannelsCategories.length,
                             (index) {
-                              return CategoryCard(
-                                category: state.allChannelsCategories[index],
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditChannelsCategory(
+                                        category:
+                                            state.allChannelsCategories[index],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: CategoryCard(
+                                  category: state.allChannelsCategories[index],
+                                ),
                               );
                             },
                           ),

@@ -69,7 +69,19 @@ app.post("/categories", async (req, res) => {
   }
 
   try {
-    const insertionResult = await CategoriesCollection.insertOne(categoryBody);
+    const categoryBodyWithIdOnChannel = {
+      ...categoryBody,
+      channels: categoryBody.channels.map((channel) => {
+        return {
+          ...channel,
+          _id: ObjectId(),
+        };
+      }),
+    };
+
+    const insertionResult = await CategoriesCollection.insertOne(
+      categoryBodyWithIdOnChannel
+    );
     console.log(insertionResult.insertedId + " inserted");
     res.status(200).send(
       JSON.stringify({
@@ -241,6 +253,142 @@ app.delete("/categories", async (req, res) => {
         deletedCount: deleteResult.deletedCount,
       })
     );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.post("/categories/:id/channels", async (req, res) => {
+  const channelBody = req.body;
+  if (checkChannelBody(channelBody)) {
+    res.status(400).send(
+      JSON.stringify({
+        status: 400,
+        message: "Bad Request",
+      })
+    );
+    return;
+  }
+
+  try {
+    const id = req.params.id;
+
+    const insertionResult = await CategoriesCollection.updateOne(
+      { _id: ObjectId(id) },
+      { $push: { channels: { _id: ObjectId(), ...channelBody } } }
+    );
+
+    if (insertionResult.insertedId === null) {
+      res.status(404).send(
+        JSON.stringify({
+          status: 404,
+          message: "Not Found",
+        })
+      );
+
+      return;
+    }
+
+    res.status(201).send(
+      JSON.stringify({
+        status: 201,
+        message: "Channel created successfully",
+        createdId: channelBody._id,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.delete("/categories/:id/channels/:channelId", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const channelId = req.params.channelId;
+    const deleteResult = await CategoriesCollection.updateOne(
+      { _id: ObjectId(id) },
+      { $pull: { channels: { _id: ObjectId(channelId) } } }
+    );
+
+    if (deleteResult.modifiedCount === 0) {
+      res.status(404).send(
+        JSON.stringify({
+          status: 404,
+
+          message: "Not Found",
+        })
+      );
+    } else {
+      res.status(200).send(
+        JSON.stringify({
+          status: 200,
+          message: "Channel deleted successfully",
+          deletedId: channelId,
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.put("/categories/:id/channels/:channelId", async (req, res) => {
+  const channelBody = req.body;
+  if (checkChannelBody(channelBody)) {
+    res.status(400).send(
+      JSON.stringify({
+        status: 400,
+        message: "Bad Request",
+      })
+    );
+
+    return;
+  }
+
+  try {
+    const id = req.params.id;
+    const channelId = req.params.channelId;
+
+    const updateResult = await CategoriesCollection.updateOne(
+      { _id: ObjectId(id), "channels._id": ObjectId(channelId) },
+      { $set: { "channels.$": channelBody } }
+    );
+
+    if (updateResult.modifiedCount === 0) {
+      res.status(404).send(
+        JSON.stringify({
+          status: 404,
+          message: "Not Found",
+        })
+      );
+    } else {
+      res.status(200).send(
+        JSON.stringify({
+          status: 200,
+          message: "Channel updated successfully",
+          updatedId: channelId,
+          updated_at: new Date(),
+        })
+      );
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send(
@@ -555,5 +703,14 @@ function checkDrawerMenuItemBody(drawerMenuItemBody) {
     drawerMenuItemBody.title === undefined ||
     drawerMenuItemBody.icon === undefined ||
     drawerMenuItemBody.link === undefined
+  );
+}
+
+function checkChannelBody(channelBody) {
+  return (
+    channelBody.channel_name === undefined ||
+    channelBody.channel_image === undefined ||
+    channelBody.channel_stream_url === undefined ||
+    channelBody.tags === undefined
   );
 }
