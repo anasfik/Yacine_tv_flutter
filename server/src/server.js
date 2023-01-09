@@ -1,17 +1,29 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const { MongoClient, ObjectId } = require("mongodb");
 const client = new MongoClient(
   "mongodb+srv://gwhyyy:gwhyyy@cluster0.ktg0sfb.mongodb.net/?retryWrites=true&w=majority"
 );
+
+app.use(express.json());
+app.use(cors());
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,PATCH,POST,DELETE");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 const CategoriesCollection = client.db("main_db").collection("categories");
 const adminsCollection = client.db("main_db").collection("admins");
 const matchEventsCollection = client.db("main_db").collection("matchEvents");
 const drawerMenuCollection = client.db("main_db").collection("drawerMenu");
 
-app.use(express.json());
-
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   const adminDocument = await adminsCollection.findOne({
@@ -22,7 +34,7 @@ app.get("/login", async (req, res) => {
     res.status(404).send(
       JSON.stringify({
         status: 404,
-        message: "Not Found",
+        message: "username does not exist",
       })
     );
     return;

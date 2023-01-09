@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:web_panel/buisness_logic/login_bloc/login_bloc_bloc.dart';
-import 'package:web_panel/data/l10n/en.dart';
+import 'package:web_panel/data/providers/l10n/en.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 
 import '../general/action_button.dart';
+import '../general/logo.dart';
 import 'widgets/card_title.dart';
 import 'widgets/login_field.dart';
 
@@ -15,6 +16,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: Center(
         child: AspectRatio(
           aspectRatio: 1,
@@ -41,10 +43,7 @@ class Login extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     const Spacer(),
-                    Center(
-                      child:
-                          Image.network("https://via.placeholder.com/100x50"),
-                    ),
+                    Logo(),
                     const SizedBox(
                       height: 24,
                     ),
@@ -82,6 +81,8 @@ class Login extends StatelessWidget {
                     const Spacer(),
                     BlocBuilder<LoginBloc, LoginBlocState>(
                       builder: (context, state) => ActionButton(
+                        width: double.infinity,
+                        height: 40,
                         isLoading: state.isLoading,
                         onPressed: () {
                           context.read<LoginBloc>().add(
@@ -105,7 +106,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 24,
                     ),
                   ],
                 ),

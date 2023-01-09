@@ -1,7 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:web_panel/data/l10n/en.dart';
+import 'package:web_panel/data/providers/l10n/en.dart';
 
 class CardTitle extends StatelessWidget {
   const CardTitle({super.key, required this.text, this.style});

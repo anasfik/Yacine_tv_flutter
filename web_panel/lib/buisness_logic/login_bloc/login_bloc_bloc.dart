@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_panel/data/auth_repository/auth_repository.dart';
+import 'package:web_panel/data/repositories/auth_repository/auth_repository.dart';
 
 part 'login_bloc_event.dart';
 part 'login_bloc_state.dart';

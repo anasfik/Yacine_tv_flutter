@@ -5,4 +5,6 @@ class L10n {
   static const String loginError = 'Login';
   static const String username = 'Username';
   static const String password = 'Password';
+  static const String channelsCategories = 'Channels Categories';
+  static const String mathEvents = 'Match Events';
 }
