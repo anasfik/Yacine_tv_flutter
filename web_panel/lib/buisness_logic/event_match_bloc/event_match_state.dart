@@ -5,9 +5,11 @@ class EventMatchState extends Equatable {
   final DateTime matchDateTime;
   final TimeOfDay matchTimeOfDay;
 
+
   const EventMatchState({
     required this.matchDateTime,
     required this.matchTimeOfDay,
+
   });
 
   @override
@@ -16,10 +18,12 @@ class EventMatchState extends Equatable {
   EventMatchState copyWith({
     DateTime? matchDateTime,
     TimeOfDay? matchTimeOfDay,
+
   }) {
     return EventMatchState(
       matchDateTime: matchDateTime ?? this.matchDateTime,
       matchTimeOfDay: matchTimeOfDay ?? this.matchTimeOfDay,
+
     );
   }
 }

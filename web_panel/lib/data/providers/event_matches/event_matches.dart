@@ -9,7 +9,7 @@ import '../../models/event_match.dart';
 import 'package:http/http.dart' as http;
 
 class MatchEventsProvider implements DataTypeInterface {
-  static String endPoint = "/categories";
+  static String endPoint = "/match_events";
 
   static Future<String> get() async {
     http.Response response = await http.get(

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:web_panel/data/repositories/match_events/match_events.dart';
 
 import '../../data/models/event_match.dart';
 
@@ -20,8 +21,10 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
   late final TextEditingController channelNameController;
   late final TextEditingController commenterNameController;
 
+  final MatchEventsRepository matchEventsRepository;
   EventMatchBloc({
     required this.eventMatch,
+    required this.matchEventsRepository,
   }) : super(EventMatchState(
           matchDateTime: eventMatch.dateOfMatchWithTime,
           matchTimeOfDay: TimeOfDay.fromDateTime(
@@ -31,6 +34,7 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
     _initControllers(eventMatch);
     on<DateTimeSelected>(_dateTimeSelected);
     on<SaveEventMatch>(_saveEventMatch);
+
   }
 
   void _initControllers(EventMatch eventMatch) {
@@ -103,8 +107,10 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
   FutureOr<void> _saveEventMatch(
     SaveEventMatch event,
     Emitter<EventMatchState> emit,
-  ) {
+  ) async {
     final createdEventChannel = _createEventChannel();
+    await matchEventsRepository.createMatchEvent(createdEventChannel);
+    event.onSuccess();
   }
 
   EventMatch _createEventChannel() {
@@ -121,4 +127,6 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
       channelsQuality: [],
     );
   }
+
+
 }

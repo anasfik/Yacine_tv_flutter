@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_panel/buisness_logic/event_channels_bloc/event_channels_bloc_bloc.dart';
 import 'package:web_panel/buisness_logic/login_bloc/login_bloc_bloc.dart';
 import 'package:web_panel/data/repositories/auth_repository/auth_repository.dart';
+import 'package:web_panel/data/repositories/match_events/match_events.dart';
 
 import '../../data/repositories/channels_categories_repository/channels_categories_repository.dart';
 import '../channels_categories_bloc/channels_categories_bloc.dart';
@@ -16,9 +18,15 @@ class BlocProviders {
         create: (context) => DashBoardScreensCubit(0),
       ),
       BlocProvider<ChannelsCategoriesBloc>(
-        create: (context) =>
-            ChannelsCategoriesBloc(ChannelsCategoriesRepository()),
+        create: (context) => ChannelsCategoriesBloc(
+          ChannelsCategoriesRepository(),
+        ),
       ),
+      BlocProvider<EventChannelsBlocBloc>(
+        create: (context) => EventChannelsBlocBloc(
+          matchEventsRepository: MatchEventsRepository(),
+        ),
+      )
     ];
   }
 }

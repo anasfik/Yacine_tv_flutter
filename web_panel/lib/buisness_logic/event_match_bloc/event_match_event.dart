@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'event_match_bloc.dart';
 
 @immutable
@@ -20,3 +21,4 @@ class SaveEventMatch extends EventMatchEvent {
     required this.onError,
   });
 }
+

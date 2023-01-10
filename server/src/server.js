@@ -690,6 +690,7 @@ function checkMatchEventBody(matchEventBody) {
     matchEventBody.first_team === undefined ||
     matchEventBody.first_team_logo === undefined ||
     matchEventBody.second_team === undefined ||
+    matchEventBody.second_team_logo === undefined ||
     matchEventBody.cup_name === undefined ||
     matchEventBody.channel_name === undefined ||
     matchEventBody.channels_quality === undefined ||

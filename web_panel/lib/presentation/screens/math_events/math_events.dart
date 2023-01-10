@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:web_panel/buisness_logic/event_channels_bloc/event_channels_bloc_bloc.dart';
+import 'package:web_panel/buisness_logic/event_match_bloc/event_match_bloc.dart';
 import 'package:web_panel/data/models/event_match.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 
@@ -52,10 +55,27 @@ class MathEvents extends StatelessWidget {
                         },
                         text: "Add",
                       ),
+                      const SizedBox(width: 10),
                     ],
                   )
                 ],
               ),
+              BlocBuilder<EventChannelsBlocBloc, EventChannelsBlocState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return const CircularProgressIndicator();
+                  } else if (state.eventMatches != null) {
+                    return Text(
+                      state.eventMatches!
+                          .map((e) => e.firstTeam)
+                          .join(", ")
+                          .toString(),
+                    );
+                  } else {
+                    return const Text("Somthing went wrong");
+                  }
+                },
+              )
             ],
           ),
         ),

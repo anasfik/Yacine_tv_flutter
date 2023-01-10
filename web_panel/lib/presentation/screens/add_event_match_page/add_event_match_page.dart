@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_panel/buisness_logic/event_channels_bloc/event_channels_bloc_bloc.dart';
+import 'package:web_panel/data/repositories/match_events/match_events.dart';
 import 'package:web_panel/presentation/screens/general/action_button.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 import '../../../buisness_logic/event_match_bloc/event_match_bloc.dart';
@@ -18,7 +20,10 @@ class AddOrUpdateEventMatchPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<EventMatchBloc>(
-      create: (context) => EventMatchBloc(eventMatch: eventMatch),
+      create: (context) => EventMatchBloc(
+        eventMatch: eventMatch,
+        matchEventsRepository: MatchEventsRepository(),
+      ),
       child: Scaffold(
         appBar: const AEMAppBar(),
         body: MarginedBody(
@@ -77,11 +82,17 @@ class AddOrUpdateEventMatchPage extends StatelessWidget {
                     ActionButton(
                       text: "Save",
                       onPressed: () {
-                        print(state.matchDateTime);
-                        print(state.matchTimeOfDay);
                         bloc.add(
                           SaveEventMatch(
                             onSuccess: () {
+                              context
+                                  .read<EventChannelsBlocBloc>()
+                                  .add(MatchEventsRequested());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Event match saved"),
+                                ),
+                              );
                               Navigator.pop(context);
                             },
                             onError: () {
