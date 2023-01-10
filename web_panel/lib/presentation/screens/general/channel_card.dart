@@ -4,7 +4,7 @@ import 'package:web_panel/buisness_logic/bloc_providers/bloc_providers.dart';
 
 import '../../../buisness_logic/channel_bloc/channel_bloc.dart';
 import '../../../buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
-import '../../../data/models/chennels_category.dart';
+import '../../../data/models/channel.dart';
 import '../../../data/repositories/channels_categories_repository/channels_categories_repository.dart';
 import '../edit_channel/edit_channel.dart';
 

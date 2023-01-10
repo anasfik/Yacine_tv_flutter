@@ -1,8 +1,5 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import '../../models/channel.dart';
 import '../../models/chennels_category.dart';
 import '../../providers/categories/categories.dart';
 
@@ -20,7 +17,7 @@ class ChannelsCategoriesRepository {
   Future<void> createChannelsCategory(
     ChannelsCategory channelsCategory,
   ) async {
-    final resBody = await CategoriesProvider.post(channelsCategory.toMap());
+    final resBody = await CategoriesProvider.post(channelsCategory);
     print(resBody);
   }
 
@@ -28,7 +25,6 @@ class ChannelsCategoriesRepository {
     ChannelsCategory channelsCategory,
   ) async {
     final resBody = await CategoriesProvider.put(
-      
       channelsCategory,
     );
     print(resBody);
@@ -66,7 +62,7 @@ class ChannelsCategoriesRepository {
   Future<void> deleteCategory(
     String categoryId,
   ) async {
-    final resBody = await CategoriesProvider.deleteCategory(categoryId);
+    final resBody = await CategoriesProvider.delete(categoryId);
     print(resBody);
   }
 

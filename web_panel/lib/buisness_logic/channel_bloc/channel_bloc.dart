@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:meta/meta.dart';
 
+import '../../data/models/channel.dart';
 import '../../data/models/chennels_category.dart';
 import '../../data/repositories/channels_categories_repository/channels_categories_repository.dart';
 

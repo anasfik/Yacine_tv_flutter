@@ -2,69 +2,80 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import '../../models/channel.dart';
 import '../../models/chennels_category.dart';
 import '../interfaces/data_type_interface.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriesProvider implements DataTypeInterface {
-  @override
-  String get endPoint => "/categories";
+  static String endPoint = "/categories";
 
   static Future<String> get() async {
     http.Response res = await http.get(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories',
+        endPoint,
       ),
-      // headers: {
-      //   'Content-Type': 'application/json',
-      //   'Accept': 'application/json',
-      // },
     );
 
     return res.body;
   }
 
-  static Future<String> post(Map<String, dynamic> data) async {
+  static Future<String> post(ChannelsCategory category) async {
     http.Response res = await http.post(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories',
+        endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: jsonEncode(data),
+      body: jsonEncode(category.toMap()),
     );
 
     return res.body;
   }
 
-  static delete(String categoryId) async {
-    final res = await http.delete(
+  static delete(
+    String categoryId,
+  ) async {
+    http.Response res = await http.delete(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories/$categoryId',
+        '$endPoint/$categoryId',
       ),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
     );
-    print(res);
+
+    return res.body;
   }
 
-  static put(
-    ChannelsCategory channelsCategory,
-  ) async {
+  // static Future<void> delete(String categoryId) async {
+  //   final res = await http.delete(
+  //     Uri.http(
+  //       dotenv.env['API_URL']!,
+  //       '$endPoint/$categoryId',
+  //     ),
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json',
+  //     },
+  //   );
+  //   print(res);
+  // }
+
+  static Future<String> put(ChannelsCategory channelsCategory) async {
     print(channelsCategory.id);
     print(channelsCategory.categoryTitle);
 
     http.Response res = await http.put(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories/${channelsCategory.id}',
+        '$endPoint/${channelsCategory.id}',
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +91,7 @@ class CategoriesProvider implements DataTypeInterface {
     http.Response res = await http.delete(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories/$categoryId/channels/$channelId',
+        '$endPoint/$categoryId/channels/$channelId',
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -91,34 +102,14 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
-  static putChannel(
-    String categoryId,
-    Channel channel,
-  ) async {
+  static putChannel(String categoryId, Channel channel) async {
     final channelId = channel.id;
     http.Response res = await http.put(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories/$categoryId/channels/$channelId',
+        '$endPoint/$categoryId/channels/$channelId',
       ),
       body: jsonEncode(channel.toMap()),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-
-    return res.body;
-  }
-
-  static deleteCategory(
-    String categoryId,
-  ) async {
-    http.Response res = await http.delete(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        '/categories/$categoryId',
-      ),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -135,7 +126,7 @@ class CategoriesProvider implements DataTypeInterface {
     http.Response res = await http.post(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories/$categoryId/channels',
+        '$endPoint/$categoryId/channels',
       ),
       body: jsonEncode(channel.toMap()),
       headers: {

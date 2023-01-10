@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_panel/buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
 
+import '../../../data/models/channel.dart';
 import '../../../data/models/chennels_category.dart';
 import '../add_screen/add_channel.dart';
 import '../general/action_button.dart';

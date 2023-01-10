@@ -1,3 +1,3 @@
 abstract class DataTypeInterface {
-  String get endPoint;
+  static String? endPoint;
 }

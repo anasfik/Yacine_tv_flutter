@@ -5,6 +5,7 @@ import 'package:web_panel/presentation/screens/general/data_field.dart';
 
 import '../../../buisness_logic/channel_bloc/channel_bloc.dart';
 import '../../../buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
+import '../../../data/models/channel.dart';
 import '../../../data/models/chennels_category.dart';
 
 class EditChannel extends StatelessWidget {

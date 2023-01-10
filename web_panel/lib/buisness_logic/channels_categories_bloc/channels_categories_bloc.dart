@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:web_panel/data/models/chennels_category.dart';
+import '../../data/models/channel.dart';
 import '../../data/repositories/channels_categories_repository/channels_categories_repository.dart';
 
 part 'channels_categories_event.dart';
