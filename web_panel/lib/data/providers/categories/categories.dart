@@ -56,13 +56,15 @@ class CategoriesProvider implements DataTypeInterface {
   }
 
   static put(
-    String categoryId,
     ChannelsCategory channelsCategory,
   ) async {
+    print(channelsCategory.id);
+    print(channelsCategory.categoryTitle);
+
     http.Response res = await http.put(
       Uri.http(
         dotenv.env['API_URL']!,
-        '/categories/$categoryId',
+        '/categories/${channelsCategory.id}',
       ),
       headers: {
         'Content-Type': 'application/json',

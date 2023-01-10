@@ -13,6 +13,18 @@ class ChannelsCategoryCreated extends ChannelsCategoriesEvent {
   });
 }
 
+class ChannelsCategoryUpdated extends ChannelsCategoriesEvent {
+  final VoidCallback onSuccess;
+  final void Function(String) onError;
+  final String categoryId;
+
+  ChannelsCategoryUpdated({
+    required this.onError,
+    required this.categoryId,
+    required this.onSuccess,
+  });
+}
+
 class ChannelsCategoryTitleEdited extends ChannelsCategoriesEvent {
   final String newValue;
   ChannelsCategoryTitleEdited(this.newValue);

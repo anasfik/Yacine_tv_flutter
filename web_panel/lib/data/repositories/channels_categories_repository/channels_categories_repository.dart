@@ -28,7 +28,7 @@ class ChannelsCategoriesRepository {
     ChannelsCategory channelsCategory,
   ) async {
     final resBody = await CategoriesProvider.put(
-      channelsCategory.id,
+      
       channelsCategory,
     );
     print(resBody);

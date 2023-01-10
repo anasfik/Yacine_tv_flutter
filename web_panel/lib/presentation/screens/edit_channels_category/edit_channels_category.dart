@@ -6,6 +6,7 @@ import '../../../data/models/chennels_category.dart';
 import '../add_screen/add_channel.dart';
 import '../general/action_button.dart';
 import '../general/channel_card.dart';
+import '../update_channels_category/UpdateChannelsCategory.dart';
 
 class EditChannelsCategory extends StatelessWidget {
   const EditChannelsCategory({
@@ -52,7 +53,7 @@ class EditChannelsCategory extends StatelessWidget {
                             .read<ChannelsCategoriesBloc>()
                             .add(NewCategoriesGetRequested());
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text('Category deleted'),
                           ),
                         );
@@ -69,6 +70,19 @@ class EditChannelsCategory extends StatelessWidget {
                   );
             },
             text: 'delete',
+          ),
+          ActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UpdateChannelsCategory(
+                    categoryId: category.id,
+                  ),
+                ),
+              );
+            },
+            text: 'update',
           ),
         ],
       ),

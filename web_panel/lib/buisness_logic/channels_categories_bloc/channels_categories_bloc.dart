@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:web_panel/data/models/chennels_category.dart';
-
 import '../../data/repositories/channels_categories_repository/channels_categories_repository.dart';
 
 part 'channels_categories_event.dart';
@@ -16,22 +14,39 @@ class ChannelsCategoriesBloc
   ChannelsCategoriesBloc(this.channelsCategoriesRepository)
       : super(const ChannelsCategoriesState()) {
     on<ChannelsCategoryCreated>(_createChannelCategory);
+    on<ChannelsCategoryUpdated>(_channelsCategoryUpdated);
     on<ChannelsCategoryTitleEdited>(_editChannelCategoryTitle);
     on<NewCategoriesGetRequested>(_newCategoriesGetRequested);
     on<DeleteCategory>(_deleteCategory);
+
+    //  Request data when bloc is created.
     add(NewCategoriesGetRequested());
   }
 
-  void _createChannelCategory(
-    ChannelsCategoryCreated event,
-    Emitter<ChannelsCategoriesState> emit,
-  ) async {
+  void _createChannelCategory(ChannelsCategoryCreated event,
+      Emitter<ChannelsCategoriesState> emit) async {
     emit(state.copyWith(isLoading: true));
     await channelsCategoriesRepository.createChannelsCategory(
       ChannelsCategory(
         id: "_",
         categoryTitle: state.channelsCategoryTitle,
         channels: [],
+      ),
+    );
+    event.onSuccess();
+    emit(state.copyWith(isLoading: false));
+  }
+
+  void _channelsCategoryUpdated(
+    ChannelsCategoryUpdated event,
+    Emitter<ChannelsCategoriesState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+    await channelsCategoriesRepository.updateChannelsCategory(
+      ChannelsCategory(
+        channels: [],
+        id: event.categoryId,
+        categoryTitle: state.channelsCategoryTitle,
       ),
     );
     event.onSuccess();
@@ -62,9 +77,7 @@ class ChannelsCategoriesBloc
   }
 
   _deleteCategory(
-    DeleteCategory event,
-    Emitter<ChannelsCategoriesState> emit,
-  ) async {
+      DeleteCategory event, Emitter<ChannelsCategoriesState> emit) async {
     emit(state.copyWith(isLoading: true));
     await channelsCategoriesRepository.deleteChannelsCategory(event.categoryId);
     event.onSuccess();
