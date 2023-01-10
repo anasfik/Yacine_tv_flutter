@@ -15,7 +15,7 @@ class DashBoardScreensCubit extends Cubit<int> {
     ),
     const DashBoardScreen(
       title: L10n.mathEvents,
-      screen: MathEvents(),
+      screen: MathEvents(title: L10n.mathEvents),
       icon: FlutterRemix.chat_settings_fill,
     ),
   ];

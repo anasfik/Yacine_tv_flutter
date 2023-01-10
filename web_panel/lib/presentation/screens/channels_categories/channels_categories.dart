@@ -21,7 +21,6 @@ class ChannelsCategories extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<ChannelsCategoriesBloc>();
     return MarginedBody(
       padding: const EdgeInsets.symmetric(
         horizontal: 30,

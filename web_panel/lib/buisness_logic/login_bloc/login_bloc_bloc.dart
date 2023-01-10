@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,8 +10,8 @@ const String initialUsername = 'admin';
 const String initialPassword = 'admin';
 
 class LoginBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
-  late final TextEditingController usernameController;
-  late final TextEditingController passwordController;
+  final usernameController = TextEditingController(text: initialUsername);
+  final passwordController = TextEditingController(text: initialPassword);
   AuthRepository authRepository;
 
   LoginBloc(this.authRepository)
@@ -21,34 +19,15 @@ class LoginBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
           username: initialUsername,
           password: initialPassword,
         )) {
-    _initControllers();
-
-    on<UsernameValueChanged>(_onUsernameChanged);
-    on<PasswordValueChanged>(_onPasswordChanged);
-    on<LoginButtonPressed>(_onLoginButtonPressed);
-  }
-
-  FutureOr<void> _onUsernameChanged(
-    UsernameValueChanged event,
-    Emitter<LoginBlocState> emit,
-  ) {
-    (event, emit) {
+    on<UsernameValueChanged>((event, emit) {
       emit(state.copyWith(username: event.username));
-    };
-  }
+    });
 
-  FutureOr<void> _onPasswordChanged(
-    PasswordValueChanged event,
-    Emitter<LoginBlocState> emit,
-  ) {
-    (event, emit) {
+    on<PasswordValueChanged>((event, emit) {
       emit(state.copyWith(password: event.password));
-    };
-  }
+    });
 
-  FutureOr<void> _onLoginButtonPressed(
-      LoginButtonPressed event, Emitter<LoginBlocState> emit) {
-    (event, emit) async {
+    on<LoginButtonPressed>((event, emit) async {
       try {
         emit(state.copyWith(
           isLoading: true,
@@ -66,11 +45,6 @@ class LoginBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
           isLoading: false,
         ));
       }
-    };
-  }
-
-  void _initControllers() {
-    usernameController = TextEditingController(text: initialUsername);
-    passwordController = TextEditingController(text: initialPassword);
+    });
   }
 }

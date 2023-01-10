@@ -5,6 +5,7 @@ import 'package:web_panel/presentation/screens/general/margined_body.dart';
 
 import '../../../buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
 import '../general/data_field.dart';
+import 'widgets/add_category_app_bar.dart';
 
 class AddChannelCategory extends StatelessWidget {
   const AddChannelCategory({super.key});
@@ -14,9 +15,7 @@ class AddChannelCategory extends StatelessWidget {
     final bloc = context.read<ChannelsCategoriesBloc>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add Category"),
-      ),
+      appBar: const ADAppBar(),
       body: MarginedBody(
         child: Column(
           children: <Widget>[

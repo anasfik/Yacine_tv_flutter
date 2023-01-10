@@ -7,6 +7,7 @@ import 'package:web_panel/presentation/screens/general/data_field.dart';
 import '../../../buisness_logic/channel_bloc/channel_bloc.dart';
 import '../../../buisness_logic/channels_categories_bloc/channels_categories_bloc.dart';
 import '../../../data/models/channel.dart';
+import 'widgets/app_bar.dart';
 
 class AddChannel extends StatelessWidget {
   const AddChannel({
@@ -26,9 +27,7 @@ class AddChannel extends StatelessWidget {
       child: Builder(builder: (context) {
         final bloc = context.read<ChannelBloc>();
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Add Channel'),
-          ),
+          appBar: const ACAppBar(),
           body: Column(
             children: [
               DataField(

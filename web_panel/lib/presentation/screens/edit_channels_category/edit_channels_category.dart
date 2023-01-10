@@ -4,7 +4,7 @@ import 'package:web_panel/buisness_logic/channels_categories_bloc/channels_categ
 
 import '../../../data/models/channel.dart';
 import '../../../data/models/chennels_category.dart';
-import '../add_screen/add_channel.dart';
+import '../add_channel/add_channel.dart';
 import '../general/action_button.dart';
 import '../general/channel_card.dart';
 import '../update_channels_category/UpdateChannelsCategory.dart';

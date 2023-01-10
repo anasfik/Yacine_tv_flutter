@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:http/http.dart';
+
 import '../../providers/auth/auth_provider.dart';
 
 class AuthRepository {
@@ -7,7 +9,7 @@ class AuthRepository {
     required String username,
     required String password,
   }) async {
-    final loginResponse = await AuthProvider.login(username, password);
+    Response loginResponse = await AuthProvider.login(username, password);
     if (loginResponse.statusCode == 200) {
       return true;
     } else {

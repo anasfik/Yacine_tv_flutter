@@ -493,6 +493,7 @@ app.post("/match_events", async (req, res) => {
 
 app.put("/match_events/:id", async (req, res) => {
   const matchEventBody = req.body;
+
   if (checkMatchEventBody(matchEventBody)) {
     res.status(400).send(
       JSON.stringify({
@@ -693,8 +694,7 @@ function checkMatchEventBody(matchEventBody) {
     matchEventBody.channel_name === undefined ||
     matchEventBody.channels_quality === undefined ||
     matchEventBody.commenter_name === undefined ||
-    matchEventBody.date_of_match_with_time === undefined ||
-    matchEventBody.is_playing === undefined
+    matchEventBody.date_of_match_with_time === undefined
   );
 }
 

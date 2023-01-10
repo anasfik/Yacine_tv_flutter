@@ -58,14 +58,6 @@ class ChannelBloc extends Bloc<ChannelEvent, ChannelState> {
     emit(state.copyWith(isLoading: false));
   }
 
-  void _initControllers(Channel chan) {
-    channelNameController = TextEditingController(text: chan.channelName);
-    channelStreamUrlController =
-        TextEditingController(text: chan.channelStreamUrl);
-    channelImageUrlController = TextEditingController(text: chan.channelImage);
-    channelTagsController = TextEditingController(text: chan.tags.join(', '));
-  }
-
   Channel _channelFromControllers() {
     return channel.copyWith(
       channelName: channelNameController.text,
@@ -78,5 +70,13 @@ class ChannelBloc extends Bloc<ChannelEvent, ChannelState> {
           )
           .toList(),
     );
+  }
+
+  void _initControllers(Channel chan) {
+    channelNameController = TextEditingController(text: chan.channelName);
+    channelStreamUrlController =
+        TextEditingController(text: chan.channelStreamUrl);
+    channelImageUrlController = TextEditingController(text: chan.channelImage);
+    channelTagsController = TextEditingController(text: chan.tags.join(', '));
   }
 }
