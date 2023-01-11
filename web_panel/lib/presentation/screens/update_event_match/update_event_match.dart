@@ -80,6 +80,68 @@ class UpdateEventMatchPage extends StatelessWidget {
                       },
                     ),
                     ActionButton(
+                      text: "channels",
+                      onPressed: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text("Channels"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("close"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  bloc.add(ChannelsChanged());
+                                  print(state.channels.map((e) => e.quality));
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("ok"),
+                              ),
+                            ],
+                            content: SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  DataField(
+                                    hint: "Multi",
+                                    controller: bloc.channelMultiController,
+                                  ),
+                                  DataField(
+                                    hint: "Low",
+                                    controller: bloc.channelLowController,
+                                  ),
+                                  DataField(
+                                    hint: "SD",
+                                    controller: bloc.channelSdController,
+                                  ),
+                                  DataField(
+                                    hint: "HD",
+                                    controller: bloc.channelHdController,
+                                  ),
+                                  DataField(
+                                    hint: "FHD",
+                                    controller: bloc.channelFhdController,
+                                  ),
+                                  DataField(
+                                    hint: "UHD",
+                                    controller: bloc.channelUhdController,
+                                  ),
+                                  DataField(
+                                    hint: "4k",
+                                    controller: bloc.channel4kController,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    ActionButton(
                       text: "update",
                       onPressed: () {
                         bloc.add(
