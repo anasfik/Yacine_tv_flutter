@@ -22,6 +22,7 @@ const CategoriesCollection = client.db("main_db").collection("categories");
 const adminsCollection = client.db("main_db").collection("admins");
 const matchEventsCollection = client.db("main_db").collection("matchEvents");
 const drawerMenuCollection = client.db("main_db").collection("drawerMenu");
+const appSettingsCollection = client.db("main_db").collection("settings");
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -756,6 +757,98 @@ app.get("/all_channels", async (req, res) => {
   }
 });
 
+app.get("/app_settings", async (req, res) => {
+  try {
+    const appSettings = await appSettingsCollection.findOne({
+      _id: ObjectId("settings"),
+    });
+
+    res.status(200).send(
+      JSON.stringify({
+        status: 200,
+        message: "App Settings fetched successfully",
+        data: appSettings,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.put("/app_settings", async (req, res) => {
+  const appSettingsBody = req.body;
+  if (checkAppSettingsBody(appSettingsBody)) {
+    res.status(400).send(
+      JSON.stringify({
+        status: 400,
+        message: "Bad Request",
+      })
+    );
+
+    return;
+  }
+  try {
+    const ifExist = await appSettingsCollection.findOne({ _id: "settings" });
+
+    console.log(ifExist);
+
+    if (ifExist === null) {
+      const insertResult = await appSettingsCollection.insertOne({
+        _id: "settings",
+        ...appSettingsBody,
+      });
+    } else {
+      const updateResult = await appSettingsCollection.updateOne(
+        { _id: "settings" },
+        { $set: appSettingsBody }
+      );
+    }
+    res.status(201).send(
+      JSON.stringify({
+        status: 201,
+        message: "App Settings updated successfully",
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
+app.get("/app_settings", async (req, res) => {
+  try {
+    const insertResult = await appSettingsCollection.findOne({
+      _id: ObjectId("settings"),
+    });
+    res.status(200).send(
+      JSON.stringify({
+        status: 200,
+        message: "App Settings fetched successfully",
+        data: appSettings,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(
+      JSON.stringify({
+        status: 500,
+        message: "Internal Server Error",
+      })
+    );
+  }
+});
+
 app.listen(8080, () => {
   console.log("Server is running on port 8080. Ready to accept requests!");
 });
@@ -792,5 +885,21 @@ function checkChannelBody(channelBody) {
     channelBody.channel_image === undefined ||
     channelBody.channel_stream_url === undefined ||
     channelBody.tags === undefined
+  );
+}
+
+function checkAppSettingsBody(appSettingsBody) {
+  return (
+    appSettingsBody.show_ads === undefined ||
+    appSettingsBody.admob_app_id === undefined ||
+    appSettingsBody.admob_banner_id === undefined ||
+    appSettingsBody.admob_interstitial_id === undefined ||
+    appSettingsBody.show_share === undefined ||
+    appSettingsBody.app_logo_cover === undefined ||
+    appSettingsBody.app_version === undefined ||
+    appSettingsBody.app_author === undefined ||
+    appSettingsBody.app_email === undefined ||
+    appSettingsBody.app_website === undefined ||
+    appSettingsBody.app_privacy_policy === undefined
   );
 }

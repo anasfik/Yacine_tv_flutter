@@ -9,4 +9,5 @@ class L10n {
   static const String mathEvents = 'Match Events';
   static const String administration = 'Administration';
   static const String menuBar = 'Menu';
+  static const String settings = 'settings';
 }

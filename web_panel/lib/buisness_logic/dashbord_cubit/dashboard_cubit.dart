@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:web_panel/data/providers/l10n/en.dart';
+import 'package:web_panel/presentation/screens/settings/settings.dart';
 
 import '../../data/models/dashboard_screen.dart';
 import '../../presentation/screens/channels_categories/channels_categories.dart';
@@ -23,6 +24,11 @@ class DashBoardScreensCubit extends Cubit<int> {
     const DashBoardScreen(
       title: L10n.menuBar,
       screen: Menu(title: L10n.menuBar),
+      icon: FlutterRemix.chat_settings_fill,
+    ),
+    const DashBoardScreen(
+      title: L10n.settings,
+      screen: Settings(title: L10n.settings),
       icon: FlutterRemix.chat_settings_fill,
     ),
 
