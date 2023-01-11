@@ -7,4 +7,6 @@ class L10n {
   static const String password = 'Password';
   static const String channelsCategories = 'Channels Categories';
   static const String mathEvents = 'Match Events';
+  static const String administration = 'Administration';
+  static const String menuBar = 'Menu';
 }
