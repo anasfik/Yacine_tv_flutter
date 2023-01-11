@@ -1,8 +1,21 @@
+import 'dart:convert';
+
+import '../../models/app_settings.dart';
+import '../../providers/settings/app_settings.dart';
+
 class SettingsRepository {
   SettingsRepository();
 
-  AppSettings getSettings() async {
-    final res = await SettingsProvider.get();
+  Future<AppSettings> getSettings() async {
+    final resBody = await SettingsProvider.get();
+    final res = jsonDecode(resBody) as Map<String, dynamic>;
+    final result = AppSettings.fromMap(Map.from(res["data"]));
+
+    return result;
+  }
+
+  Future updateSettings(AppSettings settings) async {
+    final res = await SettingsProvider.put(settings);
     print(res);
   }
 }

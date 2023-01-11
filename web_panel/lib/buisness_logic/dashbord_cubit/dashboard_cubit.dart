@@ -4,6 +4,7 @@ import 'package:web_panel/data/providers/l10n/en.dart';
 import 'package:web_panel/presentation/screens/settings/settings.dart';
 
 import '../../data/models/dashboard_screen.dart';
+import '../../presentation/screens/admob_settings/admob_settings.dart';
 import '../../presentation/screens/channels_categories/channels_categories.dart';
 import '../../presentation/screens/math_events/math_events.dart';
 import '../../presentation/screens/menu/menu.dart';
@@ -29,6 +30,11 @@ class DashBoardScreensCubit extends Cubit<int> {
     const DashBoardScreen(
       title: L10n.settings,
       screen: Settings(title: L10n.settings),
+      icon: FlutterRemix.chat_settings_fill,
+    ),
+    const DashBoardScreen(
+      title: L10n.admob,
+      screen: AdmobSettings(title: L10n.admob),
       icon: FlutterRemix.chat_settings_fill,
     ),
 

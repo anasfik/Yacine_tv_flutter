@@ -760,7 +760,7 @@ app.get("/all_channels", async (req, res) => {
 app.get("/app_settings", async (req, res) => {
   try {
     const appSettings = await appSettingsCollection.findOne({
-      _id: ObjectId("settings"),
+      _id: "settings",
     });
 
     res.status(200).send(

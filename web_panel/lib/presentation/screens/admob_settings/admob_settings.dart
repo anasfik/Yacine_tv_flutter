@@ -7,8 +7,8 @@ import 'package:web_panel/presentation/screens/general/data_field.dart';
 import '../../config/colors/colors.dart';
 import '../general/action_button.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({
+class AdmobSettings extends StatelessWidget {
+  const AdmobSettings({
     super.key,
     required this.title,
   });
@@ -22,7 +22,7 @@ class Settings extends StatelessWidget {
         child: BlocBuilder<SettingsBloc, SettingsState>(
           builder: (context, state) {
             if (state.isLoading) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (state.settings != null) {
               return Column(
                 children: <Widget>[
@@ -38,37 +38,27 @@ class Settings extends StatelessWidget {
                       ),
                     ],
                   ),
-                  DataField(
-                    hint: "App Version",
-                    controller: bloc.versionController,
-                  ),
-                  DataField(
-                    hint: "Author name",
-                    controller: bloc.authorController,
-                  ),
-                  DataField(
-                    hint: "App Cover Logo",
-                    controller: bloc.logoCoverController,
-                  ),
-                  DataField(
-                    hint: "Email",
-                    controller: bloc.emailController,
-                  ),
-                  DataField(
-                    hint: "Website",
-                    controller: bloc.websiteController,
-                  ),
-                  DataField(
-                    hint: "privacy & policy link",
-                    controller: bloc.privacyController,
-                  ),
                   SwitchListTile(
-                    value: state.showShare,
-                    title: const Text("allow sharing"),
+                    value: state.showAds,
+                    title: const Text("enable admob"),
                     onChanged: (value) {
-                      bloc.add(ShowShareSwitched(value: value));
+                      bloc.add(ShowAdsSwitched(value: value));
                     },
                   ),
+                  if (state.showAds) ...[
+                    DataField(
+                      hint: "Admob App ID",
+                      controller: bloc.admobAppIdController,
+                    ),
+                    DataField(
+                      hint: "Admob banner id",
+                      controller: bloc.admobBannerIdController,
+                    ),
+                    DataField(
+                      hint: "Admob interstitial id",
+                      controller: bloc.admobInterstitialIdController,
+                    ),
+                  ],
                   ActionButton(
                     text: "Save",
                     onPressed: () {

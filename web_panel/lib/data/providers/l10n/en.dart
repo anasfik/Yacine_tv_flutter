@@ -10,4 +10,5 @@ class L10n {
   static const String administration = 'Administration';
   static const String menuBar = 'Menu';
   static const String settings = 'settings';
+  static const String admob = 'admob';
 }
