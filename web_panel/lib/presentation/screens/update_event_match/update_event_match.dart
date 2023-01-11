@@ -6,12 +6,12 @@ import 'package:web_panel/presentation/screens/general/action_button.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 import '../../../buisness_logic/event_match_bloc/event_match_bloc.dart';
 import '../../../data/models/event_match.dart';
+import '../add_event_match_page/date_time_select.dart';
 import '../general/data_field.dart';
-import 'app_bar.dart';
-import 'date_time_select.dart';
+import 'widgets/app_bar.dart';
 
-class AddEventMatchPage extends StatelessWidget {
-  const AddEventMatchPage({
+class UpdateEventMatchPage extends StatelessWidget {
+  const UpdateEventMatchPage({
     super.key,
     required this.eventMatch,
   });
@@ -80,79 +80,19 @@ class AddEventMatchPage extends StatelessWidget {
                       },
                     ),
                     ActionButton(
-                      text: "channels",
-                      onPressed: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Channels"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("close"),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  bloc.add(ChannelsChanged());
-                                  print(state.channels.map((e) => e.quality));
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("ok"),
-                              ),
-                            ],
-                            content: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  DataField(
-                                    hint: "Multi",
-                                    controller: bloc.channelMultiController,
-                                  ),
-                                  DataField(
-                                    hint: "Low",
-                                    controller: bloc.channelLowController,
-                                  ),
-                                  DataField(
-                                    hint: "SD",
-                                    controller: bloc.channelSdController,
-                                  ),
-                                  DataField(
-                                    hint: "HD",
-                                    controller: bloc.channelHdController,
-                                  ),
-                                  DataField(
-                                    hint: "FHD",
-                                    controller: bloc.channelFhdController,
-                                  ),
-                                  DataField(
-                                    hint: "UHD",
-                                    controller: bloc.channelUhdController,
-                                  ),
-                                  DataField(
-                                    hint: "4k",
-                                    controller: bloc.channel4kController,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    ActionButton(
-                      text: "Save",
+                      text: "update",
                       onPressed: () {
                         bloc.add(
-                          SaveEventMatch(
+                          UpdateEventMatch(
+                            eventMatchId: eventMatch.id,
                             onSuccess: () {
                               context
                                   .read<EventChannelsBlocBloc>()
                                   .add(MatchEventsRequested());
+
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Event match saved"),
+                                  content: Text("Event match updates"),
                                 ),
                               );
                               Navigator.pop(context);
@@ -160,7 +100,36 @@ class AddEventMatchPage extends StatelessWidget {
                             onError: () {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Error saving event match"),
+                                  content: Text("Error updating event match"),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    ActionButton(
+                      text: "delete",
+                      onPressed: () {
+                        bloc.add(
+                          DeleteEventMatch(
+                            eventMatchId: eventMatch.id,
+                            onSuccess: () {
+                              context
+                                  .read<EventChannelsBlocBloc>()
+                                  .add(MatchEventsRequested());
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Event match deleted"),
+                                ),
+                              );
+                              Navigator.pop(context);
+                            },
+                            onError: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Error deleting event match"),
                                 ),
                               );
                             },

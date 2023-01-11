@@ -21,6 +21,14 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
   late final TextEditingController channelNameController;
   late final TextEditingController commenterNameController;
 
+  late final TextEditingController channelMultiController;
+  late final TextEditingController channelHdController;
+  late final TextEditingController channelFhdController;
+  late final TextEditingController channelUhdController;
+  late final TextEditingController channel4kController;
+  late final TextEditingController channelSdController;
+  late final TextEditingController channelLowController;
+
   final MatchEventsRepository matchEventsRepository;
   EventMatchBloc({
     required this.eventMatch,
@@ -34,7 +42,9 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
     _initControllers(eventMatch);
     on<DateTimeSelected>(_dateTimeSelected);
     on<SaveEventMatch>(_saveEventMatch);
-
+    on<UpdateEventMatch>(_updateEventMatch);
+    on<DeleteEventMatch>(_deleteEventMatch);
+    on<ChannelsChanged>(_channelsChanged);
   }
 
   void _initControllers(EventMatch eventMatch) {
@@ -64,6 +74,40 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
     commenterNameController = TextEditingController(
       text: eventMatch.commenterName,
     );
+    channelMultiController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "MULTI").channelUrl,
+    );
+
+    channelLowController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "LOW").channelUrl,
+    );
+
+    channelSdController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "SD").channelUrl,
+    );
+
+    channelHdController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "HD").channelUrl,
+    );
+
+    channelFhdController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "FHD").channelUrl,
+    );
+
+    channelUhdController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "UHD").channelUrl,
+    );
+
+    channel4kController = TextEditingController(
+      text: _searchQuality(eventMatch.channelQuality, "4K").channelUrl,
+    );
+  }
+
+  ChannelQuality _searchQuality(
+    List<ChannelQuality> channelsQuality,
+    String quality,
+  ) {
+    return channelsQuality.firstWhere((element) => element.quality == quality);
   }
 
   FutureOr<void> _dateTimeSelected(
@@ -124,9 +168,72 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
       channelName: channelNameController.text,
       dateOfMatchWithTime: state.matchDateTime,
       commenterName: commenterNameController.text,
-      channelsQuality: [],
+      channelQuality: state.channels,
     );
   }
 
+  FutureOr<void> _updateEventMatch(
+    UpdateEventMatch event,
+    Emitter<EventMatchState> emit,
+  ) async {
+    final updatedEventChannel = _createEventChannel();
+    await matchEventsRepository.updateMatchEvent(
+      event.eventMatchId,
+      updatedEventChannel,
+    );
+    event.onSuccess();
+  }
 
+  FutureOr<void> _deleteEventMatch(
+    DeleteEventMatch event,
+    Emitter<EventMatchState> emit,
+  ) {
+    matchEventsRepository.deleteMatchEvent(event.eventMatchId);
+    event.onSuccess();
+  }
+
+  FutureOr<void> _channelsChanged(
+    ChannelsChanged event,
+    Emitter<EventMatchState> emit,
+  ) {
+    List<ChannelQuality> newChannelsQuality = _createChannels();
+    emit(
+      state.copyWith(
+        channels: newChannelsQuality,
+      ),
+    );
+  }
+
+  List<ChannelQuality> _createChannels() {
+    return [
+      ChannelQuality(
+        quality: "MULTI",
+        channelUrl: channelMultiController.text,
+      ),
+      ChannelQuality(
+        quality: "LOW",
+        channelUrl: channelLowController.text,
+      ),
+      ChannelQuality(
+        quality: "SD",
+        channelUrl: channelSdController.text,
+      ),
+      ChannelQuality(
+        quality: "HD",
+        channelUrl: channelHdController.text,
+      ),
+      ChannelQuality(
+        quality: "FHD",
+        channelUrl: channelFhdController.text,
+      ),
+      ChannelQuality(
+        quality: "UHD",
+        channelUrl: channelUhdController.text,
+      ),
+      ChannelQuality(
+        quality: "4K",
+        channelUrl: channel4kController.text,
+      ),
+    ];
+  }
 }

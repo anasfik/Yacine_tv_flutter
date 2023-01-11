@@ -9,6 +9,7 @@ import 'package:web_panel/presentation/screens/general/margined_body.dart';
 import '../../config/colors/colors.dart';
 import '../add_event_match_page/add_event_match_page.dart';
 import '../general/action_button.dart';
+import '../update_event_match/update_event_match.dart';
 
 class MathEvents extends StatelessWidget {
   const MathEvents({
@@ -47,7 +48,7 @@ class MathEvents extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AddOrUpdateEventMatchPage(
+                              builder: (context) => AddEventMatchPage(
                                 eventMatch: EventMatch.empty(),
                               ),
                             ),
@@ -65,11 +66,25 @@ class MathEvents extends StatelessWidget {
                   if (state.isLoading) {
                     return const CircularProgressIndicator();
                   } else if (state.eventMatches != null) {
-                    return Text(
-                      state.eventMatches!
-                          .map((e) => e.firstTeam)
-                          .join(", ")
-                          .toString(),
+                    return Column(
+                      children:
+                          List.generate(state.eventMatches!.length, (index) {
+                        final current = state.eventMatches![index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => UpdateEventMatchPage(
+                                  eventMatch: current,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Text(current.firstTeam),
+                        );
+                      }),
                     );
                   } else {
                     return const Text("Somthing went wrong");

@@ -7,7 +7,7 @@ class EventMatch {
     required this.secondTeamLogo,
     required this.cupName,
     required this.channelName,
-    required this.channelsQuality,
+    required this.channelQuality,
     required this.commenterName,
     required this.dateOfMatchWithTime,
   });
@@ -19,7 +19,7 @@ class EventMatch {
   final String secondTeamLogo;
   final String cupName;
   final String channelName;
-  final List<ChannelsQuality> channelsQuality;
+  final List<ChannelQuality> channelQuality;
   final String commenterName;
   final DateTime dateOfMatchWithTime;
 
@@ -31,9 +31,9 @@ class EventMatch {
         secondTeamLogo: json["second_team_logo"],
         cupName: json["cup_name"],
         channelName: json["channel_name"],
-        channelsQuality: List<ChannelsQuality>.from(
+        channelQuality: List<ChannelQuality>.from(
           json["channels_quality"]!.map(
-            (x) => ChannelsQuality.fromMap(x),
+            (x) => ChannelQuality.fromMap(x),
           ),
         ),
         commenterName: json["commenter_name"],
@@ -48,9 +48,10 @@ class EventMatch {
         "cup_name": cupName,
         "channel_name": channelName,
         "channels_quality":
-            List<dynamic>.from(channelsQuality.map((x) => x.toMap())),
+            List<dynamic>.from(channelQuality.map((x) => x.toMap())),
         "commenter_name": commenterName,
         "date_of_match_with_time": dateOfMatchWithTime.toIso8601String(),
+      
       };
 
   factory EventMatch.empty() {
@@ -62,15 +63,23 @@ class EventMatch {
       secondTeamLogo: "https://via.placeholder.com/100x100",
       cupName: "",
       channelName: "",
-      channelsQuality: [],
+      channelQuality: [
+        ChannelQuality(quality: "MULTI", channelUrl: ""),
+        ChannelQuality(quality: "LOW", channelUrl: ""),
+        ChannelQuality(quality: "SD", channelUrl: ""),
+        ChannelQuality(quality: "HD", channelUrl: ""),
+        ChannelQuality(quality: "FHD", channelUrl: ""),
+        ChannelQuality(quality: "UHD", channelUrl: ""),
+        ChannelQuality(quality: "4K", channelUrl: ""),
+      ],
       commenterName: "",
       dateOfMatchWithTime: DateTime.now(),
     );
   }
 }
 
-class ChannelsQuality {
-  ChannelsQuality({
+class ChannelQuality {
+  ChannelQuality({
     required this.quality,
     required this.channelUrl,
   });
@@ -78,7 +87,7 @@ class ChannelsQuality {
   String? quality;
   String? channelUrl;
 
-  factory ChannelsQuality.fromMap(Map<String, dynamic> json) => ChannelsQuality(
+  factory ChannelQuality.fromMap(Map<String, dynamic> json) => ChannelQuality(
         quality: json["quality"],
         channelUrl: json["channel_url"],
       );

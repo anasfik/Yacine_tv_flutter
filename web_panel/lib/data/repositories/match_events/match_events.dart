@@ -17,13 +17,18 @@ class MatchEventsRepository {
     print(resBody);
   }
 
-  Future<void> updateMatchEvent(EventMatch eventMatch) async {
-    final resBody = await MatchEventsProvider.put(eventMatch);
+  Future<void> updateMatchEvent(
+    String id,
+    EventMatch eventMatch,
+  ) async {
+    final resBody = await MatchEventsProvider.put(eventMatch, id);
     print(resBody);
   }
 
-  Future<void> deleteMatchEvent(EventMatch eventMatch) async {
-    final res = await MatchEventsProvider.delete(eventMatch);
+  Future<void> deleteMatchEvent(
+    String id,
+  ) async {
+    final res = await MatchEventsProvider.delete(id);
     print(res);
   }
 }

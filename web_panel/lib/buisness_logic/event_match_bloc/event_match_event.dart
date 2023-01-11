@@ -22,3 +22,30 @@ class SaveEventMatch extends EventMatchEvent {
   });
 }
 
+class UpdateEventMatch extends EventMatchEvent {
+  final VoidCallback onSuccess;
+  final VoidCallback onError;
+  final String eventMatchId;
+
+  UpdateEventMatch({
+    required this.eventMatchId,
+    required this.onSuccess,
+    required this.onError,
+  });
+}
+
+class DeleteEventMatch extends EventMatchEvent {
+  final String eventMatchId;
+  final VoidCallback onSuccess;
+  final VoidCallback onError;
+
+  DeleteEventMatch({
+    required this.eventMatchId,
+    required this.onSuccess,
+    required this.onError,
+  });
+}
+
+class ChannelsChanged extends EventMatchEvent {
+  ChannelsChanged();
+}

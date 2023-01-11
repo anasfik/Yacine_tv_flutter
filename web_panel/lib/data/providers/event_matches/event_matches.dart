@@ -40,11 +40,11 @@ class MatchEventsProvider implements DataTypeInterface {
     return response.body;
   }
 
-  static Future<String> put(EventMatch eventMatch) async {
+  static Future<String> put(EventMatch eventMatch, String id) async {
     http.Response response = await http.put(
       Uri.http(
         dotenv.env['API_URL']!,
-        "$endPoint/${eventMatch.id}",
+        "$endPoint/$id",
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -56,11 +56,11 @@ class MatchEventsProvider implements DataTypeInterface {
     return response.body;
   }
 
-  static Future<String> delete(EventMatch eventMatch) async {
+  static Future<String> delete(String id) async {
     http.Response response = await http.delete(
       Uri.http(
         dotenv.env['API_URL']!,
-        "$endPoint/${eventMatch.id}",
+        "$endPoint/$id",
       ),
       headers: {
         'Content-Type': 'application/json',
