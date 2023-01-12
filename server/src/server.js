@@ -374,7 +374,7 @@ app.put("/categories/:id/channels/:channelId", async (req, res) => {
 
     const updateResult = await CategoriesCollection.updateOne(
       { _id: ObjectId(id), "channels._id": ObjectId(channelId) },
-      { $set: { "channels.$": channelBody } }
+      { $set: { "channels.$": { _id: ObjectId(channelId), ...channelBody } } }
     );
 
     if (updateResult.modifiedCount === 0) {

@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_remix/flutter_remix.dart';
 
 import '../../config/colors/colors.dart';
 
@@ -60,4 +61,43 @@ class ActionButton extends StatelessWidget {
       ),
     );
   }
+}
+
+class DeleteActionButton extends ActionButton {
+  const DeleteActionButton({
+    super.key,
+    required super.onPressed,
+    required super.text,
+    super.padding = const EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 20,
+    ),
+    super.icon = const Icon(FlutterRemix.delete_back_2_fill),
+  });
+}
+
+class AddActionButton extends ActionButton {
+  const AddActionButton({
+    super.key,
+    required super.onPressed,
+    required super.text,
+    super.padding = const EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 20,
+    ),
+    super.icon = const Icon(FlutterRemix.add_fill),
+  });
+}
+
+class UpdateActionButton extends ActionButton {
+  const UpdateActionButton({
+    super.key,
+    required super.onPressed,
+    required super.text,
+    super.padding = const EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 20,
+    ),
+    super.icon = const Icon(FlutterRemix.edit_box_fill),
+  });
 }

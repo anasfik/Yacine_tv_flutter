@@ -13,30 +13,35 @@ class DataField extends StatelessWidget {
   final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          hint,
-          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        TextField(
-          controller: controller,
-          onChanged: onChanged,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-            ),
-            hintText: hint,
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 10,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            hint,
+            style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
           ),
-        ),
-      ],
+          const SizedBox(
+            height: 10,
+          ),
+          TextField(
+            controller: controller,
+            onChanged: onChanged,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5),
+              ),
+              hintText: hint,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

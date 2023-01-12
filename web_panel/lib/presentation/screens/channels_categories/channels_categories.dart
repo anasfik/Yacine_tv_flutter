@@ -10,6 +10,7 @@ import '../../config/colors/colors.dart';
 import '../add_category/add_vategory.dart';
 import '../edit_channels_category/edit_channels_category.dart';
 import '../general/category_card.dart';
+import '../general/empty_text.dart';
 import '../general/margined_body.dart';
 
 class ChannelsCategories extends StatelessWidget {
@@ -60,25 +61,7 @@ class ChannelsCategories extends StatelessWidget {
                       const SizedBox(height: 20),
                       Builder(builder: (context) {
                         if (state.allChannelsCategories.isEmpty) {
-                          return Center(
-                            child: Container(
-                              width: 500,
-                              height: 500,
-                              child: Center(
-                                child: Text(
-                                  textAlign: TextAlign.center,
-                                  L10n.noChannelsCategories,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      ?.copyWith(
-                                        color:
-                                            AppColors.black.withOpacity(0.75),
-                                      ),
-                                ),
-                              ),
-                            ),
-                          );
+                          return const EmptyText(L10n.noChannelsCategories);
                         }
                         return Center(
                           child: Wrap(

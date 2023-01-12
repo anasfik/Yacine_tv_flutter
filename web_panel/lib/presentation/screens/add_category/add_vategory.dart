@@ -37,16 +37,12 @@ class AddChannelCategory extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Center(
-                  child: ActionButton(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20,
-                      horizontal: 30,
-                    ),
-                    text: L10n.add,
+                  child: AddActionButton(
                     icon: const Icon(
                       FlutterRemix.save_2_fill,
                       size: 18,
                     ),
+                    text: L10n.add,
                     onPressed: () {
                       bloc.add(
                         ChannelsCategoryCreated(

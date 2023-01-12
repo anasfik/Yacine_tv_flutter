@@ -115,7 +115,7 @@ class CategoriesProvider implements DataTypeInterface {
         'Accept': 'application/json',
       },
     );
-
+    print(res.body);
     return res.body;
   }
 

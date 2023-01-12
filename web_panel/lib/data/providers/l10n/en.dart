@@ -2,10 +2,18 @@ class L10n {
   static const String appName = 'Web Panel';
   static const String welcome = 'Welcome';
   static const String add = 'Add';
+  static const String delete = 'Delete';
+  static const String update = 'Update';
   static const String newCategory = 'New Category';
+  static const String newChannel = 'New Channel';
   static const String categoryName = 'Category Name';
+  static const String channels = 'Channels';
   static const String noChannelsCategories =
       'No Channels Categories, click on the add button to add a new category';
+  static const String noChannels =
+      'No Channels, click on the add button to add a new channel';
+
+  static const String addChannel = 'Add Channel';
   static const String channelsCategoriesError = 'Something went wrong';
   static const String login = 'Login';
   static const String loginError = 'Something went wrong';
@@ -24,4 +32,7 @@ class L10n {
 
   static String youCanAddChannels(String categoryName) =>
       'You can add channels to $categoryName now';
+
+  static String deleted(String channel) =>
+      "Channel $channel deleted successfully";
 }
