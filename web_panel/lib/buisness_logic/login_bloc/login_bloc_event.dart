@@ -11,6 +11,7 @@ abstract class LoginBlocEvent extends Equatable {
 class LoginButtonPressed extends LoginBlocEvent {
   final VoidCallback onSuccess;
   final void Function(String) onError;
+
   const LoginButtonPressed({
     required this.onError,
     required this.onSuccess,
@@ -31,4 +32,11 @@ class PasswordValueChanged extends LoginBlocEvent {
 
   @override
   List<Object> get props => [password];
+}
+
+class LogoutButtonPressed extends LoginBlocEvent {
+  final VoidCallback onSuccess;
+  const LogoutButtonPressed({
+    required this.onSuccess,
+  });
 }

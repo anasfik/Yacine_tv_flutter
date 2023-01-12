@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:web_panel/buisness_logic/login_bloc/login_bloc_bloc.dart';
 import 'package:web_panel/data/providers/l10n/en.dart';
+import 'package:web_panel/presentation/screens/dashboard/dashboard.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 
 import '../general/action_button.dart';
@@ -15,6 +16,8 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginBloc = context.read<LoginBloc>();
+
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Center(
@@ -43,7 +46,7 @@ class Login extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     const Spacer(),
-                    Logo(),
+                    const Logo(),
                     const SizedBox(
                       height: 24,
                     ),
@@ -56,11 +59,9 @@ class Login extends StatelessWidget {
                     ),
                     const Spacer(),
                     LoginField(
-                      controller: context.read<LoginBloc>().usernameController,
+                      controller: loginBloc.usernameController,
                       onChanged: (value) {
-                        context
-                            .read<LoginBloc>()
-                            .add(UsernameValueChanged(username: value));
+                        loginBloc.add(UsernameValueChanged(username: value));
                       },
                       icon: FlutterRemix.user_2_fill,
                       label: L10n.username,
@@ -69,13 +70,11 @@ class Login extends StatelessWidget {
                       height: 15,
                     ),
                     LoginField(
-                      controller: context.read<LoginBloc>().passwordController,
+                      controller: loginBloc.passwordController,
                       icon: FlutterRemix.lock_password_fill,
                       label: L10n.password,
                       onChanged: (value) {
-                        context
-                            .read<LoginBloc>()
-                            .add(PasswordValueChanged(password: value));
+                        loginBloc.add(PasswordValueChanged(password: value));
                       },
                     ),
                     const Spacer(),
@@ -85,22 +84,22 @@ class Login extends StatelessWidget {
                         height: 40,
                         isLoading: state.isLoading,
                         onPressed: () {
-                          context.read<LoginBloc>().add(
-                                LoginButtonPressed(
-                                  onSuccess: () {
-                                    Navigator.of(context).pushNamed(
-                                      '/dashboard',
-                                    );
-                                  },
-                                  onError: (error) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(error),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
+                          void showSnackBar(String msg) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(msg)),
+                            );
+                          }
+
+                          loginBloc.add(
+                            LoginButtonPressed(
+                              onSuccess: () {
+                                showSnackBar(L10n.loginSuccess);
+                              },
+                              onError: (error) {
+                                showSnackBar(L10n.loginError);
+                              },
+                            ),
+                          );
                         },
                         text: L10n.login,
                       ),

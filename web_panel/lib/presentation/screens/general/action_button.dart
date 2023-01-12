@@ -37,6 +37,7 @@ class ActionButton extends StatelessWidget {
                 ),
               )
             : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (icon != null) icon!,

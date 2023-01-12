@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:web_panel/buisness_logic/login_bloc/login_bloc_bloc.dart';
 import 'package:web_panel/data/providers/l10n/en.dart';
 
 import 'buisness_logic/bloc_providers/bloc_providers.dart';
@@ -27,10 +28,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: L10n.appName,
         theme: AppThemes.light,
-        home: const Login(),
-        routes: {
-          "/dashboard": (context) => const DashBoard(),
-        },
+        home: BlocBuilder<LoginBloc, LoginBlocState>(
+          builder: (context, state) {
+            if (state.isLoggedId) {
+              return const DashBoard();
+            } else {
+              return const Login();
+            }
+          },
+        ),
       ),
     );
   }
