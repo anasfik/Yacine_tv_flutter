@@ -1,6 +1,10 @@
 class L10n {
   static const String appName = 'Web Panel';
   static const String welcome = 'Welcome';
+  static const String add = 'Add';
+  static const String newCategory = 'New Category';
+  static const String noChannelsCategories =
+      'No Channels Categories, click on the add button to add a new category';
   static const String login = 'Login';
   static const String loginError = 'Something went wrong';
   static const String loginSuccess = 'Admin Authenticated Successfully';

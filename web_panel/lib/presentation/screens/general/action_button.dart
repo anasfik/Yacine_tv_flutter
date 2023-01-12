@@ -12,6 +12,7 @@ class ActionButton extends StatelessWidget {
     this.height,
     this.icon,
     this.isLoading = false,
+    this.padding,
   });
 
   final VoidCallback onPressed;
@@ -20,12 +21,16 @@ class ActionButton extends StatelessWidget {
   final double? width;
   final double? height;
   final Icon? icon;
+  final EdgeInsets? padding;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
       height: height,
       child: ElevatedButton(
+        style: ButtonStyle(
+          padding: MaterialStateProperty.all(padding),
+        ),
         onPressed: onPressed,
         child: isLoading
             ? SizedBox(

@@ -7,30 +7,37 @@ class CategoryCard extends StatelessWidget {
   const CategoryCard({
     super.key,
     required this.category,
+    required this.onPressed,
   });
 
   final ChannelsCategory category;
+  final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 75,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-          width: 3,
-        ),
-        color: AppColors.white,
-      ),
-      child: Center(
-        child: AutoSizeText(
-          category.categoryTitle,
-          style: Theme.of(context).textTheme.headline5?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColor,
-              ),
-          maxLines: 1,
+    return Material(
+      color: AppColors.white,
+      child: InkWell(
+        onTap: onPressed,
+        child: Container(
+          width: 300,
+          height: 75,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Theme.of(context).primaryColor,
+              width: 3,
+            ),
+          ),
+          child: Center(
+            child: AutoSizeText(
+              category.categoryTitle,
+              style: Theme.of(context).textTheme.headline5?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  ),
+              maxLines: 1,
+            ),
+          ),
         ),
       ),
     );
