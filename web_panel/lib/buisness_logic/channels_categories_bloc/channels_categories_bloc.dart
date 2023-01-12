@@ -27,15 +27,20 @@ class ChannelsCategoriesBloc
   void _createChannelCategory(ChannelsCategoryCreated event,
       Emitter<ChannelsCategoriesState> emit) async {
     emit(state.copyWith(isLoading: true));
-    await channelsCategoriesRepository.createChannelsCategory(
-      ChannelsCategory(
-        id: "_",
-        categoryTitle: state.channelsCategoryTitle,
-        channels: [],
-      ),
-    );
-    event.onSuccess();
-    emit(state.copyWith(isLoading: false));
+    try {
+      await channelsCategoriesRepository.createChannelsCategory(
+        ChannelsCategory(
+          id: "_",
+          categoryTitle: state.channelsCategoryTitle,
+          channels: [],
+        ),
+      );
+      event.onSuccess();
+    } catch (e) {
+      event.onError(e.toString());
+    } finally {
+      emit(state.copyWith(isLoading: false));
+    }
   }
 
   void _channelsCategoryUpdated(

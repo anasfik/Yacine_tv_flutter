@@ -24,7 +24,7 @@ class DataField extends StatelessWidget {
               ),
         ),
         const SizedBox(
-          height: 5,
+          height: 10,
         ),
         TextField(
           controller: controller,

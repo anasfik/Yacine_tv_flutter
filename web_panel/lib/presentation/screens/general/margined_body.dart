@@ -17,3 +17,14 @@ class MarginedBody extends StatelessWidget {
     );
   }
 }
+
+class MarginedBodyForInputs extends MarginedBody {
+  const MarginedBodyForInputs({
+    super.key,
+    super.padding = const EdgeInsets.symmetric(
+      horizontal: 40,
+      vertical: 40,
+    ),
+    super.child,
+  });
+}
