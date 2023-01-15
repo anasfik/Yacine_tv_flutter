@@ -5,8 +5,6 @@ import 'package:yacine_tv/presentation/screens/home/widgets/category_card.dart';
 import '../../../logic/channels_categories_cubit/channels_categories_cubit.dart';
 import '../channels/channels.dart';
 import '../general/margined_body.dart';
-import 'widgets/app_bar.dart';
-import 'widgets/drawer.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,8 +12,6 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const CustomDrawer(),
-      appBar: const CustomAppBar(),
       body: BlocBuilder<ChannelsCategoriesCubit, ChannelsCategoriesState>(
         builder: (context, state) {
           if (state is ChannelsCategoriesLoading) {

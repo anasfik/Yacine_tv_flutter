@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
 import 'package:yacine_tv/logic/bottom_navigation/bottom_navigation_cubit.dart';
 
+import 'widgets/app_bar.dart';
 import 'widgets/bottom_navigation_bar.dart';
+import 'widgets/drawer.dart';
 
 class ScreensHandler extends StatelessWidget {
   const ScreensHandler({super.key});
@@ -11,6 +13,8 @@ class ScreensHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const CustomDrawer(),
+      appBar: const CustomAppBar(),
       bottomNavigationBar: const CustomNavigationBar(),
       body: BlocBuilder<BottomNavigationCubit, int>(
         builder: (_, state) {
