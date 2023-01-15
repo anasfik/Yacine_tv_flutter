@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yacine_tv/data/lang/en.dart';
-import 'package:yacine_tv/logic/core/bloc_provider.dart';
+import 'package:yacine_tv/core/lang/en.dart';
 import 'data/repositories/categories/categories.dart';
 import 'logic/channels_categories_cubit/channels_categories_cubit.dart';
-import 'logic/core/core.dart';
+import 'core/core.dart';
 import 'presentation/config/theme.dart';
 import 'presentation/screens/home/home.dart';
 

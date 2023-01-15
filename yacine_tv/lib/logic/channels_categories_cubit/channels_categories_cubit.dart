@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../../data/lang/en.dart';
+import '../../core/lang/en.dart';
 import '../../data/models/channels_category.dart';
 import '../../data/repositories/categories/categories.dart';
 

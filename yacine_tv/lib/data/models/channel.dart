@@ -52,4 +52,14 @@ class Channel {
       tags: tags ?? this.tags,
     );
   }
+
+  bool titleContains(String query) {
+    return channelName.toLowerCase().contains(query.toLowerCase());
+  }
+
+  bool tagsContains(String query) {
+    return tags.any((tag) => tag.toLowerCase().contains(query.toLowerCase()));
+  }
+
+  
 }

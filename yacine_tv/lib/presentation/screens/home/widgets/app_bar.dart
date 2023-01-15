@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:yacine_tv/data/lang/en.dart';
+import 'package:yacine_tv/core/lang/en.dart';
 import 'package:yacine_tv/presentation/screens/home/widgets/search_delegate.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
