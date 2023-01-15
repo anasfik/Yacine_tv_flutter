@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yacine_tv/core/lang/en.dart';
 import 'data/repositories/categories/categories.dart';
+import 'data/repositories/menu/menu.dart';
 import 'logic/channels_categories_cubit/channels_categories_cubit.dart';
 import 'core/core.dart';
+import 'logic/drawer_cubit/drawer_cubit_cubit.dart';
 import 'presentation/config/theme.dart';
 import 'presentation/screens/home/home.dart';
 
@@ -25,13 +27,16 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               ChannelsCategoriesCubit(ChannelsCategoriesRepository()),
         ),
+        BlocProvider(
+          create: (context) => DrawerCubit(MenuRepository()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: L10n.title,
         theme: Themes.light,
         themeMode: ThemeMode.light,
-        home: Home(),
+        home: const Home(),
       ),
     );
   }

@@ -23,13 +23,15 @@ class ChannelCard extends StatelessWidget {
           MarginedBody(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: CachedNetworkImage(
-              imageUrl: channel.channelImage,
+              imageUrl:
+                  "${channel.channelImage}?a=${DateTime.now().microsecondsSinceEpoch}",
               height: 50,
               width: double.infinity,
-              // fit: BoxFit.fill,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  CircularProgressIndicator(
-                value: downloadProgress.progress,
+                  Center(
+                child: CircularProgressIndicator(
+                  value: downloadProgress.progress,
+                ),
               ),
               errorWidget: (context, url, error) {
                 return Icon(

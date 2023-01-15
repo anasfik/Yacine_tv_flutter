@@ -10,21 +10,17 @@ abstract class ChannelsCategoriesState extends Equatable {
     this.channelsCategories,
     this.error,
   });
+  @override
+  List<Object?> get props => [isLoading, channelsCategories, error];
 }
 
 class ChannelsCategoriesLoading extends ChannelsCategoriesState {
-  @override
-  List<Object?> get props => [isLoading, channelsCategories, error];
-
   const ChannelsCategoriesLoading({
     super.isLoading = true,
   });
 }
 
 class ChannelsCategoriesLoaded extends ChannelsCategoriesState {
-  @override
-  List<Object?> get props => [isLoading, channelsCategories, error];
-
   const ChannelsCategoriesLoaded({
     super.isLoading = false,
     required super.channelsCategories,
@@ -32,9 +28,6 @@ class ChannelsCategoriesLoaded extends ChannelsCategoriesState {
 }
 
 class ChannelsCategoriesError extends ChannelsCategoriesState {
-  @override
-  List<Object?> get props => [isLoading, channelsCategories, error];
-
   const ChannelsCategoriesError({
     super.isLoading = false,
     required super.error,
