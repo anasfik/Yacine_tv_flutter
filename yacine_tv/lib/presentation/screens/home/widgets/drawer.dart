@@ -2,6 +2,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yacine_tv/config/general.dart';
+import 'package:yacine_tv/logic/settings_cubit/settings_cubit.dart';
 
 import '../../../../logic/drawer_cubit/drawer_cubit_cubit.dart';
 
@@ -30,7 +32,18 @@ class CustomDrawer extends StatelessWidget {
                       bottom: 22.5,
                     ),
                     child: CachedNetworkImage(
-                      imageUrl: "https://via.placeholder.com/175x75",
+                      imageUrl: context
+                          .read<SettingsCubit>()
+                          .state
+                          .settings!
+                          .appLogoCover,
+                      errorWidget: (context, url, error) {
+                        return Image.asset(
+                          Configs.menuImageCoverToShowWhenOriginalOneFails,
+                          width: 175,
+                          height: 75,
+                        );
+                      },
                       width: 175,
                       height: 75,
                     ),
@@ -72,7 +85,8 @@ class CustomDrawer extends StatelessWidget {
               ),
             );
           } else {
-            return Text(state.error ?? 'Error');
+            String error = state.error!;
+            return const Text("");
           }
         },
       ),

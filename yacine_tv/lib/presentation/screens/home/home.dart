@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yacine_tv/core/lang/en.dart';
 import 'package:yacine_tv/presentation/screens/home/widgets/category_card.dart';
 import '../../../logic/channels_categories_cubit/channels_categories_cubit.dart';
 import '../channels/channels.dart';
@@ -22,10 +23,8 @@ class Home extends StatelessWidget {
           } else if (state is ChannelsCategoriesLoaded) {
             final channelsCategories = state.channelsCategories!;
             if (channelsCategories.isEmpty) {
-              return Container(
-                child: const Center(
-                  child: Text('No channels categories found'),
-                ),
+              return const Center(
+                child: Text(L10n.noChannelsCategoriesFound),
               );
             }
 
@@ -67,7 +66,7 @@ class Home extends StatelessWidget {
               ),
             );
           } else {
-            return Center(child: Text(state.error!));
+            return Center(child: Text(state.error ?? L10n.error));
           }
         },
       ),

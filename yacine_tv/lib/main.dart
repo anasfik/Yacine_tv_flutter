@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yacine_tv/core/lang/en.dart';
+import 'config/general.dart';
 import 'data/repositories/categories/categories.dart';
 import 'data/repositories/menu/menu.dart';
+import 'data/repositories/settings/settings.dart';
 import 'logic/channels_categories_cubit/channels_categories_cubit.dart';
 import 'core/core.dart';
 import 'logic/drawer_cubit/drawer_cubit_cubit.dart';
+import 'logic/settings_cubit/settings_cubit.dart';
 import 'presentation/config/theme.dart';
 import 'presentation/screens/home/home.dart';
 
@@ -29,7 +32,11 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DrawerCubit(MenuRepository()),
-          lazy: false,
+          lazy: Configs.loadMenuItemsLazily,
+        ),
+        BlocProvider(
+          create: (context) => SettingsCubit(SettingsRepository()),
+          lazy: Configs.loadAppSettingsLazily,
         ),
       ],
       child: MaterialApp(
