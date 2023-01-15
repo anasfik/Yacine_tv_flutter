@@ -23,8 +23,7 @@ class ChannelCard extends StatelessWidget {
           MarginedBody(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: CachedNetworkImage(
-              imageUrl:
-                  "${channel.channelImage}?a=${DateTime.now().microsecondsSinceEpoch}",
+              imageUrl: "${channel.channelImage}",
               height: 50,
               width: double.infinity,
               progressIndicatorBuilder: (context, url, downloadProgress) =>

@@ -6,7 +6,7 @@ import 'channel_card.dart';
 class ChannelsGridView extends StatelessWidget {
   const ChannelsGridView({
     super.key,
-  required this.channels,
+    required this.channels,
   });
 
   final List<Channel> channels;

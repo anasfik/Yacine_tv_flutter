@@ -4,6 +4,7 @@ import 'package:yacine_tv/presentation/screens/channels/widgets/channles_grid_vi
 
 import '../../../../core/core.dart';
 import '../../../../data/models/channel.dart';
+import 'channels_search_delegate.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   const CustomAppBar(
@@ -35,47 +36,4 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-}
-
-class ChannelsSearchDelegate extends SearchDelegate {
-  final List<Channel> channels;
-
-  ChannelsSearchDelegate(this.channels);
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return <Widget>[
-      IconButton(
-        icon: const Icon(Icons.clear),
-        onPressed: () {
-          query = '';
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () {
-        close(context, null);
-      },
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    final filteredChannels =
-        Core.customChannelsSearch(channels, searchQuery: query);
-
-    return ChannelsGridView(
-      channels: filteredChannels.toList(),
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    return Container();
-  }
 }

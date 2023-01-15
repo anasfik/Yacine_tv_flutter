@@ -14,6 +14,10 @@ class Core {
     Iterable<Channel> channels, {
     String searchQuery = "",
   }) {
+    if (searchQuery.isEmpty) {
+      return [];
+    }
+
     Iterable<Channel> results = channels.where((channel) {
       return channel.titleContains(searchQuery) ||
           channel.tagsContains(searchQuery);
@@ -23,12 +27,19 @@ class Core {
   }
 
   static Iterable<Channel> customCategoriesChannelsSearch(
-    Iterable<ChannelsCategory> categories,
-  ) {
+    Iterable<ChannelsCategory> categories, {
+    String searchQuery = "",
+  }) {
+    if (searchQuery.isEmpty) {
+      return [];
+    }
     final allCategoriesChannels = categories
         .map((category) => category.channels)
         .expand((channels) => channels);
 
-    return customChannelsSearch(allCategoriesChannels);
+    return customChannelsSearch(
+      allCategoriesChannels,
+      searchQuery: searchQuery,
+    );
   }
 }

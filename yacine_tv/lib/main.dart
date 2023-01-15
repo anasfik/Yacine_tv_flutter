@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => DrawerCubit(MenuRepository()),
+          lazy: false,
         ),
       ],
       child: MaterialApp(

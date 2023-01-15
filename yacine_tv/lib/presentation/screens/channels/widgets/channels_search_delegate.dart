@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:yacine_tv/data/models/channels_category.dart';
-import 'package:yacine_tv/presentation/screens/channels/widgets/channles_grid_view.dart';
 
 import '../../../../core/core.dart';
+import '../../../../data/models/channel.dart';
+import 'channles_grid_view.dart';
 
-class CustomSearchDelegate extends SearchDelegate {
-  final List<ChannelsCategory> allCategories;
+class ChannelsSearchDelegate extends SearchDelegate {
+  final List<Channel> channels;
 
-  CustomSearchDelegate({
-    required this.allCategories,
-  });
+  ChannelsSearchDelegate(this.channels);
+
+  @override
+  ThemeData appBarTheme(context) {
+    final ThemeData theme = Theme.of(context);
+    print(theme.appBarTheme.backgroundColor);
+
+    return theme.copyWith(
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: Colors.white.withOpacity(0.65),
+        ),
+      ),
+    );
+  }
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -40,10 +52,8 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final filteredChannels = Core.customCategoriesChannelsSearch(
-      allCategories,
-      searchQuery: query,
-    );
+    final filteredChannels =
+        Core.customChannelsSearch(channels, searchQuery: query);
 
     return ChannelsGridView(
       channels: filteredChannels.toList(),
