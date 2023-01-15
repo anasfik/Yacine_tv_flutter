@@ -13,10 +13,10 @@ class ChannelsCategoriesCubit extends Cubit<ChannelsCategoriesState> {
 
   ChannelsCategoriesCubit(this.repository)
       : super(const ChannelsCategoriesLoading()) {
-    _loadChannelsCategories();
+    loadChannelsCategories();
   }
 
-  Future<void> _loadChannelsCategories() async {
+  Future<void> loadChannelsCategories() async {
     try {
       emit(const ChannelsCategoriesLoading());
 

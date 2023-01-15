@@ -17,28 +17,31 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Material(
-      color: Colors.white,
-      child: InkWell(
-        onTap: onPressed,
-        child: Container(
-          width: 300,
-          height: 75,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            border: Border.all(
-              color: theme.primaryColor,
-              width: 3,
-            ),
-          ),
-          child: Center(
-            child: AutoSizeText(
-              category.categoryTitle,
-              style: theme.textTheme.headline5?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.primaryColor,
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: Material(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: Colors.white,
+        child: InkWell(
+          onTap: onPressed,
+          child: Container(
+            width: double.infinity,
+            height: 70,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              border: Border.fromBorderSide(
+                BorderSide(color: theme.primaryColor, width: 3),
               ),
-              maxLines: 1,
+            ),
+            child: Center(
+              child: AutoSizeText(
+                category.categoryTitle,
+                style: theme.textTheme.headline5?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.primaryColor,
+                ),
+                maxLines: 1,
+              ),
             ),
           ),
         ),

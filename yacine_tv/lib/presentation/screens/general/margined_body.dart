@@ -4,7 +4,7 @@ class MarginedBody extends StatelessWidget {
   const MarginedBody({
     super.key,
     this.child,
-    this.padding = const EdgeInsets.symmetric(horizontal: 16),
+    this.padding = const EdgeInsets.symmetric(horizontal: 12),
   });
 
   final Widget? child;
