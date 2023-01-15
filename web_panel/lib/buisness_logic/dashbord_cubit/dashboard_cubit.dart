@@ -15,28 +15,27 @@ class DashBoardScreensCubit extends Cubit<int> {
     const DashBoardScreen(
       title: L10n.channelsCategories,
       screen: ChannelsCategories(title: L10n.channelsCategories),
-      icon: FlutterRemix.chat_settings_fill,
+      icon: FlutterRemix.tv_2_line,
     ),
     const DashBoardScreen(
       title: L10n.mathEvents,
       screen: MathEvents(title: L10n.mathEvents),
-      icon: FlutterRemix.chat_settings_fill,
+      icon: FlutterRemix.football_line,
     ),
-
     const DashBoardScreen(
       title: L10n.menuBar,
       screen: Menu(title: L10n.menuBar),
-      icon: FlutterRemix.chat_settings_fill,
-    ),
-    const DashBoardScreen(
-      title: L10n.settings,
-      screen: Settings(title: L10n.settings),
-      icon: FlutterRemix.chat_settings_fill,
+      icon: FlutterRemix.menu_3_line,
     ),
     const DashBoardScreen(
       title: L10n.admob,
       screen: AdmobSettings(title: L10n.admob),
-      icon: FlutterRemix.chat_settings_fill,
+      icon: FlutterRemix.advertisement_line,
+    ),
+    const DashBoardScreen(
+      title: L10n.settings,
+      screen: Settings(title: L10n.settings),
+      icon: FlutterRemix.settings_3_line,
     ),
 
     // const DashBoardScreen(

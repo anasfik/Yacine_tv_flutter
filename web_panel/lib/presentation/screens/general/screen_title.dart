@@ -8,7 +8,7 @@ import 'action_button.dart';
 class ScreenTitle extends StatelessWidget {
   const ScreenTitle({
     required this.title,
-    required this.onAddButtonPressed,
+    this.onAddButtonPressed,
     super.key,
     this.showAddButton = true,
     this.addButtonText = L10n.add,
@@ -17,7 +17,7 @@ class ScreenTitle extends StatelessWidget {
   final String title;
   final String addButtonText;
 
-  final void Function() onAddButtonPressed;
+  final void Function()? onAddButtonPressed;
   final bool showAddButton;
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ScreenTitle extends StatelessWidget {
               FlutterRemix.add_line,
               size: 18,
             ),
-            onPressed: onAddButtonPressed,
+            onPressed: onAddButtonPressed ?? () {},
           ),
       ],
     );

@@ -11,9 +11,11 @@ part 'channels_categories_state.dart';
 class ChannelsCategoriesBloc
     extends Bloc<ChannelsCategoriesEvent, ChannelsCategoriesState> {
   final ChannelsCategoriesRepository channelsCategoriesRepository;
-
+  late final TextEditingController categoryTitleController;
+  
   ChannelsCategoriesBloc(this.channelsCategoriesRepository)
       : super(const ChannelsCategoriesState()) {
+    categoryTitleController = TextEditingController();
     on<ChannelsCategoryCreated>(_createChannelCategory);
     on<ChannelsCategoryUpdated>(_channelsCategoryUpdated);
     on<ChannelsCategoryTitleEdited>(_editChannelCategoryTitle);

@@ -23,7 +23,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   late final TextEditingController versionController;
   late final TextEditingController authorController;
 
-  SettingsBloc(this.settingsRepository) : super(SettingsState()) {
+  SettingsBloc(this.settingsRepository) : super(const SettingsState()) {
     _initController();
     on<SettingsRequested>(_onSettingsRequested);
     on<ShowShareSwitched>(_showShareSwitched);
@@ -36,52 +36,41 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     SettingsRequested event,
     Emitter<SettingsState> emit,
   ) async {
-    emit(state.copyWith(isLoading: true));
+    try {
+      emit(state.copyWith(isLoading: true));
+      final settings = await settingsRepository.getSettings();
+      _updateControllers(settings);
 
-    final settings = await settingsRepository.getSettings();
-    print(settings);
-    _updateControllers(settings);
-
-    emit(state.copyWith(
-      isLoading: false,
-      settings: settings,
-      showAds: settings.showAds,
-      showShare: settings.showShare,
-    ));
-  }
-
-  void _updateControllers(AppSettings settings) {
-    privacyController.text = settings.appPrivacyPolicy;
-    admobAppIdController.text = settings.admobAppId;
-    admobBannerIdController.text = settings.admobBannerId;
-    admobInterstitialIdController.text = settings.admobInterstitialId;
-    logoCoverController.text = settings.appLogoCover;
-    emailController.text = settings.appEmail;
-    websiteController.text = settings.appWebsite;
-    versionController.text = settings.appVersion;
-    authorController.text = settings.appAuthor;
-  }
-
-  _initController() {
-    privacyController = TextEditingController(text: "");
-    admobAppIdController = TextEditingController(text: "");
-    admobBannerIdController = TextEditingController(text: "");
-    admobInterstitialIdController = TextEditingController(text: "");
-    logoCoverController = TextEditingController(text: "");
-    emailController = TextEditingController(text: "");
-    websiteController = TextEditingController(text: "");
-    versionController = TextEditingController(text: "");
-    authorController = TextEditingController(text: "");
+      emit(state.copyWith(
+        settings: settings,
+        showAds: settings.showAds,
+        showShare: settings.showShare,
+      ));
+    } catch (e) {
+    } finally {
+      emit(state.copyWith(
+        isLoading: false,
+      ));
+    }
   }
 
   FutureOr<void> _onSettingsUpdated(
     SettingsUpdated event,
     Emitter<SettingsState> emit,
   ) async {
-    final newSettings = _createSettings();
-    await settingsRepository.updateSettings(newSettings);
-    emit(state.copyWith(settings: newSettings));
-    event.onSuccess();
+    try {
+      emit(state.copyWith(isLoading: true));
+      final newSettings = _createSettings();
+      await settingsRepository.updateSettings(newSettings);
+
+      emit(state.copyWith(settings: newSettings));
+
+      event.onSuccess();
+    } catch (e) {
+      event.onError(e.toString());
+    } finally {
+      emit(state.copyWith(isLoading: false));
+    }
   }
 
   AppSettings _createSettings() {
@@ -112,5 +101,29 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) {
     emit(state.copyWith(showAds: !state.showAds));
+  }
+
+  void _updateControllers(AppSettings settings) {
+    privacyController.text = settings.appPrivacyPolicy;
+    admobAppIdController.text = settings.admobAppId;
+    admobBannerIdController.text = settings.admobBannerId;
+    admobInterstitialIdController.text = settings.admobInterstitialId;
+    logoCoverController.text = settings.appLogoCover;
+    emailController.text = settings.appEmail;
+    websiteController.text = settings.appWebsite;
+    versionController.text = settings.appVersion;
+    authorController.text = settings.appAuthor;
+  }
+
+  _initController() {
+    privacyController = TextEditingController(text: "");
+    admobAppIdController = TextEditingController(text: "");
+    admobBannerIdController = TextEditingController(text: "");
+    admobInterstitialIdController = TextEditingController(text: "");
+    logoCoverController = TextEditingController(text: "");
+    emailController = TextEditingController(text: "");
+    websiteController = TextEditingController(text: "");
+    versionController = TextEditingController(text: "");
+    authorController = TextEditingController(text: "");
   }
 }

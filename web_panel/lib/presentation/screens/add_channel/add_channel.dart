@@ -35,68 +35,70 @@ class AddChannel extends StatelessWidget {
             title: L10n.addChannel,
           ),
           body: MarginedBodyForInputs(
-            child: Column(
-              children: [
-                DataField(
-                  hint: 'Channel Logo Link',
-                  controller: bloc.channelImageUrlController,
-                ),
-                DataField(
-                  hint: 'Channel Name',
-                  controller: bloc.channelNameController,
-                ),
-                DataField(
-                  hint: 'Channel Stream Link',
-                  controller: bloc.channelStreamUrlController,
-                ),
-                DataField(
-                  hint: 'Channel tags',
-                  controller: bloc.channelTagsController,
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    AddActionButton(
-                      text: L10n.add,
-                      onPressed: () {
-                        bloc.add(
-                          AddedChannel(
-                            onSuccess: () {
-                              final String categoryName =
-                                  category.categoryTitle;
-                              final String channelName =
-                                  bloc.channelNameController.text;
-                              context
-                                  .read<ChannelsCategoriesBloc>()
-                                  .add(NewCategoriesGetRequested());
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      '$channelName Is Added to  $categoryName Successfully'),
-                                ),
-                              );
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  DataField(
+                    hint: 'Channel Logo Link',
+                    controller: bloc.channelImageUrlController,
+                  ),
+                  DataField(
+                    hint: 'Channel Name',
+                    controller: bloc.channelNameController,
+                  ),
+                  DataField(
+                    hint: 'Channel Stream Link',
+                    controller: bloc.channelStreamUrlController,
+                  ),
+                  DataField(
+                    hint: 'Channel tags',
+                    controller: bloc.channelTagsController,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      AddActionButton(
+                        text: L10n.add,
+                        onPressed: () {
+                          bloc.add(
+                            AddedChannel(
+                              onSuccess: () {
+                                final String categoryName =
+                                    category.categoryTitle;
+                                final String channelName =
+                                    bloc.channelNameController.text;
+                                context
+                                    .read<ChannelsCategoriesBloc>()
+                                    .add(NewCategoriesGetRequested());
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        '$channelName Is Added to  $categoryName Successfully'),
+                                  ),
+                                );
 
-                              Navigator.of(context)
-                                  .popUntil((route) => route.isFirst);
-                            },
-                            onError: (er) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(L10n.channelsCategoriesError),
-                                ),
-                              );
-                            },
-                            categoryId: category.id,
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                              },
+                              onError: (er) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(L10n.channelsCategoriesError),
+                                  ),
+                                );
+                              },
+                              categoryId: category.id,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );

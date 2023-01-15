@@ -36,7 +36,7 @@ class EditChannelsCategory extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => UpdateChannelsCategory(
-                    categoryId: category.id,
+                    category: category,
                   ),
                 ),
               );

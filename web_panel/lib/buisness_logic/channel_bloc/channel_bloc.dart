@@ -30,31 +30,45 @@ class ChannelBloc extends Bloc<ChannelEvent, ChannelState> {
   }
 
   void _saveUpdate(UpdateChannel event, Emitter<ChannelState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    await channelsCategoriesRepository.updateChannel(
-      event.categoryId,
-      _channelFromControllers(),
-    );
-    emit(state.copyWith(isLoading: false));
+    try {
+      emit(state.copyWith(isLoading: true));
+      await channelsCategoriesRepository.updateChannel(
+        event.categoryId,
+        _channelFromControllers(),
+      );
+      event.onSuccess.call();
+    } catch (e) {
+      event.onError.call(e.toString());
+    } finally {
+      emit(state.copyWith(isLoading: false));
+    }
   }
 
   _addChannel(AddedChannel event, Emitter<ChannelState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    await channelsCategoriesRepository.addChannel(
-      event.categoryId,
-      _channelFromControllers(),
-    );
-    event.onSuccess();
+    try {
+      emit(state.copyWith(isLoading: true));
+      await channelsCategoriesRepository.addChannel(
+        event.categoryId,
+        _channelFromControllers(),
+      );
+      event.onSuccess();
+    } catch (e) {
+      event.onError(e.toString());
+    }
     emit(state.copyWith(isLoading: false));
   }
 
   _deleteChannel(DeleteChannel event, Emitter<ChannelState> emit) async {
-    emit(state.copyWith(isLoading: true));
-    await channelsCategoriesRepository.deleteChannel(
-      event.categoryId,
-      event.channelId,
-    );
-    event.onSuccess();
+    try {
+      emit(state.copyWith(isLoading: true));
+      await channelsCategoriesRepository.deleteChannel(
+        event.categoryId,
+        event.channelId,
+      );
+      event.onSuccess();
+    } catch (e) {
+      event.onError(e.toString());
+    }
     emit(state.copyWith(isLoading: false));
   }
 

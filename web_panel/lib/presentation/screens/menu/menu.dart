@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:web_panel/buisness_logic/menu_item_bloc/menu_item_bloc.dart';
+import 'package:web_panel/data/providers/l10n/en.dart';
 import 'package:web_panel/presentation/screens/general/data_field.dart';
-
+import 'package:web_panel/presentation/screens/general/margined_body.dart';
+import 'package:web_panel/presentation/screens/general/screen_title.dart';
 import '../../../data/models/menu_item.dart' as mi;
 import '../../../buisness_logic/menu_bloc/menu_bloc_bloc.dart';
 import '../../../data/repositories/menu/menu.dart';
-import '../../config/colors/colors.dart';
-import '../general/action_button.dart';
-import 'widgets/app_bar.dart';
-
 class Menu extends StatelessWidget {
   const Menu({
     super.key,
@@ -21,79 +19,133 @@ class Menu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allItemsBloc = context.read<MenuBloc>();
+
     return Scaffold(
-      // appBar: const MAppBar(),
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        child: MarginedBodyForInputs(
+          child: Column(
             children: <Widget>[
-              Text(
-                title,
-                style: Theme.of(context).textTheme.headline4?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.black,
-                    ),
-              ),
-              Row(
-                children: <Widget>[
-                  ActionButton(
-                    icon: const Icon(
-                      FlutterRemix.add_line,
-                      size: 18,
-                    ),
-                    height: 30,
-                    onPressed: () {
-                      menuItemDialog(
-                        item: mi.MenuItem.empty(),
-                        context: context,
-                        onSuccessGlobalBloc: () {
-                          allItemsBloc.add(MenuItemsRequested());
-                        },
-                        operation: MenuItemOperation.add,
-                      );
+              ScreenTitle(
+                title: title,
+                addButtonText: L10n.newMenuItem,
+                onAddButtonPressed: () {
+                  menuItemDialog(
+                    item: mi.MenuItem.empty(),
+                    context: context,
+                    onSuccessGlobalBloc: () {
+                      allItemsBloc.add(MenuItemsRequested());
                     },
-                    text: "Add",
-                  ),
-                ],
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              BlocBuilder<MenuBloc, MenuBlocState>(
-                builder: (context, state) {
-                  if (state.isLoading) {
-                    return const CircularProgressIndicator();
-                  } else if (state.menuItems != null) {
-                    return Column(
-                      children: List.generate(
-                        state.menuItems!.length,
-                        (index) {
-                          final current = state.menuItems![index];
-                          return GestureDetector(
-                              onTap: () {
-                                menuItemDialog(
-                                  item: current,
-                                  context: context,
-                                  onSuccessGlobalBloc: () {
-                                    allItemsBloc.add(MenuItemsRequested());
-                                  },
-                                  operation: MenuItemOperation.update,
-                                );
-                              },
-                              child: Text(current.title));
-                        },
-                      ),
-                    );
-                  } else {
-                    return const Text("no data");
-                  }
+                    operation: MenuItemOperation.add,
+                  );
                 },
               ),
+              Column(
+                children: <Widget>[
+                  BlocBuilder<MenuBloc, MenuBlocState>(
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return const CircularProgressIndicator();
+                      } else if (state.menuItems != null) {
+                        return Column(
+                          children: List.generate(
+                            state.menuItems!.length,
+                            (index) {
+                              final current = state.menuItems![index];
+
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 5),
+                                child: Material(
+                                  borderRadius: BorderRadius.circular(5),
+                                  clipBehavior: Clip.hardEdge,
+                                  child: InkWell(
+                                    mouseCursor: SystemMouseCursors.click,
+                                    onHover: (a) {},
+                                    onTap: () {
+                                      menuItemDialog(
+                                        item: current,
+                                        context: context,
+                                        onSuccessGlobalBloc: () {
+                                          allItemsBloc
+                                              .add(MenuItemsRequested());
+                                        },
+                                        operation: MenuItemOperation.update,
+                                      );
+                                    },
+                                    child: ListTile(
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        vertical: 10,
+                                        horizontal: 10,
+                                      ),
+                                      leading: Image.network(
+                                        current.icon,
+                                        width: 50,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return const Icon(
+                                            FlutterRemix.error_warning_fill,
+                                          );
+                                        },
+                                      ),
+                                      title: Text(current.title),
+                                      trailing: Flexible(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            IconButton(
+                                              icon: const Icon(
+                                                FlutterRemix.edit_2_line,
+                                              ),
+                                              onPressed: () {
+                                                menuItemDialog(
+                                                  item: current,
+                                                  context: context,
+                                                  onSuccessGlobalBloc: () {
+                                                    allItemsBloc.add(
+                                                        MenuItemsRequested());
+                                                  },
+                                                  operation:
+                                                      MenuItemOperation.update,
+                                                );
+                                              },
+                                            ),
+                                            IconButton(
+                                              icon: const Icon(
+                                                FlutterRemix.delete_bin_2_line,
+                                              ),
+                                              onPressed: () {
+                                                menuItemDialog(
+                                                  item: current,
+                                                  context: context,
+                                                  onSuccessGlobalBloc: () {
+                                                    allItemsBloc.add(
+                                                        MenuItemsRequested());
+                                                  },
+                                                  operation:
+                                                      MenuItemOperation.update,
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      } else {
+                        return const Text("no data");
+                      }
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -124,14 +176,11 @@ Future menuItemDialog({
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Cancel"),
+                child: const Text(L10n.cancel),
               ),
               if (operation == MenuItemOperation.update)
                 TextButton(
                   onPressed: () {
-                    print(item.title);
-                    print(item.id);
-
                     itemBloc.add(
                       MenuItemDeleted(
                         itemId: item.id,
@@ -140,7 +189,7 @@ Future menuItemDialog({
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text("Deleted"),
+                              content: Text(L10n.menuItemAddedError),
                             ),
                           );
                           Navigator.pop(context);
@@ -149,7 +198,7 @@ Future menuItemDialog({
                       ),
                     );
                   },
-                  child: Text("delete"),
+                  child: const Text(L10n.delete),
                 ),
               TextButton(
                 onPressed: () {
@@ -161,7 +210,7 @@ Future menuItemDialog({
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("Added"),
+                                  content: Text(L10n.menuItemAddedSuccess),
                                 ),
                               );
                               Navigator.pop(context);
@@ -175,12 +224,18 @@ Future menuItemDialog({
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text("updated"),
+                                  content: Text(L10n.menuItemUpdatedSuccess),
                                 ),
                               );
                               Navigator.pop(context);
                             },
-                            onError: (er) {},
+                            onError: (er) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(L10n.menuItemUpdatedError),
+                                ),
+                              );
+                            },
                           ),
                   );
                 },

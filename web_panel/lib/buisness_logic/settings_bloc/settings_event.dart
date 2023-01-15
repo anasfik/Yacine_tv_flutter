@@ -12,8 +12,10 @@ class SettingsRequested extends SettingsEvent {
 
 class SettingsUpdated extends SettingsEvent {
   final void Function() onSuccess;
+  final void Function(String) onError;
   SettingsUpdated({
     required this.onSuccess,
+    required this.onError,
   });
 }
 

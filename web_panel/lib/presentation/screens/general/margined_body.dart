@@ -21,9 +21,10 @@ class MarginedBody extends StatelessWidget {
 class MarginedBodyForInputs extends MarginedBody {
   const MarginedBodyForInputs({
     super.key,
-    super.padding = const EdgeInsets.symmetric(
-      horizontal: 40,
-      vertical: 40,
+    super.padding = const EdgeInsets.only(
+      left: 40,
+      right: 40,
+      top: 40,
     ),
     super.child,
   });
