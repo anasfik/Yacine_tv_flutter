@@ -22,7 +22,7 @@ class Themes {
 
   static Future<void> _decodeLightTheme() async {
     dynamic decodedTheme = await rootBundle.loadString(Configs.lightThemePath);
-    
+
     decodedTheme = json.decode(decodedTheme);
     _decodedLightTheme = ThemeDecoder.decodeThemeData(decodedTheme);
   }

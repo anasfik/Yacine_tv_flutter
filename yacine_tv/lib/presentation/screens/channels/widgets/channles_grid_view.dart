@@ -15,7 +15,10 @@ class ChannelsGridView extends StatelessWidget {
     return GridView.builder(
       padding: const EdgeInsets.symmetric(vertical: 10),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: 0.9,
         crossAxisCount: 3,
+        crossAxisSpacing: 7.5,
+        mainAxisSpacing: 7.5,
       ),
       itemCount: channels.length,
       itemBuilder: (_, int index) {

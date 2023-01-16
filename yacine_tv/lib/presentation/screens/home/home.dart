@@ -12,6 +12,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: BlocBuilder<ChannelsCategoriesCubit, ChannelsCategoriesState>(
         builder: (context, state) {
           if (state is ChannelsCategoriesLoading) {

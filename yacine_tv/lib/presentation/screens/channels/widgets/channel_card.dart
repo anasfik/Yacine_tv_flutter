@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -23,13 +24,19 @@ class ChannelCard extends StatelessWidget {
           MarginedBody(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: CachedNetworkImage(
-              imageUrl: "${channel.channelImage}",
+              imageUrl:
+                  "${channel.channelImage}?a=${DateTime.now().millisecondsSinceEpoch}",
               height: 50,
               width: double.infinity,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   Center(
-                child: CircularProgressIndicator(
-                  value: downloadProgress.progress,
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                    value: downloadProgress.progress,
+                  ),
                 ),
               ),
               errorWidget: (context, url, error) {
@@ -42,7 +49,11 @@ class ChannelCard extends StatelessWidget {
           ),
           Spacer(),
           Center(
-            child: Text(channel.channelName),
+            child: AutoSizeText(
+              channel.channelName,
+              maxLines: 1,
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ),
           const SizedBox(
             height: 10,

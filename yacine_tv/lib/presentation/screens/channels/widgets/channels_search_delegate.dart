@@ -7,7 +7,13 @@ import 'channles_grid_view.dart';
 class ChannelsSearchDelegate extends SearchDelegate {
   final List<Channel> channels;
 
-  ChannelsSearchDelegate(this.channels);
+  ChannelsSearchDelegate(
+    this.channels, {
+    super.searchFieldStyle = const TextStyle(
+      color: Colors.white,
+      fontSize: 18,
+    ),
+  });
 
   @override
   ThemeData appBarTheme(context) {
@@ -47,7 +53,12 @@ class ChannelsSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container();
+    final filteredChannels =
+        Core.customChannelsSearch(channels, searchQuery: query);
+
+    return ChannelsGridView(
+      channels: filteredChannels.toList(),
+    );
   }
 
   @override

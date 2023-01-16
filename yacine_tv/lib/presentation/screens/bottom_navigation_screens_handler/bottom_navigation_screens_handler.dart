@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
@@ -13,24 +14,34 @@ class ScreensHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       drawer: const CustomDrawer(),
       appBar: const CustomAppBar(),
       bottomNavigationBar: const CustomNavigationBar(),
-      body: BlocBuilder<BottomNavigationCubit, int>(
-        builder: (_, state) {
-          return FadeIndexedStack(
-            beginOpacity: 0.0,
-            endOpacity: 1.0,
-            curve: Curves.easeInOut,
-            duration: const Duration(milliseconds: 100),
-            index: state,
-            children: context.read<BottomNavigationCubit>().items.map(
-              (item) {
-                return item.screen;
-              },
-            ).toList(),
-          );
-        },
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image.asset(
+            "assets/background.jpg",
+            fit: BoxFit.cover,
+          ),
+          BlocBuilder<BottomNavigationCubit, int>(
+            builder: (_, state) {
+              return FadeIndexedStack(
+                beginOpacity: 0.0,
+                endOpacity: 1.0,
+                curve: Curves.easeInOut,
+                duration: const Duration(milliseconds: 100),
+                index: state,
+                children: context.read<BottomNavigationCubit>().items.map(
+                  (item) {
+                    return item.screen;
+                  },
+                ).toList(),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

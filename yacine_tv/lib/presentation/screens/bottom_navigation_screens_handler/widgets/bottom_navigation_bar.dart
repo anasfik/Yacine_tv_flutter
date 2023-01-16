@@ -12,6 +12,14 @@ class CustomNavigationBar extends StatelessWidget {
     return BlocBuilder<BottomNavigationCubit, int>(
       builder: (context, state) {
         return BottomNavigationBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.white.withOpacity(0.65),
+          iconSize: 27.5,
+          selectedFontSize: 11.5,
+          unselectedFontSize: 11,
+          
+          type: BottomNavigationBarType.fixed,
           onTap: (itemIndex) {
             bloc.selectScreenAt(itemIndex);
           },
@@ -19,7 +27,9 @@ class CustomNavigationBar extends StatelessWidget {
           items: bloc.items.map(
             (item) {
               return BottomNavigationBarItem(
-                icon: Icon(item.icon),
+                icon: Container(
+                    padding: const EdgeInsets.only(bottom: 6),
+                    child: Icon(item.icon)),
                 label: item.name,
               );
             },

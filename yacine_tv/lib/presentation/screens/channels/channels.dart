@@ -18,19 +18,29 @@ class Channels extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        category.categoryTitle,
-        channels: category.channels,
-      ),
-      body: MarginedBody(
-        child: ScrollConfiguration(
-          behavior: const ScrollBehavior().copyWith(scrollbars: false),
-          child: ChannelsGridView(
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.asset(
+          "assets/background.jpg",
+          fit: BoxFit.cover,
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: CustomAppBar(
+            category.categoryTitle,
             channels: category.channels,
           ),
+          body: MarginedBody(
+            child: ScrollConfiguration(
+              behavior: const ScrollBehavior().copyWith(scrollbars: false),
+              child: ChannelsGridView(
+                channels: category.channels,
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

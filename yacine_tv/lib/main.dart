@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yacine_tv/core/lang/en.dart';
 import 'config/general.dart';
 import 'data/repositories/categories/categories.dart';
+import 'data/repositories/event_match/event_matches.dart';
 import 'data/repositories/menu/menu.dart';
 import 'data/repositories/settings/settings.dart';
 import 'logic/bottom_navigation/bottom_navigation_cubit.dart';
 import 'logic/channels_categories_cubit/channels_categories_cubit.dart';
 import 'core/core.dart';
 import 'logic/drawer_cubit/drawer_cubit_cubit.dart';
+import 'logic/event_matches/event_matches_cubit.dart';
 import 'logic/settings_cubit/settings_cubit.dart';
 import 'presentation/config/theme.dart';
 import 'presentation/screens/bottom_navigation_screens_handler/bottom_navigation_screens_handler.dart';
@@ -42,6 +44,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => BottomNavigationCubit(0),
+        ),
+        BlocProvider(
+          create: (context) => EventMatchesCubit(MatchEventsRepository()),
+          lazy: Configs.loadEventMatchesLazily,
         ),
       ],
       child: MaterialApp(

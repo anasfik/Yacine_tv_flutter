@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/models/navigation_item.dart';
+import '../../presentation/screens/event_matches/event_matches.dart';
 import '../../presentation/screens/home/home.dart';
 
 part 'bottom_navigation_state.dart';
@@ -17,7 +18,7 @@ class BottomNavigationCubit extends Cubit<int> {
     NavigationItem(
       icon: Icons.sports_football,
       name: 'Match',
-      screen: Scaffold(),
+      screen: EventMatches(),
     ),
   ];
 

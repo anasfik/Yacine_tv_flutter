@@ -8,6 +8,8 @@ class Configs {
 
   static bool loadMenuItemsLazily = false;
   static bool loadAppSettingsLazily = false;
+  static bool loadEventMatchesLazily = false;
+
   static const AppSettings initialSettings = AppSettings(
     appEmail: '',
     appAuthor: '',
