@@ -1,13 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:yacine_tv/data/models/channel.dart';
 import '../config/general.dart';
 import '../data/models/channels_category.dart';
 
 class Core {
-  // Initializitaion method.
+  // Initialization method.
   static Future<void> init() async {
     // Load the environment variables.
     await dotenv.load(fileName: Configs.environmentFilePath);
+
+    // Allowing only portrait mode.
+    setPortrait();
   }
 
   static Iterable<Channel> customChannelsSearch(
@@ -41,5 +46,23 @@ class Core {
       allCategoriesChannels,
       searchQuery: searchQuery,
     );
+  }
+
+  static void setLandscape() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+  }
+
+  static void setPortrait() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
+
+  static double deviceAspectRatio(BuildContext context) {
+    return MediaQuery.of(context).size.aspectRatio;
   }
 }

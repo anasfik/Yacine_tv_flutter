@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../data/models/channel.dart';
 import '../../general/margined_body.dart';
+import 'channel_screen.dart';
 
 class ChannelCard extends StatelessWidget {
   const ChannelCard({
@@ -15,50 +16,59 @@ class ChannelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 10,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (_) => ChannelScreen(
+            channel: channel,
           ),
-          MarginedBody(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: CachedNetworkImage(
-              imageUrl:
-                  "${channel.channelImage}?a=${DateTime.now().millisecondsSinceEpoch}",
-              height: 50,
-              width: double.infinity,
-              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                  Center(
-                child: Container(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1.5,
-                    value: downloadProgress.progress,
+        ));
+      },
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            const SizedBox(
+              height: 10,
+            ),
+            MarginedBody(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CachedNetworkImage(
+                imageUrl:
+                    "${channel.channelImage}?a=${DateTime.now().millisecondsSinceEpoch}",
+                height: 50,
+                width: double.infinity,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                      value: downloadProgress.progress,
+                    ),
                   ),
                 ),
+                errorWidget: (context, url, error) {
+                  return Icon(
+                    Icons.error,
+                    color: Theme.of(context).primaryColor,
+                  );
+                },
               ),
-              errorWidget: (context, url, error) {
-                return Icon(
-                  Icons.error,
-                  color: Theme.of(context).primaryColor,
-                );
-              },
             ),
-          ),
-          Spacer(),
-          Center(
-            child: AutoSizeText(
-              channel.channelName,
-              maxLines: 1,
-              style: Theme.of(context).textTheme.labelLarge,
+            Spacer(),
+            Center(
+              child: AutoSizeText(
+                channel.channelName,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       ),
     );
   }

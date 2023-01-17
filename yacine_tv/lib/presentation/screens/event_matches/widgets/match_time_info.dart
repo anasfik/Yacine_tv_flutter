@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:yacine_tv/core/extensions/date.dart';
 
 class MatchTimeInfo extends StatelessWidget {
   const MatchTimeInfo({
@@ -25,14 +26,5 @@ class MatchTimeInfo extends StatelessWidget {
             ),
       ),
     );
-  }
-}
-
-extension TimeFormattedExtension on DateTime {
-  String timeFormatted() {
-    final padLeftedhour = hour.toString().padLeft(2, '0');
-    final padLeftedminute = minute.toString().padLeft(2, '0');
-
-    return "$padLeftedhour:$padLeftedminute";
   }
 }

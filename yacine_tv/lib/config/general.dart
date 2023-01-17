@@ -10,6 +10,10 @@ class Configs {
   static bool loadAppSettingsLazily = false;
   static bool loadEventMatchesLazily = false;
 
+  static bool filterOnlyTodayEventMatches = true;
+
+  static bool autoPlay = true;
+  
   static const AppSettings initialSettings = AppSettings(
     appEmail: '',
     appAuthor: '',

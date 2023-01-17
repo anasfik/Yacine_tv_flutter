@@ -13,38 +13,36 @@ class EventMatches extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: RefreshIndicator(
-        onRefresh: () {
-          return context.read<EventMatchesCubit>().loadEventMatches();
-        },
-        child: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            MarginedBody(
-              child: BlocBuilder<EventMatchesCubit, EventMatchesState>(
-                builder: (context, state) {
-                  if (state is EventMatchesLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is EventMatchesLoaded) {
-                    final eventMatches = state.eventMatches!;
-                    if (eventMatches.isEmpty) {}
+      body: BlocBuilder<EventMatchesCubit, EventMatchesState>(
+        builder: (context, state) {
+          if (state is EventMatchesLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is EventMatchesLoaded) {
+            final eventMatches = state.eventMatches!;
+            if (eventMatches.isEmpty) {}
 
-                    return ListView.builder(
-                      itemCount: eventMatches.length,
-                      itemBuilder: (context, index) {
-                        final current = eventMatches[index];
+            return RefreshIndicator(
+              onRefresh: () {
+                return context.read<EventMatchesCubit>().loadEventMatches();
+              },
+              child: Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  ListView.builder(
+                    itemCount: eventMatches.length,
+                    itemBuilder: (context, index) {
+                      final current = eventMatches[index];
 
-                        return EventMatchCard(eventMatch: current);
-                      },
-                    );
-                  } else {
-                    return const Text("sssss");
-                  }
-                },
+                      return EventMatchCard(eventMatch: current);
+                    },
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
+            );
+          } else {
+            return const Text("sssss");
+          }
+        },
       ),
     );
   }
