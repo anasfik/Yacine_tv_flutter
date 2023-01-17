@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:video_viewer/video_viewer.dart';
+import 'package:video_player/video_player.dart';
 import 'package:yacine_tv/core/lang/en.dart';
 
 import '../../../../core/core.dart';
@@ -60,7 +60,10 @@ class _ChannelScreenState extends State<ChannelScreen> {
                   aspectRatio: Core.deviceAspectRatio(context),
                   child: VideoPlayer(cubit.videoPlayerController),
                 ),
-                PlayerOverlay(cubit: cubit),
+                PlayerOverlay(
+                  cubit: cubit,
+                  channel: widget.channel,
+                ),
               ],
             );
           } else {

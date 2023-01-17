@@ -1,69 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../../../../data/models/channel.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
+import 'play_button.dart';
 
-class PlayerOverlay extends StatefulWidget {
+class PlayerOverlay extends StatelessWidget {
   const PlayerOverlay({
     super.key,
     required this.cubit,
+    required this.channel,
   });
   final ChannelPlayerCubit cubit;
+  final Channel channel;
 
-  @override
-  State<PlayerOverlay> createState() => _PlayerOverlayState();
-}
-
-class _PlayerOverlayState extends State<PlayerOverlay>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
-
-    if (widget.cubit.state.playingStatus == PlayingStatus.isPlaying) {
-      _animationController.forward();
-    }
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+  final animationDuration = const Duration(milliseconds: 200);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        BlocSelector<ChannelPlayerCubit, ChannelPlayerState, PlayingStatus>(
-          bloc: widget.cubit,
-          selector: (state) {
-            return state.playingStatus;
-          },
-          builder: (context, state) {
-            return GestureDetector(
-              onTap: () {
-                widget.cubit.togglePLaying(_animationController);
-              },
-              child: Align(
-                alignment: Alignment.center,
-                child: AnimatedIcon(
-                  color: Theme.of(context).primaryColor,
-                  icon: AnimatedIcons.play_pause,
-                  progress: _animationController,
-                  size: 40,
-                ),
+    final mq = MediaQuery.of(context);
+
+    return GestureDetector(
+      onTap: () {
+        cubit.togglePlayerOverlay();
+      },
+      child: BlocSelector<ChannelPlayerCubit, ChannelPlayerState, bool>(
+        bloc: cubit,
+        selector: (state) {
+          return state.showPlayerOverlay;
+        },
+        builder: (context, state) {
+          return Container(
+            width: mq.size.width,
+            height: mq.size.height,
+            color: Colors.blue.withOpacity(0.5),
+            child: AnimatedOpacity(
+              opacity: state ? 1 : 0,
+              duration: animationDuration,
+              child: PlayButton(
+                animationDuration: animationDuration,
+                cubit: cubit,
               ),
-            );
-          },
-        ),
-      ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

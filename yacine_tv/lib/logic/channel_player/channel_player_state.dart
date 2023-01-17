@@ -9,15 +9,23 @@ enum PlayingStatus {
 abstract class ChannelPlayerState extends Equatable {
   final bool isInitialized;
   final bool isDuringInitialization;
-  final String? error;
   final PlayingStatus playingStatus;
+  final bool showPlayerOverlay;
+  final String? error;
+
   @override
-  List<Object?> get props =>
-      [isInitialized, isDuringInitialization, playingStatus, error];
+  List<Object?> get props => [
+        isInitialized,
+        isDuringInitialization,
+        playingStatus,
+        showPlayerOverlay,
+        error,
+      ];
 
   const ChannelPlayerState({
     this.isInitialized = false,
     this.isDuringInitialization = false,
+    this.showPlayerOverlay = false,
     this.playingStatus = PlayingStatus.isPaused,
     this.error,
   });
@@ -50,5 +58,17 @@ class ChannelPlayerPlaying extends ChannelPlayerState {
 class ChannelPlayerPaused extends ChannelPlayerState {
   const ChannelPlayerPaused({
     super.playingStatus = PlayingStatus.isPaused,
+  });
+}
+
+class ChannelPlayerOverlayVisible extends ChannelPlayerState {
+  const ChannelPlayerOverlayVisible({
+    super.showPlayerOverlay = true,
+  });
+}
+
+class ChannelPlayerOverlayHidden extends ChannelPlayerState {
+  const ChannelPlayerOverlayHidden({
+    super.showPlayerOverlay = false,
   });
 }

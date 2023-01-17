@@ -23,6 +23,8 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
 
   @override
   Future<void> close() async {
+    _controller.pause();
+    _controller.removeListener(() {});
     _controller.dispose();
     super.close();
   }
@@ -34,6 +36,14 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
     } else {
       _controller.play();
       animationController.forward();
+    }
+  }
+
+  void togglePlayerOverlay() {
+    if (state.showPlayerOverlay) {
+      emit(const ChannelPlayerOverlayHidden());
+    } else {
+      emit(const ChannelPlayerOverlayVisible());
     }
   }
 
@@ -60,12 +70,19 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
   }
 
   void _listenOnVideoControllerChanges() {
+    print(_controller.value.position);
     _controller.addListener(() {
       if (_controller.value.isPlaying) {
         emit(const ChannelPlayerPlaying());
-      } else {
+      } else if (!_controller.value.isPlaying) {
         emit(const ChannelPlayerPaused());
       }
     });
+  }
+
+  @override
+  void onChange(Change<ChannelPlayerState> change) {
+    print(change.currentState.showPlayerOverlay);
+    super.onChange(change);
   }
 }
