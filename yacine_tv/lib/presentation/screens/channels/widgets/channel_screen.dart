@@ -7,6 +7,7 @@ import 'package:yacine_tv/core/lang/en.dart';
 import '../../../../core/core.dart';
 import '../../../../data/models/channel.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
+import 'player_overlay.dart';
 
 class ChannelScreen extends StatefulWidget {
   const ChannelScreen({
@@ -59,6 +60,7 @@ class _ChannelScreenState extends State<ChannelScreen> {
                   aspectRatio: Core.deviceAspectRatio(context),
                   child: VideoPlayer(cubit.videoPlayerController),
                 ),
+                PlayerOverlay(cubit: cubit),
               ],
             );
           } else {
