@@ -4,9 +4,24 @@ import 'package:http/http.dart' as http;
 
 import '../../interfaces/data_type.dart';
 
+/// This class provides menu data.
+///
+/// It implements the [DataTypeInterface] interface, which defines the contract for data providers.
+/// It uses the [http] package to make GET requests to the specified API endpoint, which is defined in the [endPoint] variable.
+/// It also uses the [dotenv] package to access the API_URL environment variable.
 class MenuProvider implements DataTypeInterface {
   static String endPoint = "/drawer_menu";
 
+  // ignore: format-comment
+  /// This function fetches menu data from the API.
+  ///
+  /// It returns a [Future] that completes with the body of the response as a [String].
+  /// The request contains headers for Content-Type and Accept to specify that the request and response body should be in json format.
+  ///
+  /// # Example
+  /// ```dart
+  /// final data = await MenuProvider.get();
+  /// ```
   static Future<String> get() async {
     http.Response response = await http.get(
       Uri.http(

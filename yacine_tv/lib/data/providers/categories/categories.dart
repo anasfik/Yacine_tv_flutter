@@ -1,139 +1,32 @@
-import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:http/http.dart' as http;
 
 import '../../interfaces/data_type.dart';
-import '../../models/channel.dart';
-import '../../models/channels_category.dart';
 
+/// This class provides categories data.
+///
+/// It implements the [DataTypeInterface] interface, which defines the contract for data providers.
+/// It uses the [http] package to make GET requests to the specified API endpoint, which is defined in the [endPoint] variable.
+/// It also uses the [dotenv] package to access the API_URL environment variable.
 class CategoriesProvider implements DataTypeInterface {
   static String endPoint = "/categories";
 
+  // ignore: format-comment
+  /// This function fetches categories data from the API.
+  ///
+  /// It returns a [Future] that completes with the body of the response as a [String].
+  ///
+  /// ## Example
+  /// ```dart
+  /// final data = await CategoriesProvider.get();
+  /// ```
   static Future<String> get() async {
     http.Response res = await http.get(
       Uri.http(
         dotenv.env['API_URL']!,
         endPoint,
       ),
-    );
-
-    return res.body;
-  }
-
-  static Future<String> post(ChannelsCategory category) async {
-    http.Response res = await http.post(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        endPoint,
-      ),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: jsonEncode(category.toMap()),
-    );
-
-    return res.body;
-  }
-
-  static delete(
-    String categoryId,
-  ) async {
-    http.Response res = await http.delete(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId',
-      ),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-
-    return res.body;
-  }
-
-  // static Future<void> delete(String categoryId) async {
-  //   final res = await http.delete(
-  //     Uri.http(
-  //       dotenv.env['API_URL']!,
-  //       '$endPoint/$categoryId',
-  //     ),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //     },
-  //   );
-  //   print(res);
-  // }
-
-  static Future<String> put(ChannelsCategory channelsCategory) async {
-    print(channelsCategory.id);
-    print(channelsCategory.categoryTitle);
-
-    http.Response res = await http.put(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        '$endPoint/${channelsCategory.id}',
-      ),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: jsonEncode(channelsCategory.toMapWithOnlyTitle()),
-    );
-
-    return res.body;
-  }
-
-  static deleteChannel(String categoryId, String channelId) async {
-    http.Response res = await http.delete(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId/channels/$channelId',
-      ),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-
-    return res.body;
-  }
-
-  static putChannel(String categoryId, Channel channel) async {
-    final channelId = channel.id;
-    http.Response res = await http.put(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId/channels/$channelId',
-      ),
-      body: jsonEncode(channel.toMap()),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    );
-    print(res.body);
-    return res.body;
-  }
-
-  static postChannel(
-    String categoryId,
-    Channel channel,
-  ) async {
-    http.Response res = await http.post(
-      Uri.http(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId/channels',
-      ),
-      body: jsonEncode(channel.toMap()),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
     );
 
     return res.body;
