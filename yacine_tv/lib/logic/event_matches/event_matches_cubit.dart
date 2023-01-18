@@ -14,6 +14,14 @@ class EventMatchesCubit extends Cubit<EventMatchesState> {
     loadEventMatches();
   }
 
+  /// This function is used to load the event matches.
+  /// It will emit a [EventMatchesLoaded] state if the event matches are loaded successfully.
+  /// It will emit a [EventMatchesError] state if the event matches are not loaded successfully.
+  /// It will emit a [EventMatchesLoading] state if the event matches are being loaded.
+  /// Example:
+  /// ```dart
+  /// await loadEventMatches();
+  /// ```
   Future<void> loadEventMatches() async {
     try {
       emit(const EventMatchesLoading());
