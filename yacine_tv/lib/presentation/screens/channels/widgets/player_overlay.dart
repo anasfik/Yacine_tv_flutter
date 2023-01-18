@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yacine_tv/data/models/event_matches.dart';
 import '../../../../data/models/channel.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
 import 'play_button.dart';
@@ -8,10 +9,13 @@ class PlayerOverlay extends StatelessWidget {
   const PlayerOverlay({
     super.key,
     required this.cubit,
-    required this.channel,
+    this.channel,
+    this.eventMatch,
   });
+
   final ChannelPlayerCubit cubit;
-  final Channel channel;
+  final Channel? channel;
+  final EventMatch? eventMatch;
 
   final animationDuration = const Duration(milliseconds: 200);
 

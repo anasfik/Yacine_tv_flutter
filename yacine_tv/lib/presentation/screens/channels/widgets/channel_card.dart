@@ -16,15 +16,15 @@ class ChannelCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (_) => ChannelScreen(
-            channel: channel,
-          ),
-        ));
-      },
-      child: Card(
+    return Card(
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => ChannelScreen(
+              channel: channel,
+            ),
+          ));
+        },
         child: Column(
           children: <Widget>[
             const SizedBox(
@@ -33,8 +33,7 @@ class ChannelCard extends StatelessWidget {
             MarginedBody(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: CachedNetworkImage(
-                imageUrl:
-                    "${channel.channelImage}?a=${DateTime.now().millisecondsSinceEpoch}",
+                imageUrl: channel.channelImage,
                 height: 50,
                 width: double.infinity,
                 progressIndicatorBuilder: (context, url, downloadProgress) =>

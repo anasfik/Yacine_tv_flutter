@@ -7,14 +7,17 @@ import '../../../../data/models/channel.dart';
 import 'channels_search_delegate.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+  final String title;
+
+  final List<Channel> channels;
   const CustomAppBar(
     this.title, {
     super.key,
     required this.channels,
   });
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
-  final String title;
-  final List<Channel> channels;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -33,7 +36,4 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

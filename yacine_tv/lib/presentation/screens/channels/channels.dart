@@ -9,12 +9,12 @@ import 'widgets/app_bar.dart';
 import 'widgets/channel_card.dart';
 
 class Channels extends StatelessWidget {
+  final ChannelsCategory category;
+
   const Channels({
     super.key,
     required this.category,
   });
-
-  final ChannelsCategory category;
 
   @override
   Widget build(BuildContext context) {
