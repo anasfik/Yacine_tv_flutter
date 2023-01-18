@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yacine_tv/core/lang/en.dart';
 import 'package:yacine_tv/data/models/event_matches.dart';
-import 'package:yacine_tv/presentation/screens/general/margined_body.dart';
+import 'package:yacine_tv/presentation/config/colors.dart';
+import 'package:yacine_tv/presentation/screens/general/emptiness.dart';
+import 'package:yacine_tv/presentation/screens/general/loading.dart';
 
 import '../../../logic/event_matches/event_matches_cubit.dart';
 import 'widgets/event_match_card.dart';
@@ -11,19 +14,24 @@ class EventMatches extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    EventMatchesCubit cubit = context.read<EventMatchesCubit>();
+
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: MainColors.transparent,
       body: BlocBuilder<EventMatchesCubit, EventMatchesState>(
         builder: (context, state) {
           if (state is EventMatchesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingWidget();
           } else if (state is EventMatchesLoaded) {
-            final eventMatches = state.eventMatches!;
-            // if (eventMatches.isEmpty) {}
+            List<EventMatch> eventMatches = state.eventMatches ?? [];
+
+            if (eventMatches.isEmpty) {
+              return const EmptinessWidget();
+            }
 
             return RefreshIndicator(
               onRefresh: () {
-                return context.read<EventMatchesCubit>().loadEventMatches();
+                return cubit.loadEventMatches();
               },
               child: Stack(
                 fit: StackFit.expand,
@@ -31,7 +39,7 @@ class EventMatches extends StatelessWidget {
                   ListView.builder(
                     itemCount: eventMatches.length,
                     itemBuilder: (context, index) {
-                      final current = eventMatches[index];
+                      EventMatch current = eventMatches[index];
 
                       return EventMatchCard(eventMatch: current);
                     },
@@ -40,7 +48,7 @@ class EventMatches extends StatelessWidget {
               ),
             );
           } else {
-            return const Text("sssss");
+            return ErrorWidget(L10n.error);
           }
         },
       ),

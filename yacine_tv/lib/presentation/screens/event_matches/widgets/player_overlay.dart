@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yacine_tv/data/models/event_matches.dart';
+import 'package:yacine_tv/presentation/screens/general/loading.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
 import 'play_button.dart';
 
@@ -9,14 +11,15 @@ class PlayerOverlay extends StatelessWidget {
     required this.cubit,
     required this.channelsQuality,
   });
+
   final ChannelPlayerCubit cubit;
   final List<ChannelQuality> channelsQuality;
 
-  final animationDuration = const Duration(milliseconds: 200);
+  final Duration animationDuration = const Duration(milliseconds: 200);
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
+    MediaQueryData mq = MediaQuery.of(context);
 
     return GestureDetector(
       onTap: () {
@@ -25,14 +28,14 @@ class PlayerOverlay extends StatelessWidget {
       child: Container(
         width: mq.size.width,
         height: mq.size.height,
-        color: Colors.blue.withOpacity(0.5),
+        color: kDebugMode ? Colors.blue.withOpacity(0.5) : null,
         child: AnimatedOpacity(
           opacity: cubit.state.showPlayerOverlay ? 1 : 0,
           duration: animationDuration,
           child: Stack(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 width: double.infinity,
                 child: Wrap(
                   alignment: WrapAlignment.spaceEvenly,
@@ -50,15 +53,13 @@ class PlayerOverlay extends StatelessWidget {
                 ),
               ),
               if (cubit.state.isBuffering) ...[
-                const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                const LoadingWidget(),
               ] else ...[
                 PlayButton(
                   animationDuration: animationDuration,
                   cubit: cubit,
                 ),
-              ]
+              ],
             ],
           ),
         ),

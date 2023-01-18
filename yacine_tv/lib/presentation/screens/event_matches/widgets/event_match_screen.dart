@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yacine_tv/core/lang/en.dart';
+import 'package:yacine_tv/presentation/screens/general/loading.dart';
 
 import '../../../../core/core.dart';
-import '../../../../data/models/channel.dart';
 import '../../../../data/models/event_matches.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
+import '../../../config/colors.dart';
 import 'player_overlay.dart';
 
+import '../../../screens/general/error.dart' as ew;
+
 class EventMatchScreen extends StatefulWidget {
+  final EventMatch eventMatch;
+
   const EventMatchScreen({
     super.key,
     required this.eventMatch,
   });
-
-  final EventMatch eventMatch;
 
   @override
   State<EventMatchScreen> createState() => _EventMatchScreenState();
@@ -33,8 +35,8 @@ class _EventMatchScreenState extends State<EventMatchScreen> {
   void initState() {
     super.initState();
 
-    final link = validChannelStream.first.channelUrl;
-    cubit = ChannelPlayerCubit(link!);
+    String link = validChannelStream.first.channelUrl!;
+    cubit = ChannelPlayerCubit(link);
     Core.enableFullScreenMode();
   }
 
@@ -48,14 +50,12 @@ class _EventMatchScreenState extends State<EventMatchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: MainColors.black,
       body: BlocBuilder<ChannelPlayerCubit, ChannelPlayerState>(
         bloc: cubit,
         builder: (context, state) {
           if (state is ChannelPlayerInitializing) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const LoadingWidget();
           } else if (state is ChannelPlayerReady ||
               cubit.videoPlayerController.value.isInitialized) {
             return Stack(
@@ -72,15 +72,9 @@ class _EventMatchScreenState extends State<EventMatchScreen> {
               ],
             );
           } else {
-            final error = state.error;
+            String? error = state.error;
 
-            return Center(
-                child: Text(
-              error ?? L10n.error,
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ));
+            return ew.ErrorWidget(error: error ?? L10n.error);
           }
         },
       ),

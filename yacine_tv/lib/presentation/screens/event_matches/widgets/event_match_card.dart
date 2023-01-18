@@ -1,6 +1,6 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:yacine_tv/core/extensions/context.dart';
+import 'package:yacine_tv/presentation/config/colors.dart';
 import 'package:yacine_tv/presentation/screens/general/margined_body.dart';
 
 import '../../../../data/models/event_matches.dart';
@@ -22,13 +22,9 @@ class EventMatchCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: InkWell(
-        splashColor: Colors.grey[200],
+        splashColor: MainColors.lightGrey,
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => EventMatchScreen(
-              eventMatch: eventMatch,
-            ),
-          ));
+          context.navigatorPush(EventMatchScreen(eventMatch: eventMatch));
         },
         child: MarginedBody(
           child: Column(
