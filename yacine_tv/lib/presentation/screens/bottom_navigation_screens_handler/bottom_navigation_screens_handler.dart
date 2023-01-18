@@ -1,12 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:transitioned_indexed_stack/transitioned_indexed_stack.dart';
 import 'package:yacine_tv/logic/bottom_navigation/bottom_navigation_cubit.dart';
+import 'package:yacine_tv/presentation/config/colors.dart';
+import 'package:yacine_tv/presentation/screens/general/screen_background.dart';
 
 import 'widgets/app_bar.dart';
 import 'widgets/bottom_navigation_bar.dart';
-import 'widgets/drawer.dart';
+import 'widgets/drawer/drawer.dart';
 
 class ScreensHandler extends StatelessWidget {
   const ScreensHandler({super.key});
@@ -14,17 +15,14 @@ class ScreensHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: MainColors.transparent,
       drawer: const CustomDrawer(),
       appBar: const CustomAppBar(),
       bottomNavigationBar: const CustomNavigationBar(),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Image.asset(
-            "assets/background.jpg",
-            fit: BoxFit.cover,
-          ),
+          const ScreenBackground(),
           BlocBuilder<BottomNavigationCubit, int>(
             builder: (_, state) {
               return FadeIndexedStack(

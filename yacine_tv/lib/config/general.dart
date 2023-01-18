@@ -6,6 +6,7 @@ class Configs {
   static String menuImageCoverToShowWhenOriginalOneFails =
       'assets/YOUR_IMAGE.png';
 
+  static String backgroundAsset = "assets/background.jpg";
   static bool loadMenuItemsLazily = false;
   static bool loadAppSettingsLazily = false;
   static bool loadEventMatchesLazily = false;
@@ -13,7 +14,7 @@ class Configs {
   static bool filterOnlyTodayEventMatches = true;
 
   static bool autoPlay = true;
-  
+
   static const AppSettings initialSettings = AppSettings(
     appEmail: '',
     appAuthor: '',
