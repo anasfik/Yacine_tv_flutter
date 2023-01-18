@@ -29,6 +29,8 @@ class _PlayButtonState extends State<PlayButton>
 
     if (widget.cubit.state.playingStatus == PlayingStatus.isPlaying) {
       _animationController.forward();
+    } else {
+      _animationController.reverse();
     }
     super.initState();
   }
@@ -41,27 +43,19 @@ class _PlayButtonState extends State<PlayButton>
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<ChannelPlayerCubit, ChannelPlayerState, PlayingStatus>(
-      bloc: widget.cubit,
-      selector: (state) {
-        return state.playingStatus;
+    return GestureDetector(
+      onTap: () {
+        widget.cubit.togglePLaying(_animationController);
       },
-      builder: (context, state) {
-        return GestureDetector(
-          onTap: () {
-            widget.cubit.togglePLaying(_animationController);
-          },
-          child: Align(
-            alignment: Alignment.center,
-            child: AnimatedIcon(
-              color: Theme.of(context).primaryColor,
-              icon: AnimatedIcons.play_pause,
-              progress: _animationController,
-              size: 40,
-            ),
-          ),
-        );
-      },
+      child: Align(
+        alignment: Alignment.center,
+        child: AnimatedIcon(
+          color: Theme.of(context).primaryColor,
+          icon: AnimatedIcons.play_pause,
+          progress: _animationController,
+          size: 40,
+        ),
+      ),
     );
   }
 }

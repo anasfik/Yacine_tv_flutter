@@ -19,7 +19,7 @@ class EventMatches extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else if (state is EventMatchesLoaded) {
             final eventMatches = state.eventMatches!;
-            if (eventMatches.isEmpty) {}
+            // if (eventMatches.isEmpty) {}
 
             return RefreshIndicator(
               onRefresh: () {

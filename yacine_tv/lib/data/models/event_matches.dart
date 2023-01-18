@@ -78,13 +78,13 @@ class EventMatch {
 }
 
 class ChannelQuality {
+  String? quality;
+  String? channelUrl;
+
   ChannelQuality({
     required this.quality,
     required this.channelUrl,
   });
-
-  String? quality;
-  String? channelUrl;
 
   factory ChannelQuality.fromMap(Map<String, dynamic> json) => ChannelQuality(
         quality: json["quality"],
@@ -95,4 +95,7 @@ class ChannelQuality {
         "quality": quality,
         "channel_url": channelUrl,
       };
+  bool isValid() {
+    return channelUrl != null && channelUrl!.isNotEmpty;
+  }
 }

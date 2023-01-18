@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:yacine_tv/data/models/event_matches.dart';
 import '../../../../data/models/channel.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
 import 'play_button.dart';
@@ -9,13 +8,10 @@ class PlayerOverlay extends StatelessWidget {
   const PlayerOverlay({
     super.key,
     required this.cubit,
-    this.channel,
-    this.eventMatch,
+    required this.channel,
   });
-
   final ChannelPlayerCubit cubit;
-  final Channel? channel;
-  final EventMatch? eventMatch;
+  final Channel channel;
 
   final animationDuration = const Duration(milliseconds: 200);
 
@@ -23,30 +19,24 @@ class PlayerOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
 
+    print("a");
+
     return GestureDetector(
       onTap: () {
         cubit.togglePlayerOverlay();
       },
-      child: BlocSelector<ChannelPlayerCubit, ChannelPlayerState, bool>(
-        bloc: cubit,
-        selector: (state) {
-          return state.showPlayerOverlay;
-        },
-        builder: (context, state) {
-          return Container(
-            width: mq.size.width,
-            height: mq.size.height,
-            color: Colors.blue.withOpacity(0.5),
-            child: AnimatedOpacity(
-              opacity: state ? 1 : 0,
-              duration: animationDuration,
-              child: PlayButton(
-                animationDuration: animationDuration,
-                cubit: cubit,
-              ),
-            ),
-          );
-        },
+      child: Container(
+        width: mq.size.width,
+        height: mq.size.height,
+        color: Colors.blue.withOpacity(0.5),
+        child: AnimatedOpacity(
+          opacity: cubit.state.showPlayerOverlay ? 1 : 0,
+          duration: animationDuration,
+          child: PlayButton(
+            animationDuration: animationDuration,
+            cubit: cubit,
+          ),
+        ),
       ),
     );
   }

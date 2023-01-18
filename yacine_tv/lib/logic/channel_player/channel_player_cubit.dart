@@ -8,15 +8,13 @@ import 'package:yacine_tv/config/general.dart';
 part 'channel_player_state.dart';
 
 class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
-  final String initialStreamLink;
   late VideoPlayerController _controller;
 
   VideoPlayerController get videoPlayerController => _controller;
 
-  ChannelPlayerCubit(this.initialStreamLink)
-      : super(const ChannelPlayerReady()) {
+  ChannelPlayerCubit() : super(const ChannelPlayerReady()) {
     _controller = VideoPlayerController.network(
-      initialStreamLink,
+      'http://tv.balkanweb.com:8081/news24/livestream/playlist.m3u8',
     );
     _listenOnVideoControllerChanges();
 
@@ -26,7 +24,6 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
   @override
   Future<void> close() async {
     _controller.pause();
-    _controller.removeListener(() {});
     _controller.dispose();
     super.close();
   }
@@ -71,14 +68,5 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
     }
   }
 
-  void _listenOnVideoControllerChanges() {
-    print(_controller.value.position);
-    _controller.addListener(() {
-      if (_controller.value.isPlaying) {
-        emit(const ChannelPlayerPlaying());
-      } else if (!_controller.value.isPlaying) {
-        emit(const ChannelPlayerPaused());
-      }
-    });
-  }
+  void _listenOnVideoControllerChanges() {}
 }

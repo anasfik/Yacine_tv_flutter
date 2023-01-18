@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yacine_tv/core/lang/en.dart';
-import 'package:yacine_tv/data/models/event_matches.dart';
 
 import '../../../../core/core.dart';
 import '../../../../data/models/channel.dart';
@@ -13,12 +12,10 @@ import 'player_overlay.dart';
 class ChannelScreen extends StatefulWidget {
   const ChannelScreen({
     super.key,
-    this.channel,
-    this.eventMatch,
+    required this.channel,
   });
 
-  final Channel? channel;
-  final EventMatch? eventMatch;
+  final Channel channel;
 
   @override
   State<ChannelScreen> createState() => _ChannelScreenState();
@@ -30,10 +27,7 @@ class _ChannelScreenState extends State<ChannelScreen> {
   @override
   void initState() {
     super.initState();
-    final link = widget.channel?.channelStreamUrl ??
-        widget.eventMatch?.channelQuality.first.channelUrl;
-
-    cubit = ChannelPlayerCubit(link!);
+    cubit = ChannelPlayerCubit();
 
     Core.setLandscape();
   }
@@ -52,7 +46,6 @@ class _ChannelScreenState extends State<ChannelScreen> {
       body: BlocBuilder<ChannelPlayerCubit, ChannelPlayerState>(
         bloc: cubit,
         builder: (context, state) {
-          // ignore: prefer-conditional-expressions
           if (state is ChannelPlayerInitializing) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -69,7 +62,6 @@ class _ChannelScreenState extends State<ChannelScreen> {
                 PlayerOverlay(
                   cubit: cubit,
                   channel: widget.channel,
-                  eventMatch: widget.eventMatch,
                 ),
               ],
             );

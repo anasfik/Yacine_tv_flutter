@@ -26,7 +26,7 @@ abstract class ChannelPlayerState extends Equatable {
     this.isInitialized = false,
     this.isDuringInitialization = false,
     this.showPlayerOverlay = false,
-    this.playingStatus = PlayingStatus.isPaused,
+    this.playingStatus = PlayingStatus.isPlaying,
     this.error,
   });
 }
