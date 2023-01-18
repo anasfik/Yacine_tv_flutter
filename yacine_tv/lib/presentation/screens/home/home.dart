@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yacine_tv/core/extensions/context.dart';
 import 'package:yacine_tv/core/lang/en.dart';
+import 'package:yacine_tv/data/models/channels_category.dart';
+import 'package:yacine_tv/presentation/config/colors.dart';
+import 'package:yacine_tv/presentation/screens/general/emptiness.dart';
+import 'package:yacine_tv/presentation/screens/general/loading.dart';
 import 'package:yacine_tv/presentation/screens/home/widgets/category_card.dart';
 import '../../../logic/channels_categories_cubit/channels_categories_cubit.dart';
 import '../channels/channels.dart';
@@ -11,26 +16,26 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ChannelsCategoriesCubit cubit = context.read<ChannelsCategoriesCubit>();
+
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: MainColors.transparent,
       body: BlocBuilder<ChannelsCategoriesCubit, ChannelsCategoriesState>(
         builder: (context, state) {
           if (state is ChannelsCategoriesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return const LoadingWidget();
           } else if (state is ChannelsCategoriesLoaded) {
-            final channelsCategories = state.channelsCategories!;
+            List<ChannelsCategory> channelsCategories =
+                state.channelsCategories ?? [];
+
             if (channelsCategories.isEmpty) {
-              return const Center(
-                child: Text(L10n.noChannelsCategoriesFound),
-              );
+              return const EmptinessWidget();
             }
 
             return MarginedBody(
               child: RefreshIndicator(
                 onRefresh: () {
-                  return context
-                      .read<ChannelsCategoriesCubit>()
-                      .loadChannelsCategories();
+                  return cubit.loadChannelsCategories();
                 },
                 child: Stack(
                   fit: StackFit.expand,
@@ -39,20 +44,12 @@ class Home extends StatelessWidget {
                       physics: const AlwaysScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: channelsCategories.length,
-                      itemBuilder: (_, int index) {
-                        final current = channelsCategories[index];
+                      itemBuilder: (BuildContext context, int index) {
+                        ChannelsCategory current = channelsCategories[index];
 
                         return CategoryCard(
                           onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return Channels(
-                                    category: current,
-                                  );
-                                },
-                              ),
-                            );
+                            context.navigatorPush(Channels(category: current));
                           },
                           category: current,
                         );
@@ -63,7 +60,9 @@ class Home extends StatelessWidget {
               ),
             );
           } else {
-            return Center(child: Text(state.error ?? L10n.error));
+            return ErrorWidget(
+              state.error ?? L10n.error,
+            );
           }
         },
       ),

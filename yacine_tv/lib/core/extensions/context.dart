@@ -10,4 +10,10 @@ extension BuildContextExtension on BuildContext {
       ),
     );
   }
+
+  void navigatorPush(Widget screen) => Navigator.of(this).push(
+        MaterialPageRoute(
+          builder: (context) => screen,
+        ),
+      );
 }
