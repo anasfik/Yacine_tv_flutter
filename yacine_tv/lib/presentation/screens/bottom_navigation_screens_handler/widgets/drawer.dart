@@ -68,6 +68,12 @@ class CustomDrawer extends StatelessWidget {
                           width: iconWidth,
                           height: iconWidth,
                           fadeInDuration: const Duration(milliseconds: 100),
+                          errorWidget: (context, url, error) {
+                            return const Icon(
+                              Icons.link,
+                              color: Colors.white,
+                            );
+                          },
                         ),
                         title: AutoSizeText(
                           item.title,
