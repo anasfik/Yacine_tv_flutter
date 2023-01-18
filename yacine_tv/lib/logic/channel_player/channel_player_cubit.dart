@@ -12,11 +12,12 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
 
   VideoPlayerController get videoPlayerController => _controller;
 
-  ChannelPlayerCubit() : super(const ChannelPlayerReady()) {
+  final String streamUrl;
+
+  ChannelPlayerCubit(this.streamUrl) : super(const ChannelPlayerReady()) {
     _controller = VideoPlayerController.network(
-      'http://tv.balkanweb.com:8081/news24/livestream/playlist.m3u8',
+      streamUrl,
     );
-    _listenOnVideoControllerChanges();
 
     _initializeController(autoPlay: Configs.autoPlay);
   }
@@ -46,6 +47,13 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
     }
   }
 
+  Future<void> changeChannel(String url) async {
+    await _controller.pause();
+    await _controller.dispose();
+    _controller = VideoPlayerController.network(url);
+    _initializeController(autoPlay: Configs.autoPlay);
+  }
+
   Future<void> _initializeController({bool autoPlay = false}) async {
     try {
       emit(const ChannelPlayerInitializing());
@@ -67,6 +75,4 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
       print(e.toString());
     }
   }
-
-  void _listenOnVideoControllerChanges() {}
 }

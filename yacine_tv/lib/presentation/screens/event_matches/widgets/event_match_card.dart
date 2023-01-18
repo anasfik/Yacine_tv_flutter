@@ -5,6 +5,7 @@ import 'package:yacine_tv/presentation/screens/general/margined_body.dart';
 
 import '../../../../data/models/event_matches.dart';
 import 'cup.dart';
+import 'event_match_screen.dart';
 import 'match_time_info.dart';
 import 'team_info.dart';
 
@@ -22,7 +23,13 @@ class EventMatchCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: InkWell(
         splashColor: Colors.grey[200],
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (_) => EventMatchScreen(
+              eventMatch: eventMatch,
+            ),
+          ));
+        },
         child: MarginedBody(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

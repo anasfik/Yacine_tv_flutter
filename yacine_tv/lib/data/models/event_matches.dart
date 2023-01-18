@@ -98,4 +98,5 @@ class ChannelQuality {
   bool isValid() {
     return channelUrl != null && channelUrl!.isNotEmpty;
   }
+
 }

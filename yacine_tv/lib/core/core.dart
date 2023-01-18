@@ -48,6 +48,18 @@ class Core {
     );
   }
 
+  static void setFullScreen() {
+    hideDeviceExtras();
+    setLandscape();
+  }
+
+  static void hideDeviceExtras() {
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [],
+    );
+  }
+
   static void setLandscape() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,

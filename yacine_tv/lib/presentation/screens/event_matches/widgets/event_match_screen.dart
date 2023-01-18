@@ -6,32 +6,36 @@ import 'package:yacine_tv/core/lang/en.dart';
 
 import '../../../../core/core.dart';
 import '../../../../data/models/channel.dart';
+import '../../../../data/models/event_matches.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
 import 'player_overlay.dart';
 
-class ChannelScreen extends StatefulWidget {
-  const ChannelScreen({
+class EventMatchScreen extends StatefulWidget {
+  const EventMatchScreen({
     super.key,
-    required this.channel,
+    required this.eventMatch,
   });
 
-  final Channel channel;
+  final EventMatch eventMatch;
 
   @override
-  State<ChannelScreen> createState() => _ChannelScreenState();
+  State<EventMatchScreen> createState() => _EventMatchScreenState();
 }
 
-class _ChannelScreenState extends State<ChannelScreen> {
+class _EventMatchScreenState extends State<EventMatchScreen> {
   late ChannelPlayerCubit cubit;
+
+  late final validChannelStream = widget.eventMatch.channelQuality
+      .where((element) => element.isValid())
+      .toList();
 
   @override
   void initState() {
     super.initState();
 
-    final link = widget.channel.channelStreamUrl;
-    cubit = ChannelPlayerCubit(link);
-
-    Core.setLandscape();
+    final link = validChannelStream.first.channelUrl;
+    cubit = ChannelPlayerCubit(link!);
+    Core.setFullScreen();
   }
 
   @override
@@ -63,14 +67,20 @@ class _ChannelScreenState extends State<ChannelScreen> {
                 ),
                 PlayerOverlay(
                   cubit: cubit,
-                  channel: widget.channel,
+                  channelsQuality: validChannelStream,
                 ),
               ],
             );
           } else {
             final error = state.error;
 
-            return const Center(child: Text(L10n.error));
+            return Center(
+                child: Text(
+              error ?? L10n.error,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ));
           }
         },
       ),
