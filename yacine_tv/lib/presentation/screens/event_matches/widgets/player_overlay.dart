@@ -33,7 +33,10 @@ class PlayerOverlay extends StatelessWidget {
             children: <Widget>[
               Container(
                 padding: EdgeInsets.all(10),
+                width: double.infinity,
                 child: Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
+                  runAlignment: WrapAlignment.center,
                   children: List.generate(channelsQuality.length, (index) {
                     final current = channelsQuality[index];
 
@@ -46,10 +49,16 @@ class PlayerOverlay extends StatelessWidget {
                   }),
                 ),
               ),
-              PlayButton(
-                animationDuration: animationDuration,
-                cubit: cubit,
-              ),
+              if (cubit.state.isBuffering) ...[
+                const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ] else ...[
+                PlayButton(
+                  animationDuration: animationDuration,
+                  cubit: cubit,
+                ),
+              ]
             ],
           ),
         ),

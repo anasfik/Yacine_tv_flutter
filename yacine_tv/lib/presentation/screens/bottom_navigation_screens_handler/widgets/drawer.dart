@@ -77,7 +77,14 @@ class CustomDrawer extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          context.read<DrawerCubit>().openLink(
+                            item.link,
+                            onError: (error) {
+                              print("${item.link}, $error");
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -86,7 +93,7 @@ class CustomDrawer extends StatelessWidget {
             );
           } else {
             String error = state.error!;
-            return const Text("");
+            return Text(error);
           }
         },
       ),

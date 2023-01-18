@@ -11,6 +11,8 @@ abstract class ChannelPlayerState extends Equatable {
   final bool isDuringInitialization;
   final PlayingStatus playingStatus;
   final bool showPlayerOverlay;
+  final bool isBuffering;
+
   final String? error;
 
   @override
@@ -19,6 +21,7 @@ abstract class ChannelPlayerState extends Equatable {
         isDuringInitialization,
         playingStatus,
         showPlayerOverlay,
+        isBuffering,
         error,
       ];
 
@@ -26,6 +29,7 @@ abstract class ChannelPlayerState extends Equatable {
     this.isInitialized = false,
     this.isDuringInitialization = false,
     this.showPlayerOverlay = false,
+    this.isBuffering = false,
     this.playingStatus = PlayingStatus.isPlaying,
     this.error,
   });
@@ -70,5 +74,13 @@ class ChannelPlayerOverlayVisible extends ChannelPlayerState {
 class ChannelPlayerOverlayHidden extends ChannelPlayerState {
   const ChannelPlayerOverlayHidden({
     super.showPlayerOverlay = false,
+  });
+}
+
+
+
+class ChannelPlayerBuffering extends ChannelPlayerState {
+  const ChannelPlayerBuffering({
+    super.isBuffering = false,
   });
 }

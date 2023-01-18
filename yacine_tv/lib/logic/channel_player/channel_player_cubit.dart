@@ -20,11 +20,18 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
     );
 
     _initializeController(autoPlay: Configs.autoPlay);
+
+    _controller.addListener(() {
+      if (_controller.value.isBuffering) {
+        emit(const ChannelPlayerBuffering());
+      }
+    });
   }
 
   @override
   Future<void> close() async {
     _controller.pause();
+    _controller.removeListener(() {});
     _controller.dispose();
     super.close();
   }
