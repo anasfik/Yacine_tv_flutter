@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yacine_tv/core/lang/en.dart';
+import 'package:yacine_tv/presentation/screens/general/app_bar_title.dart';
 import 'package:yacine_tv/presentation/screens/home/widgets/search_delegate.dart';
 
 import '../../../../data/models/channels_category.dart';
@@ -20,14 +20,13 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
         return state.channelsCategories;
       },
       builder: (context, state) {
-        final allCategories = state ?? <ChannelsCategory>[];
+        List<ChannelsCategory> allCategories = state ?? <ChannelsCategory>[];
 
         return AppBar(
           toolbarHeight: kToolbarHeight,
           centerTitle: true,
-          title: const AutoSizeText(
-            L10n.title,
-            maxLines: 1,
+          title: const AppBarTitle(
+            title: L10n.title,
           ),
           actions: <Widget>[
             IconButton(

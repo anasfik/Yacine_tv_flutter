@@ -1,28 +1,16 @@
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/models/navigation_item.dart';
-import '../../presentation/screens/event_matches/event_matches.dart';
-import '../../presentation/screens/home/home.dart';
+import '../../presentation/config/const.dart';
 
 part 'bottom_navigation_state.dart';
 
 class BottomNavigationCubit extends Cubit<int> {
-  final List<NavigationItem> items = const <NavigationItem>[
-    NavigationItem(
-      icon: Icons.live_tv,
-      name: 'Live TV',
-      screen: Home(),
-    ),
-    NavigationItem(
-      icon: Icons.sports_football,
-      name: 'Match',
-      screen: EventMatches(),
-    ),
-  ];
+  final List<NavigationItem> items = PresentationLayerConstants.navigationItems;
 
   BottomNavigationCubit(int initialIndex) : super(initialIndex);
+
   void selectScreenAt(int index) {
     emit(index);
   }

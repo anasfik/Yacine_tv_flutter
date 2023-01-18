@@ -14,6 +14,8 @@ class ScreensHandler extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BottomNavigationCubit cubit = context.read<BottomNavigationCubit>();
+
     return Scaffold(
       backgroundColor: MainColors.transparent,
       drawer: const CustomDrawer(),
@@ -24,14 +26,14 @@ class ScreensHandler extends StatelessWidget {
         children: <Widget>[
           const ScreenBackground(),
           BlocBuilder<BottomNavigationCubit, int>(
-            builder: (_, state) {
+            builder: (BuildContext context, int state) {
               return FadeIndexedStack(
                 beginOpacity: 0.0,
                 endOpacity: 1.0,
                 curve: Curves.easeInOut,
                 duration: const Duration(milliseconds: 100),
                 index: state,
-                children: context.read<BottomNavigationCubit>().items.map(
+                children: cubit.items.map(
                   (item) {
                     return item.screen;
                   },
