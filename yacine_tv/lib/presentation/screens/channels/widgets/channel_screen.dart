@@ -31,13 +31,13 @@ class _ChannelScreenState extends State<ChannelScreen> {
     final link = widget.channel.channelStreamUrl;
     cubit = ChannelPlayerCubit(link);
 
-    Core.setLandscape();
+    Core.setScreenOrientationToLandscape();
   }
 
   @override
   void dispose() {
     super.dispose();
-    Core.setPortrait();
+    Core.setScreenOrientationToPortrait();
     cubit.close();
   }
 

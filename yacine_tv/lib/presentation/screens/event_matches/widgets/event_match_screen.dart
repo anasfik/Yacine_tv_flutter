@@ -35,13 +35,13 @@ class _EventMatchScreenState extends State<EventMatchScreen> {
 
     final link = validChannelStream.first.channelUrl;
     cubit = ChannelPlayerCubit(link!);
-    Core.setFullScreen();
+    Core.enableFullScreenMode();
   }
 
   @override
   void dispose() {
     super.dispose();
-    Core.setPortrait();
+    Core.setScreenOrientationToPortrait();
     cubit.close();
   }
 
