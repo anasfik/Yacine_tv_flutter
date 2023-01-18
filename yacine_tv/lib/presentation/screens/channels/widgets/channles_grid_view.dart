@@ -10,6 +10,7 @@ class ChannelsGridView extends StatelessWidget {
   });
 
   final List<Channel> channels;
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -21,8 +22,8 @@ class ChannelsGridView extends StatelessWidget {
         mainAxisSpacing: 7.5,
       ),
       itemCount: channels.length,
-      itemBuilder: (_, int index) {
-        final Channel current = channels[index];
+      itemBuilder: (BuildContext context, int index) {
+        Channel current = channels[index];
 
         return ChannelCard(
           channel: current,

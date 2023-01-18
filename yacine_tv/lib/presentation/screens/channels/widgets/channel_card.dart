@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:yacine_tv/core/extensions/context.dart';
 
 import '../../../../data/models/channel.dart';
 import '../../general/margined_body.dart';
+import 'channel_image.dart';
 import 'channel_screen.dart';
 
 class ChannelCard extends StatelessWidget {
@@ -19,43 +21,17 @@ class ChannelCard extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => ChannelScreen(
-              channel: channel,
-            ),
-          ));
+          context.navigatorPush(ChannelScreen(channel: channel));
         },
         child: Column(
           children: <Widget>[
             const SizedBox(
               height: 10,
             ),
-            MarginedBody(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CachedNetworkImage(
-                imageUrl: channel.channelImage,
-                height: 50,
-                width: double.infinity,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 1.5,
-                      value: downloadProgress.progress,
-                    ),
-                  ),
-                ),
-                errorWidget: (context, url, error) {
-                  return Icon(
-                    Icons.error,
-                    color: Theme.of(context).primaryColor,
-                  );
-                },
-              ),
+            ChannelImage(
+              channelImage: channel.channelImage,
             ),
-            Spacer(),
+            const Spacer(),
             Center(
               child: AutoSizeText(
                 channel.channelName,

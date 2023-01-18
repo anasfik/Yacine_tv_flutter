@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:yacine_tv/presentation/config/colors.dart';
 
 import '../../../../data/models/channels_category.dart';
 
@@ -15,13 +16,13 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    ThemeData theme = Theme.of(context);
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Material(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        color: Colors.white,
+        color: MainColors.white,
         child: InkWell(
           onTap: onPressed,
           child: Container(
