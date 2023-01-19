@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:web_panel/core/extension/context.dart';
+import 'package:web_panel/data/providers/l10n/en.dart';
 
 import '../../../../buisness_logic/dashbord_cubit/dashboard_cubit.dart';
 import '../../../../buisness_logic/login_bloc/login_bloc_bloc.dart';
-import '../../general/logo.dart';
 
 class DashBoardAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const DashBoardAppBar({super.key, this.height = 70});
-
   final double height;
+
+  const DashBoardAppBar({
+    super.key,
+    this.height = 70,
+  });
+  @override
+  Size get preferredSize => Size.fromHeight(height);
+
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<DashBoardScreensCubit>();
@@ -16,7 +23,6 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       toolbarHeight: height,
-      // centerTitle: true,
       leading: IconButton(
         icon: const Icon(Icons.menu),
         onPressed: () {
@@ -28,31 +34,25 @@ class DashBoardAppBar extends StatelessWidget implements PreferredSizeWidget {
           width: 7.5,
         ),
         IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () async {
-              bloc.triggerSettingsScreen(context);
-            }),
+          icon: const Icon(Icons.settings),
+          onPressed: () async {
+            bloc.triggerSettingsScreen(Scaffold.of(context));
+          },
+        ),
         IconButton(
           icon: const Icon(Icons.logout),
           onPressed: () {
             context.read<LoginBloc>().add(
               LogoutButtonPressed(
                 onSuccess: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Logged out successfully'),
-                    ),
-                  );
+                  context.snackBarText(L10n.logoutSuccess);
                 },
               ),
             );
           },
         ),
       ],
-      title: Text("Dashboard"),
+      title: const Text(L10n.dashBoard),
     );
   }
-
-  @override
-  Size get preferredSize => Size.fromHeight(height);
 }

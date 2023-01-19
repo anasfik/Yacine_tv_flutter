@@ -11,6 +11,7 @@ import '../../presentation/screens/math_events/math_events.dart';
 import '../../presentation/screens/menu/menu.dart';
 
 class DashBoardScreensCubit extends Cubit<int> {
+  /// List of all screens that will be displayed in the dashboard, their icons titles.
   final List<DashBoardScreen> panels = <DashBoardScreen>[
     const DashBoardScreen(
       title: L10n.channelsCategories,
@@ -37,30 +38,32 @@ class DashBoardScreensCubit extends Cubit<int> {
       screen: Settings(title: L10n.settings),
       icon: FlutterRemix.settings_3_line,
     ),
-
-    // const DashBoardScreen(
-    //   title: L10n.administration,
-    //   screen: Administration(title: L10n.administration),
-    //   icon: FlutterRemix.chat_settings_fill,
-    // ),
   ];
 
   DashBoardScreensCubit(int currentIndex) : super(currentIndex);
+
+  /// This function triggers a screen change to the screen at the given [index].
   void triggerScreenAt(int index) {
     emit(index);
   }
 
-  void triggerSettingsScreen(BuildContext context) async {
-    int settingsScreenIndex =
-        panels.indexWhere((element) => element.title == L10n.settings);
-    if (state == settingsScreenIndex) {
+  /// This function triggers the settings screen. It opens the navigation drawer and then displays the settings screen.
+  Future<void> triggerSettingsScreen(ScaffoldState scaffoldState) async {
+    int settingsScreenIndex = _selectSettingsIndex();
+    bool isCurrentlyAtSetting = state == settingsScreenIndex;
+    if (isCurrentlyAtSetting) {
       return;
+    } else {
+      scaffoldState.openDrawer();
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      emit(settingsScreenIndex);
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      scaffoldState.closeDrawer();
     }
+  }
 
-    Scaffold.of(context).openDrawer();
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    emit(settingsScreenIndex);
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    Scaffold.of(context).closeDrawer();
+  /// This function returns the index of the settings screen.
+  int _selectSettingsIndex() {
+    return panels.indexWhere((element) => element.title == L10n.settings);
   }
 }

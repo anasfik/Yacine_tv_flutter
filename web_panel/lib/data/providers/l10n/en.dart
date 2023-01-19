@@ -17,6 +17,8 @@ class L10n {
   static const String channelLogo = 'Channel Logo';
   static const String channelLogoUrl = 'Channel Logo Url';
 
+  static const dashBoard = 'Dashboard';
+
   static const String updateCategory = 'update Category';
   static const String addChannel = 'Add Channel';
   static const String channelsCategoriesError = 'Something went wrong';
@@ -46,17 +48,19 @@ class L10n {
   static const String settings = 'Settings';
   static const String admob = 'Admob';
 
+  static const logoutSuccess = 'Logged out successfully';
+
   static String categoryAddSuccess(String categoryName) =>
       '$categoryName Added Successfully';
 
-  static String youCanAddChannels(String categoryName) =>
-      'You can add channels to $categoryName now';
+  static String channelUpdated(String channel) =>
+      "$channel Updated Successfully";
 
   static String deleted(String channel) =>
       "Channel $channel deleted successfully";
 
   static String updateChannel(String channel) => "Update $channel";
 
-  static String channelUpdated(String channel) =>
-      "$channel Updated Successfully";
+  static String youCanAddChannels(String categoryName) =>
+      'You can add channels to $categoryName now';
 }
