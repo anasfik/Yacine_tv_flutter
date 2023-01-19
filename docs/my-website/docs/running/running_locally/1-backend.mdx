@@ -1,0 +1,28 @@
+# Backend
+
+## Installation
+
+1. Open the server folder.
+
+2. Open a terminal (cmd or powershell..) in the path of that folder.
+
+3. Run the command `npm install` to install the required dependencies.
+
+4. Create a new file in the root of the project called `.env` and add the following environment variables:
+
+```JS
+DB_URL : the MongoDB connection string.
+PORT : the port on which the server will run.
+```
+
+5. Run the command `npm start` to start the Express.js server.
+
+## Verification
+
+To ensure that the backend server is running correctly, you can perform the following verification steps:
+
+1. Open a browser and navigate to `http://localhost:<port>` (replace `<port>` with the port number specified in the .env file).
+
+2. You should see a message indicating that the server is running.
+
+3. Test the API endpoints by making a request to them, you should see the data in the response if the server is running correctly and the connection to the database is successful.
