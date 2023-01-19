@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:web_panel/buisness_logic/bloc_providers/bloc_providers.dart';
+import 'package:web_panel/core/extension/context.dart';
 import 'package:web_panel/data/providers/l10n/en.dart';
 
 import '../../../buisness_logic/channel_bloc/channel_bloc.dart';
@@ -11,16 +11,19 @@ import '../../../data/repositories/channels_categories_repository/channels_categ
 import '../edit_channel/edit_channel.dart';
 
 class ChannelCard extends StatelessWidget {
+  final String categoryId;
+  final Channel channel;
+
   const ChannelCard({
     super.key,
     required this.channel,
     required this.categoryId,
   });
 
-  final String categoryId;
-  final Channel channel;
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return BlocProvider<ChannelBloc>(
       create: (context) => ChannelBloc(
         channel,
@@ -28,24 +31,19 @@ class ChannelCard extends StatelessWidget {
       ),
       lazy: false,
       child: BlocBuilder<ChannelBloc, ChannelState>(
-        builder: (context, state) {
+        builder: (BuildContext context, ChannelState state) {
           return SizedBox(
             width: 150,
             child: Material(
               elevation: 2.5,
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               clipBehavior: Clip.hardEdge,
               child: InkWell(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => BlocProvider.value(
-                        value: context.read<ChannelBloc>(),
-                        child: EditChannel(
-                          channel: channel,
-                          categoryId: categoryId,
-                        ),
-                      ),
+                  context.push(
+                    EditChannel(
+                      channel: channel,
+                      categoryId: categoryId,
                     ),
                   );
                 },
@@ -62,7 +60,7 @@ class ChannelCard extends StatelessWidget {
                     ),
                     AutoSizeText(
                       channel.channelName,
-                      style: Theme.of(context).textTheme.labelLarge,
+                      style: theme.textTheme.labelLarge,
                     ),
                     const SizedBox(
                       height: 12.5,
@@ -77,25 +75,17 @@ class ChannelCard extends StatelessWidget {
                               context.read<ChannelBloc>().add(
                                     DeleteChannel(
                                       onSuccess: () {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(L10n.deleted(
-                                                channel.channelName)),
-                                          ),
+                                        context.snackBarText(
+                                          L10n.deleted(channel.channelName),
                                         );
                                         context
                                             .read<ChannelsCategoriesBloc>()
                                             .add(NewCategoriesGetRequested());
-                                        Navigator.pop(context);
+                                        context.pop();
                                       },
-                                      onError: (erro) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                L10n.channelsCategoriesError),
-                                          ),
+                                      onError: (error) {
+                                        context.snackBarText(
+                                          L10n.channelsCategoriesError,
                                         );
                                       },
                                       categoryId: categoryId,
@@ -105,39 +95,37 @@ class ChannelCard extends StatelessWidget {
                             },
                             child: Expanded(
                               child: AutoSizeText(
-                                'Delete',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .labelSmall
-                                    ?.copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
+                                L10n.delete,
+                                style: theme.textTheme.labelSmall?.copyWith(
+                                  color: theme.primaryColor,
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
           );
-          return Card(
-            child: Column(
-              children: [
-                Image.network(
-                  "https://via.placeholder.com/100x100",
-                  width: 100,
-                  height: 100,
-                ),
-                Text(channel.channelName),
-                Row(
-                  children: [],
-                ),
-              ],
-            ),
-          );
+
+          // return Card(
+          //   child: Column(
+          //     children: [
+          //       Image.network(
+          //         "https://via.placeholder.com/100x100",
+          //         width: 100,
+          //         height: 100,
+          //       ),
+          //       Text(channel.channelName),
+          //       Row(
+          //         children: [],
+          //       ),
+          //     ],
+          //   ),
+          // );
         },
       ),
     );

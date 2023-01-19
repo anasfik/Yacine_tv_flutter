@@ -14,6 +14,8 @@ class CategoryCard extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Material(
       color: AppColors.white,
       child: InkWell(
@@ -22,19 +24,21 @@ class CategoryCard extends StatelessWidget {
           width: 300,
           height: 75,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: Theme.of(context).primaryColor,
-              width: 3,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.fromBorderSide(
+              BorderSide(
+                color: theme.primaryColor,
+                width: 3,
+              ),
             ),
           ),
           child: Center(
             child: AutoSizeText(
               category.categoryTitle,
-              style: Theme.of(context).textTheme.headline5?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).primaryColor,
-                  ),
+              style: theme.textTheme.headline5?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.primaryColor,
+              ),
               maxLines: 1,
             ),
           ),

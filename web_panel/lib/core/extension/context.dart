@@ -16,4 +16,6 @@ extension BuildContextExt on BuildContext {
           builder: (context) => widget,
         ),
       );
+
+  void pop() => Navigator.of(this).pop();
 }

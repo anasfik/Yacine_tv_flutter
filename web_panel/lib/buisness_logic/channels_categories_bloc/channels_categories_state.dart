@@ -8,16 +8,20 @@ class ChannelsCategoriesState extends Equatable {
   final String channelsCategoryTitle;
   final bool isLoading;
 
+  @override
+  List<Object?> get props => [
+        channels,
+        channelsCategoryTitle,
+        isLoading,
+        allChannelsCategories,
+      ];
+
   const ChannelsCategoriesState({
     this.allChannelsCategories = const [],
     this.channels = const [],
     this.channelsCategoryTitle = "",
     this.isLoading = false,
   });
-
-  @override
-  List<Object?> get props =>
-      [channels, channelsCategoryTitle, isLoading, allChannelsCategories];
 
   ChannelsCategoriesState copyWith({
     List<ChannelsCategory>? allChannelsCategories,

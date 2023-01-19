@@ -7,6 +7,7 @@ class L10n {
   static const String newCategory = 'New Category';
   static const String newChannel = 'New Channel';
   static const String categoryName = 'Category Name';
+  static const String categoryDeleted = 'Category deleted';
   static const String channels = 'Channels';
   static const String noChannelsCategories =
       'No Channels Categories, click on the add button to add a new category';
