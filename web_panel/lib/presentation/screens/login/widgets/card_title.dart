@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:web_panel/data/providers/l10n/en.dart';
 
 class CardTitle extends StatelessWidget {
   const CardTitle({super.key, required this.text, this.style});
@@ -15,19 +12,14 @@ class CardTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          text,
-          style: style,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
+        Text(text, style: style),
+        const SizedBox(height: 10),
         Container(
           width: getTextSize(text, style).width,
           height: 2,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
           ),
         ),
       ],
@@ -37,10 +29,7 @@ class CardTitle extends StatelessWidget {
 
 Size getTextSize(String text, TextStyle? style) {
   final textPainter = TextPainter(
-    text: TextSpan(
-      text: text,
-      style: style,
-    ),
+    text: TextSpan(text: text, style: style),
     maxLines: 1,
     textDirection: TextDirection.ltr,
   )..layout();

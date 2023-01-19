@@ -5,6 +5,15 @@ import 'package:flutter_remix/flutter_remix.dart';
 import '../../config/colors/colors.dart';
 
 class ActionButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  final String text;
+  final bool isLoading;
+  final double? width;
+  final double? height;
+  final Icon? icon;
+  final EdgeInsets? padding;
+
   const ActionButton({
     super.key,
     required this.onPressed,
@@ -16,16 +25,9 @@ class ActionButton extends StatelessWidget {
     this.padding,
   });
 
-  final VoidCallback onPressed;
-  final String text;
-  final bool isLoading;
-  final double? width;
-  final double? height;
-  final Icon? icon;
-  final EdgeInsets? padding;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
@@ -47,7 +49,7 @@ class ActionButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   if (icon != null) icon!,
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   AutoSizeText(
                     text,
                     style: Theme.of(context).textTheme.button?.copyWith(
@@ -63,19 +65,6 @@ class ActionButton extends StatelessWidget {
   }
 }
 
-class DeleteActionButton extends ActionButton {
-  const DeleteActionButton({
-    super.key,
-    required super.onPressed,
-    required super.text,
-    super.padding = const EdgeInsets.symmetric(
-      horizontal: 20,
-      vertical: 20,
-    ),
-    super.icon = const Icon(FlutterRemix.delete_back_2_fill),
-  });
-}
-
 class AddActionButton extends ActionButton {
   const AddActionButton({
     super.key,
@@ -86,6 +75,19 @@ class AddActionButton extends ActionButton {
       vertical: 20,
     ),
     super.icon = const Icon(FlutterRemix.add_fill),
+  });
+}
+
+class DeleteActionButton extends ActionButton {
+  const DeleteActionButton({
+    super.key,
+    required super.onPressed,
+    required super.text,
+    super.padding = const EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 20,
+    ),
+    super.icon = const Icon(FlutterRemix.delete_back_2_fill),
   });
 }
 
