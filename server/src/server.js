@@ -2,6 +2,12 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const allChannelsRoutes = require("./routes/all_channels/router");
+const appSettingsRoutes = require("./routes/app_settings/router");
+const login = require("./routes/login/router");
+const categoryRoutes = require("./routes/categories/router");
+const drawerMenuRoutes = require("./routes/drawer_menu/router");
+const matchEventsRoutes = require("./routes/event_matches/router");
 const {
   jsonMiddleware,
   corsMiddleware,
@@ -12,14 +18,6 @@ const {
 app.use(jsonMiddleware);
 app.use(corsMiddleware);
 app.use(headersMiddleware);
-
-/// Routes
-const allChannelsRoutes = require("./routes/all_channels/router");
-const appSettingsRoutes = require("./routes/app_settings/router");
-const login = require("./routes/auth/post");
-const categoryRoutes = require("./routes/categories/router");
-const drawerMenuRoutes = require("./routes/drawer_menu/router");
-const matchEventsRoutes = require("./routes/event_matches/router");
 
 /// Routes
 app.use("/login", login);

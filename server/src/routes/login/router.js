@@ -1,8 +1,8 @@
-const { adminsCollection } = require("../../MangoDB/db");
 const express = require("express");
 const router = express.Router();
+const { adminsCollection } = require("../../MangoDB/db");
 
-router.post("/login", async (req, res) => {
+router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
   const adminDocument = await adminsCollection.findOne({

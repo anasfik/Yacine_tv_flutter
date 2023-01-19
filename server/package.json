@@ -5,6 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon src/server.js",
+    "create_admin": "node src/core/create_admin.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
