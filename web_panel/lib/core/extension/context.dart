@@ -10,4 +10,10 @@ extension BuildContextExt on BuildContext {
       ),
     );
   }
+
+  Future push(Widget widget) => Navigator.of(this).push(
+        MaterialPageRoute(
+          builder: (context) => widget,
+        ),
+      );
 }

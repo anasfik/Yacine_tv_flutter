@@ -12,7 +12,7 @@ class ChannelsCategoriesBloc
     extends Bloc<ChannelsCategoriesEvent, ChannelsCategoriesState> {
   final ChannelsCategoriesRepository channelsCategoriesRepository;
   late final TextEditingController categoryTitleController;
-  
+
   ChannelsCategoriesBloc(this.channelsCategoriesRepository)
       : super(const ChannelsCategoriesState()) {
     categoryTitleController = TextEditingController();
@@ -24,6 +24,12 @@ class ChannelsCategoriesBloc
 
     //  Request data when bloc is created.
     add(NewCategoriesGetRequested());
+  }
+
+  String channelsCategoriesLength() {
+    int length = state.allChannelsCategories.length;
+
+    return "$length categories";
   }
 
   void _createChannelCategory(ChannelsCategoryCreated event,
