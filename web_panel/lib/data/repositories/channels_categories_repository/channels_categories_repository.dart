@@ -4,6 +4,9 @@ import '../../models/chennels_category.dart';
 import '../../providers/categories/categories.dart';
 
 class ChannelsCategoriesRepository {
+  /// Returns a list of all the categories.
+  /// The list is empty if there are no categories.
+
   Future<List<ChannelsCategory>> getChannelsCategories() async {
     final resBody = await CategoriesProvider.get();
     final res = jsonDecode(resBody) as Map<String, dynamic>;
@@ -14,6 +17,7 @@ class ChannelsCategoriesRepository {
     return result;
   }
 
+  /// Creates a new category.
   Future<void> createChannelsCategory(
     ChannelsCategory channelsCategory,
   ) async {
@@ -21,6 +25,7 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
+  /// Updates the category.
   Future<void> updateChannelsCategory(
     ChannelsCategory channelsCategory,
   ) async {
@@ -30,6 +35,7 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
+  ///  Deletes the category.
   deleteChannelsCategory(
     String id,
   ) async {
@@ -37,6 +43,7 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
+  /// Updates a single channel.
   Future<void> updateChannel(
     String categoryId,
     Channel channel,
@@ -48,6 +55,7 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
+  /// Deletes a single channel.
   Future<void> deleteChannel(
     String categoryId,
     String channelId,
@@ -59,6 +67,7 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
+  /// Deletes a category.
   Future<void> deleteCategory(
     String categoryId,
   ) async {
@@ -66,6 +75,7 @@ class ChannelsCategoriesRepository {
     print(resBody);
   }
 
+  /// Adds a new channel to the category.
   Future addChannel(
     String categoryId,
     Channel channel,

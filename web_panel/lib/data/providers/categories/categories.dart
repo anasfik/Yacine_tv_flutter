@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 class CategoriesProvider implements DataTypeInterface {
   static String endPoint = "/categories";
 
+  /// Get a response from the server and return it as a string (JSON).
   static Future<String> get() async {
     http.Response res = await http.get(
       Uri.http(
@@ -21,6 +22,7 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
+  /// Post a response from the server and return the result as a string (JSON).
   static Future<String> post(ChannelsCategory category) async {
     http.Response res = await http.post(
       Uri.http(
@@ -37,6 +39,7 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
+  /// Delete a category by it's id and return the result as a string (JSON).
   static delete(
     String categoryId,
   ) async {
@@ -54,24 +57,8 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
-  // static Future<void> delete(String categoryId) async {
-  //   final res = await http.delete(
-  //     Uri.http(
-  //       dotenv.env['API_URL']!,
-  //       '$endPoint/$categoryId',
-  //     ),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json',
-  //     },
-  //   );
-  //   print(res);
-  // }
-
+  /// Update a category by it's id and return the result as a string (JSON).
   static Future<String> put(ChannelsCategory channelsCategory) async {
-    print(channelsCategory.id);
-    print(channelsCategory.categoryTitle);
-
     http.Response res = await http.put(
       Uri.http(
         dotenv.env['API_URL']!,
@@ -87,6 +74,7 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
+  /// Delete a channel of a category by their ids and return the result as a string (JSON).
   static deleteChannel(String categoryId, String channelId) async {
     http.Response res = await http.delete(
       Uri.http(
@@ -102,6 +90,7 @@ class CategoriesProvider implements DataTypeInterface {
     return res.body;
   }
 
+  /// Update a channel of a category by their ids and return the result as a string (JSON).
   static putChannel(String categoryId, Channel channel) async {
     final channelId = channel.id;
     http.Response res = await http.put(
@@ -115,10 +104,11 @@ class CategoriesProvider implements DataTypeInterface {
         'Accept': 'application/json',
       },
     );
-    print(res.body);
+
     return res.body;
   }
 
+  /// Post a channel of a category by their ids and return the result as a string (JSON).
   static postChannel(
     String categoryId,
     Channel channel,
