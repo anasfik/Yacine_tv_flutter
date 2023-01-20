@@ -103,3 +103,16 @@ class UpdateActionButton extends ActionButton {
     super.icon = const Icon(FlutterRemix.edit_box_fill),
   });
 }
+
+class ChannelsActionButton extends ActionButton {
+  const ChannelsActionButton({
+    super.key,
+    required super.onPressed,
+    required super.text,
+    super.padding = const EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 20,
+    ),
+    super.icon = const Icon(FlutterRemix.list_check),
+  });
+}

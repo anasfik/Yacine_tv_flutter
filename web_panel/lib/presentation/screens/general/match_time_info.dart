@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:web_panel/core/extension/date.dart';
 
 class MatchTimeInfo extends StatelessWidget {
   const MatchTimeInfo({
@@ -16,14 +17,16 @@ class MatchTimeInfo extends StatelessWidget {
         color: Colors.grey.withOpacity(0.175),
         borderRadius: const BorderRadius.all(Radius.circular(12.0)),
       ),
-      child: AutoSizeText(
-        date.toString(),
-        style: Theme.of(context).textTheme.subtitle1?.copyWith(
-              fontSize: 17.0,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-        maxLines: 1,
+      child: Center(
+        child: AutoSizeText(
+          date.timeFormatted(),
+          style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                fontSize: 17.0,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+          maxLines: 1,
+        ),
       ),
     );
   }

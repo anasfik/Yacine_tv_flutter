@@ -6,6 +6,7 @@ import 'package:web_panel/buisness_logic/event_match_bloc/event_match_bloc.dart'
 import 'package:web_panel/core/extension/context.dart';
 import 'package:web_panel/data/models/event_match.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
+import 'package:web_panel/presentation/screens/general/screen_title.dart';
 
 import '../../../data/providers/l10n/en.dart';
 import '../../config/colors/colors.dart';
@@ -27,76 +28,59 @@ class MathEvents extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: MarginedBody(
-          child: Column(
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.headline4?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.black,
-                        ),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      ActionButton(
-                        icon: const Icon(
-                          FlutterRemix.add_line,
-                          size: 18,
-                        ),
-                        height: 30,
-                        onPressed: () {
-                          context.push(
-                            AddEventMatchPage(
-                              eventMatch: EventMatch.empty(),
-                            ),
-                          );
-                        },
-                        text: "Add",
-                      ),
-                      const SizedBox(width: 10),
-                    ],
-                  ),
-                ],
-              ),
-              BlocBuilder<EventChannelsBlocBloc, EventChannelsBlocState>(
-                builder: (BuildContext context, EventChannelsBlocState state) {
-                  if (state.isLoading) {
-                    return const CircularProgressIndicator();
-                  } else if (state.eventMatches != null) {
-                    return Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      alignment: WrapAlignment.spaceAround,
-                      children: List.generate(
-                        state.eventMatches!.length,
-                        (index) {
-                          EventMatch current = state.eventMatches![index];
-
-                          return GestureDetector(
-                            onTap: () {
-                              context.push(
-                                UpdateEventMatchPage(
-                                  eventMatch: current,
-                                ),
-                              );
-                            },
-                            child: EventMatchCard(
-                              eventMatch: current,
-                            ),
-                          );
-                        },
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: Container(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ScreenTitle(
+                  title: title,
+                  onAddButtonPressed: () {
+                    context.push(
+                      AddEventMatchPage(
+                        eventMatch: EventMatch.empty(),
                       ),
                     );
-                  } else {
-                    return const Text(L10n.menuItemAddedError);
-                  }
-                },
-              ),
-            ],
+                  },
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BlocBuilder<EventChannelsBlocBloc, EventChannelsBlocState>(
+                  builder:
+                      (BuildContext context, EventChannelsBlocState state) {
+                    if (state.isLoading) {
+                      return const CircularProgressIndicator();
+                    } else if (state.eventMatches != null) {
+                      return Center(
+                        child: Wrap(
+                          children: List.generate(
+                            state.eventMatches!.length,
+                            (index) {
+                              EventMatch current = state.eventMatches![index];
+
+                              return EventMatchCard(
+                                onTap: () {
+                                  context.push(
+                                    UpdateEventMatchPage(
+                                      eventMatch: current,
+                                    ),
+                                  );
+                                },
+                                eventMatch: current,
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Text(L10n.menuItemAddedError);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

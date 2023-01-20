@@ -26,12 +26,12 @@ class AddEventMatchPage extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: const AEMAppBar(),
-        body: MarginedBody(
-          child: BlocBuilder<EventMatchBloc, EventMatchState>(
-            builder: (context, state) {
-              final bloc = context.read<EventMatchBloc>();
+        body: BlocBuilder<EventMatchBloc, EventMatchState>(
+          builder: (context, state) {
+            final bloc = context.read<EventMatchBloc>();
 
-              return SingleChildScrollView(
+            return SingleChildScrollView(
+              child: MarginedBodyForInputs(
                 child: Column(
                   children: <Widget>[
                     DataField(
@@ -61,118 +61,156 @@ class AddEventMatchPage extends StatelessWidget {
                       hint: "commenter name",
                       controller: bloc.commenterNameController,
                     ),
-                    DateTimeSelect(
-                      date: state.matchDateTime,
-                      onPressed: () {
-                        bloc.add(
-                          DateTimeSelected(
-                            context,
-                            onUserNotFinishingTimesSelects: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("You didn't finish selecting date"),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
+                    const SizedBox(
+                      height: 10,
                     ),
-                    ActionButton(
-                      text: "channels",
-                      onPressed: () async {
-                        await showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text("Channels"),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("close"),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  bloc.add(ChannelsChanged());
-                                  print(state.channels.map((e) => e.quality));
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("ok"),
-                              ),
-                            ],
-                            content: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  DataField(
-                                    hint: "Multi",
-                                    controller: bloc.channelMultiController,
+                    Center(
+                      child: DateTimeSelect(
+                        date: state.matchDateTime,
+                        onPressed: () {
+                          bloc.add(
+                            DateTimeSelected(
+                              context,
+                              onUserNotFinishingTimesSelects: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        "You didn't finish selecting date"),
                                   ),
-                                  DataField(
-                                    hint: "Low",
-                                    controller: bloc.channelLowController,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Channels",
+                          style:
+                              Theme.of(context).textTheme.bodyText1?.copyWith(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  DataField(
-                                    hint: "SD",
-                                    controller: bloc.channelSdController,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        ChannelsActionButton(
+                          text: "Edit channels",
+                          onPressed: () async {
+                            await showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Channels"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("close"),
                                   ),
-                                  DataField(
-                                    hint: "HD",
-                                    controller: bloc.channelHdController,
-                                  ),
-                                  DataField(
-                                    hint: "FHD",
-                                    controller: bloc.channelFhdController,
-                                  ),
-                                  DataField(
-                                    hint: "UHD",
-                                    controller: bloc.channelUhdController,
-                                  ),
-                                  DataField(
-                                    hint: "4k",
-                                    controller: bloc.channel4kController,
+                                  TextButton(
+                                    onPressed: () {
+                                      bloc.add(ChannelsChanged());
+                                      print(
+                                          state.channels.map((e) => e.quality));
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("ok"),
                                   ),
                                 ],
+                                content: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      DataField(
+                                        hint: "Multi",
+                                        controller: bloc.channelMultiController,
+                                      ),
+                                      DataField(
+                                        hint: "Low",
+                                        controller: bloc.channelLowController,
+                                      ),
+                                      DataField(
+                                        hint: "SD",
+                                        controller: bloc.channelSdController,
+                                      ),
+                                      DataField(
+                                        hint: "HD",
+                                        controller: bloc.channelHdController,
+                                      ),
+                                      DataField(
+                                        hint: "FHD",
+                                        controller: bloc.channelFhdController,
+                                      ),
+                                      DataField(
+                                        hint: "UHD",
+                                        controller: bloc.channelUhdController,
+                                      ),
+                                      DataField(
+                                        hint: "4k",
+                                        controller: bloc.channel4kController,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      },
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                    ActionButton(
-                      text: "Save",
-                      onPressed: () {
-                        bloc.add(
-                          SaveEventMatch(
-                            onSuccess: () {
-                              context
-                                  .read<EventChannelsBlocBloc>()
-                                  .add(MatchEventsRequested());
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Event match saved"),
-                                ),
-                              );
-                              Navigator.pop(context);
-                            },
-                            onError: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Error saving event match"),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Center(
+                          child: UpdateActionButton(
+                            text: "Save",
+                            onPressed: () {
+                              bloc.add(
+                                SaveEventMatch(
+                                  onSuccess: () {
+                                    context
+                                        .read<EventChannelsBlocBloc>()
+                                        .add(MatchEventsRequested());
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text("Event match saved"),
+                                      ),
+                                    );
+                                    Navigator.pop(context);
+                                  },
+                                  onError: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content:
+                                            Text("Error saving event match"),
+                                      ),
+                                    );
+                                  },
                                 ),
                               );
                             },
                           ),
-                        );
-                      },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
                     ),
                   ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

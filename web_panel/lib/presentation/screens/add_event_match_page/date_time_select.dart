@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_remix/flutter_remix.dart';
+import 'package:web_panel/core/extension/date.dart';
 
 class DateTimeSelect extends StatelessWidget {
   const DateTimeSelect({
@@ -15,13 +16,23 @@ class DateTimeSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        AutoSizeText(
-          date.toString(),
+        Text(
+          "Choose date and time",
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
         ),
-        IconButton(
-          onPressed: onPressed,
-          icon: const Icon(FlutterRemix.calendar_2_fill),
-        )
+        // const Spacer(),
+        Row(
+          children: [
+            IconButton(
+              onPressed: onPressed,
+              icon: const Icon(FlutterRemix.calendar_2_fill),
+            ),
+            Text(date.formattedForHumans()),
+          ],
+        ),
       ],
     );
   }
