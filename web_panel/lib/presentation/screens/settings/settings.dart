@@ -78,6 +78,7 @@ class Settings extends StatelessWidget {
                       ),
                     ),
                     SwitchListTile(
+                      activeColor: Theme.of(context).primaryColor,
                       value: state.showShare,
                       title: const Text("Allow sharing"),
                       onChanged: (value) {

@@ -41,9 +41,12 @@ class ChannelCard extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   context.push(
-                    EditChannel(
-                      channel: channel,
-                      categoryId: categoryId,
+                    BlocProvider.value(
+                      value: context.read<ChannelBloc>(),
+                      child: EditChannel(
+                        channel: channel,
+                        categoryId: categoryId,
+                      ),
                     ),
                   );
                 },
@@ -110,22 +113,6 @@ class ChannelCard extends StatelessWidget {
               ),
             ),
           );
-
-          // return Card(
-          //   child: Column(
-          //     children: [
-          //       Image.network(
-          //         "https://via.placeholder.com/100x100",
-          //         width: 100,
-          //         height: 100,
-          //       ),
-          //       Text(channel.channelName),
-          //       Row(
-          //         children: [],
-          //       ),
-          //     ],
-          //   ),
-          // );
         },
       ),
     );

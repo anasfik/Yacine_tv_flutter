@@ -209,7 +209,7 @@ router.delete("/", async (req, res) => {
   }
 });
 
-router.post("/categories/:id/channels", async (req, res) => {
+router.post("/:id/channels", async (req, res) => {
   const channelBody = req.body;
   if (checkChannelBody(channelBody)) {
     res.status(400).send(
@@ -258,10 +258,13 @@ router.post("/categories/:id/channels", async (req, res) => {
   }
 });
 
-router.delete("/categories/:id/channels/:channelId", async (req, res) => {
+router.delete("/:id/channels/:channelId", async (req, res) => {
   try {
     const id = req.params.id;
     const channelId = req.params.channelId;
+
+    console.log(`trying to delete channel ${channelId} from category ${id}`);
+
     const deleteResult = await categoriesCollection.updateOne(
       { _id: ObjectId(id) },
       { $pull: { channels: { _id: ObjectId(channelId) } } }
@@ -344,6 +347,5 @@ router.put("/:id/channels/:channelId", async (req, res) => {
     );
   }
 });
-
 
 module.exports = router;

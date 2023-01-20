@@ -85,8 +85,8 @@ class AppThemes {
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(AppColors.mediumRed),
         shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
+          const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(3)),
           ),
         ),
       ),

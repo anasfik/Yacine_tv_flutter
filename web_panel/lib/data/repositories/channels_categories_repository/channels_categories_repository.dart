@@ -64,7 +64,7 @@ class ChannelsCategoriesRepository {
       categoryId,
       channelId,
     );
-    print(resBody);
+    print("Deleted " + resBody);
   }
 
   /// Deletes a category.

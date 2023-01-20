@@ -86,6 +86,7 @@ class CategoriesProvider implements DataTypeInterface {
         'Accept': 'application/json',
       },
     );
+    print(dotenv.env['API_URL']! + '$endPoint/$categoryId/channels/$channelId');
 
     return res.body;
   }

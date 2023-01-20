@@ -43,6 +43,7 @@ class AdmobSettings extends StatelessWidget {
                       ],
                     ),
                     SwitchListTile(
+                      activeColor: Theme.of(context).primaryColor,
                       value: state.showAds,
                       title: const Text("enable admob"),
                       onChanged: (value) {
