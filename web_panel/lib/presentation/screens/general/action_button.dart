@@ -87,7 +87,7 @@ class DeleteActionButton extends ActionButton {
       horizontal: 20,
       vertical: 20,
     ),
-    super.icon = const Icon(FlutterRemix.delete_back_2_fill),
+    super.icon = const Icon(FlutterRemix.delete_bin_2_fill),
   });
 }
 
