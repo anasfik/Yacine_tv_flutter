@@ -9,7 +9,7 @@ class EventMatchState extends Equatable {
   const EventMatchState({
     required this.matchDateTime,
     required this.matchTimeOfDay,
-    this.channels = const [],
+    required this.channels,
   });
 
   @override

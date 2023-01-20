@@ -34,6 +34,7 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
     required this.eventMatch,
     required this.matchEventsRepository,
   }) : super(EventMatchState(
+          channels: EventMatch.empty().channelQuality,
           matchDateTime: eventMatch.dateOfMatchWithTime,
           matchTimeOfDay: TimeOfDay.fromDateTime(
             eventMatch.dateOfMatchWithTime,

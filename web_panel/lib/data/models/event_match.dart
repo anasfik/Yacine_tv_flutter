@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
+
+@immutable
 class EventMatch {
-  EventMatch({
+  const EventMatch({
     required this.id,
     required this.firstTeam,
     required this.firstTeamLogo,
@@ -51,7 +54,6 @@ class EventMatch {
             List<dynamic>.from(channelQuality.map((x) => x.toMap())),
         "commenter_name": commenterName,
         "date_of_match_with_time": dateOfMatchWithTime.toIso8601String(),
-      
       };
 
   factory EventMatch.empty() {
@@ -78,6 +80,7 @@ class EventMatch {
   }
 }
 
+@immutable
 class ChannelQuality {
   ChannelQuality({
     required this.quality,
