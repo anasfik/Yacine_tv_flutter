@@ -3,12 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_remix/flutter_remix.dart';
 import 'package:web_panel/buisness_logic/event_channels_bloc/event_channels_bloc_bloc.dart';
 import 'package:web_panel/buisness_logic/event_match_bloc/event_match_bloc.dart';
+import 'package:web_panel/core/extension/context.dart';
 import 'package:web_panel/data/models/event_match.dart';
 import 'package:web_panel/presentation/screens/general/margined_body.dart';
 
+import '../../../data/providers/l10n/en.dart';
 import '../../config/colors/colors.dart';
 import '../add_event_match_page/add_event_match_page.dart';
 import '../general/action_button.dart';
+import '../general/event_match_card.dart';
 import '../update_event_match/update_event_match.dart';
 
 class MathEvents extends StatelessWidget {
@@ -45,12 +48,9 @@ class MathEvents extends StatelessWidget {
                         ),
                         height: 30,
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddEventMatchPage(
-                                eventMatch: EventMatch.empty(),
-                              ),
+                          context.push(
+                            AddEventMatchPage(
+                              eventMatch: EventMatch.empty(),
                             ),
                           );
                         },
@@ -58,39 +58,44 @@ class MathEvents extends StatelessWidget {
                       ),
                       const SizedBox(width: 10),
                     ],
-                  )
+                  ),
                 ],
               ),
               BlocBuilder<EventChannelsBlocBloc, EventChannelsBlocState>(
-                builder: (context, state) {
+                builder: (BuildContext context, EventChannelsBlocState state) {
                   if (state.isLoading) {
                     return const CircularProgressIndicator();
                   } else if (state.eventMatches != null) {
-                    return Column(
-                      children:
-                          List.generate(state.eventMatches!.length, (index) {
-                        final current = state.eventMatches![index];
+                    return Wrap(
+                      spacing: 10,
+                      runSpacing: 10,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      alignment: WrapAlignment.spaceAround,
+                      children: List.generate(
+                        state.eventMatches!.length,
+                        (index) {
+                          EventMatch current = state.eventMatches![index];
 
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UpdateEventMatchPage(
+                          return GestureDetector(
+                            onTap: () {
+                              context.push(
+                                UpdateEventMatchPage(
                                   eventMatch: current,
                                 ),
-                              ),
-                            );
-                          },
-                          child: Text(current.firstTeam),
-                        );
-                      }),
+                              );
+                            },
+                            child: EventMatchCard(
+                              eventMatch: current,
+                            ),
+                          );
+                        },
+                      ),
                     );
                   } else {
-                    return const Text("Somthing went wrong");
+                    return const Text(L10n.menuItemAddedError);
                   }
                 },
-              )
+              ),
             ],
           ),
         ),

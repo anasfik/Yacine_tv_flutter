@@ -1,0 +1,19 @@
+# Changing the App Theme
+
+I am using a more flexible way to change the theme of the app using a website tool which is (https://appainter.dev/). This tool allows you to customize various visual elements of the app such as colors, fonts, and more. Once you have made your desired changes, the tool will generate a JSON file of the theme that can be used in the app.
+
+## Using the Theme Generator Tool
+
+1. Visit the theme generator website (https://appainter.dev/#/)
+2. Use the tool's interface to customize the visual elements of the app to your liking.
+3. Once you are satisfied with your changes, click the export button.
+4. Download the generated JSON file of the theme.
+
+## Applying the Generated Theme
+
+1. Copy the downloaded JSON file of the theme to the `assets` folder in the root of your app's directory.
+2. In the `config.dart` file, change the `lightThemePath` variable to the path of the JSON file.
+
+```dart
+static String lightThemePath = 'assets/YOUR_THEME.json';
+```

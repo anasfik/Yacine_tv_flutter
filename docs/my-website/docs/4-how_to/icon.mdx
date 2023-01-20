@@ -1,0 +1,34 @@
+# Change App Icon
+
+in order to changing the app icon name, we're going to use the [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) package that simplifies the task for you.
+
+- 1- take your icon image, copy it.
+- 2- from the app project folder, open the `assets/` folder.
+- 3- paste the icon inside of it, we will need the name of the icon.
+- 4- Now, from the app project directory, search for the `pubspec.yaml` file.
+- 5- Open it, then add the following like this:
+
+```dart {2, 4-8}
+dev_dependencies:
+  flutter_launcher_icons: "^0.11.0"
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/<NAME_OF_YOUR_ICON_HERE>"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+```
+
+:::caution Warning
+Be careful with empty spaces inside the `pubspec.yaml`, this file is sensitive with them, an extra/less space will cause failure in next step
+:::
+
+- 6- open the cmd (command line), then run these commands:
+
+```
+flutter pub get
+flutter pub run flutter_launcher_icons:main
+```
+
+- 7- That's it, now run or build your app and you should see the app icon changed.
