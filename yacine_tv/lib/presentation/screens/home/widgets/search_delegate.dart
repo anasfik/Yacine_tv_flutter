@@ -12,6 +12,20 @@ class CustomSearchDelegate extends SearchDelegate {
   });
 
   @override
+  ThemeData appBarTheme(context) {
+    final ThemeData theme = Theme.of(context);
+    print(theme.appBarTheme.backgroundColor);
+
+    return theme.copyWith(
+      inputDecorationTheme: InputDecorationTheme(
+        hintStyle: TextStyle(
+          color: Colors.white.withOpacity(0.65),
+        ),
+      ),
+    );
+  }
+
+  @override
   List<Widget>? buildActions(BuildContext context) {
     return <Widget>[
       IconButton(

@@ -24,7 +24,7 @@ class SettingsProvider extends DataTypeInterface {
   /// ```
   static Future<String> get() async {
     http.Response response = await http.get(
-      Uri.http(
+      Uri.https(
         dotenv.env['API_URL']!,
         endPoint,
       ),

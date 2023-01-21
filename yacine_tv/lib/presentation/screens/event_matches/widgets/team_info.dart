@@ -15,22 +15,27 @@ class TeamInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        CachedNetworkImage(
-          imageUrl: logoUrl,
-          width: 70,
-          height: 70,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        AutoSizeText(
-          name.capitalizeAllWordsFirstLetter(),
-          overflow: TextOverflow.ellipsis,
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
-      ],
+    return SizedBox(
+      width: 80,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          CachedNetworkImage(
+            imageUrl: logoUrl,
+            width: 80,
+            height: 70,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          AutoSizeText(
+            name.capitalizeAllWordsFirstLetter(),
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.labelLarge,
+          ),
+        ],
+      ),
     );
   }
 }

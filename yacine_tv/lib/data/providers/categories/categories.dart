@@ -23,7 +23,7 @@ class CategoriesProvider implements DataTypeInterface {
   /// ```
   static Future<String> get() async {
     http.Response res = await http.get(
-      Uri.http(
+      Uri.https(
         dotenv.env['API_URL']!,
         endPoint,
       ),

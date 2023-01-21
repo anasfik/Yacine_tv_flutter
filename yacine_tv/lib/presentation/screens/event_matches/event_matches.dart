@@ -18,26 +18,27 @@ class EventMatches extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: MainColors.transparent,
-      body: BlocBuilder<EventMatchesCubit, EventMatchesState>(
-        builder: (context, state) {
-          if (state is EventMatchesLoading) {
-            return const LoadingWidget();
-          } else if (state is EventMatchesLoaded) {
-            List<EventMatch> eventMatches = state.eventMatches ?? [];
+      body: RefreshIndicator(
+        onRefresh: () {
+          return cubit.loadEventMatches();
+        },
+        child: BlocBuilder<EventMatchesCubit, EventMatchesState>(
+          builder: (context, state) {
+            if (state is EventMatchesLoading) {
+              return const LoadingWidget();
+            } else if (state is EventMatchesLoaded) {
+              List<EventMatch> eventMatches = state.eventMatches ?? [];
 
-            if (eventMatches.isEmpty) {
-              return const EmptinessWidget();
-            }
+              if (eventMatches.isEmpty) {
+                return const EmptinessWidget();
+              }
 
-            return RefreshIndicator(
-              onRefresh: () {
-                return cubit.loadEventMatches();
-              },
-              child: Stack(
+              return Stack(
                 fit: StackFit.expand,
                 children: <Widget>[
                   ListView.builder(
                     itemCount: eventMatches.length,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       EventMatch current = eventMatches[index];
 
@@ -45,12 +46,12 @@ class EventMatches extends StatelessWidget {
                     },
                   ),
                 ],
-              ),
-            );
-          } else {
-            return ErrorWidget(L10n.error);
-          }
-        },
+              );
+            } else {
+              return ErrorWidget(L10n.error);
+            }
+          },
+        ),
       ),
     );
   }
