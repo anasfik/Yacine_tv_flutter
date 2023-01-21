@@ -96,7 +96,8 @@ class Login extends StatelessWidget {
                                   context.snackBarText(L10n.loginSuccess);
                                 },
                                 onError: (error) {
-                                  context.snackBarText(L10n.loginError);
+                                  context
+                                      .snackBarText(error ?? L10n.loginError);
                                 },
                               ),
                             );

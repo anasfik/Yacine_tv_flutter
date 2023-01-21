@@ -9,6 +9,7 @@ import 'package:web_panel/presentation/screens/general/screen_title.dart';
 import '../../../data/models/menu_item.dart' as mi;
 import '../../../buisness_logic/menu_bloc/menu_bloc_bloc.dart';
 import '../../../data/repositories/menu/menu.dart';
+
 class Menu extends StatelessWidget {
   const Menu({
     super.key,
@@ -39,109 +40,92 @@ class Menu extends StatelessWidget {
                   );
                 },
               ),
-              Column(
-                children: <Widget>[
-                  BlocBuilder<MenuBloc, MenuBlocState>(
-                    builder: (context, state) {
-                      if (state.isLoading) {
-                        return const CircularProgressIndicator();
-                      } else if (state.menuItems != null) {
-                        return Column(
-                          children: List.generate(
-                            state.menuItems!.length,
-                            (index) {
-                              final current = state.menuItems![index];
+              BlocBuilder<MenuBloc, MenuBlocState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return const CircularProgressIndicator();
+                  } else if (state.menuItems != null) {
+                    return Column(
+                      children: List.generate(
+                        state.menuItems!.length,
+                        (index) {
+                          final current = state.menuItems![index];
 
-                              return Container(
-                                margin: const EdgeInsets.only(bottom: 5),
-                                child: Material(
-                                  borderRadius: BorderRadius.circular(5),
-                                  clipBehavior: Clip.hardEdge,
-                                  child: InkWell(
-                                    mouseCursor: SystemMouseCursors.click,
-                                    onHover: (a) {},
-                                    onTap: () {
-                                      menuItemDialog(
-                                        item: current,
-                                        context: context,
-                                        onSuccessGlobalBloc: () {
-                                          allItemsBloc
-                                              .add(MenuItemsRequested());
-                                        },
-                                        operation: MenuItemOperation.update,
-                                      );
+                          return Material(
+                            clipBehavior: Clip.hardEdge,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5)),
+                            child: Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              child: ListTile(
+                                onTap: () {
+                                  menuItemDialog(
+                                    item: current,
+                                    context: context,
+                                    onSuccessGlobalBloc: () {
+                                      allItemsBloc.add(MenuItemsRequested());
                                     },
-                                    child: ListTile(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal: 10,
-                                      ),
-                                      leading: Image.network(
-                                        current.icon,
-                                        width: 50,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return const Icon(
-                                            FlutterRemix.error_warning_fill,
-                                          );
-                                        },
-                                      ),
-                                      title: Text(current.title),
-                                      trailing: Flexible(
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(
-                                                FlutterRemix.edit_2_line,
-                                              ),
-                                              onPressed: () {
-                                                menuItemDialog(
-                                                  item: current,
-                                                  context: context,
-                                                  onSuccessGlobalBloc: () {
-                                                    allItemsBloc.add(
-                                                        MenuItemsRequested());
-                                                  },
-                                                  operation:
-                                                      MenuItemOperation.update,
-                                                );
-                                              },
-                                            ),
-                                            IconButton(
-                                              icon: const Icon(
-                                                FlutterRemix.delete_bin_2_line,
-                                              ),
-                                              onPressed: () {
-                                                menuItemDialog(
-                                                  item: current,
-                                                  context: context,
-                                                  onSuccessGlobalBloc: () {
-                                                    allItemsBloc.add(
-                                                        MenuItemsRequested());
-                                                  },
-                                                  operation:
-                                                      MenuItemOperation.update,
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                    operation: MenuItemOperation.update,
+                                  );
+                                },
+                                contentPadding: const EdgeInsets.all(10),
+                                leading: Image.network(
+                                  current.icon,
+                                  width: 50,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Icon(
+                                      FlutterRemix.error_warning_fill,
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
-                        );
-                      } else {
-                        return const Text("no data");
-                      }
-                    },
-                  ),
-                ],
+                                title: Text(current.title),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(
+                                        FlutterRemix.edit_2_line,
+                                      ),
+                                      onPressed: () {
+                                        menuItemDialog(
+                                          item: current,
+                                          context: context,
+                                          onSuccessGlobalBloc: () {
+                                            allItemsBloc
+                                                .add(MenuItemsRequested());
+                                          },
+                                          operation: MenuItemOperation.update,
+                                        );
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(
+                                        FlutterRemix.delete_bin_2_line,
+                                      ),
+                                      onPressed: () {
+                                        menuItemDialog(
+                                          item: current,
+                                          context: context,
+                                          onSuccessGlobalBloc: () {
+                                            allItemsBloc
+                                                .add(MenuItemsRequested());
+                                          },
+                                          operation: MenuItemOperation.update,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return const Text("no data");
+                  }
+                },
               ),
             ],
           ),

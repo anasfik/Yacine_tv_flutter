@@ -11,6 +11,10 @@ class Core {
   /// await init();
   /// ```
   static Future<void> init() async {
-    await dotenv.load(fileName: ".env");
+    await dotenv.load(fileName: "env");
+  }
+
+  Uri apiLinkHttps(String enpoint) {
+    return Uri.https(dotenv.env['API_LINK']!, enpoint);
   }
 }

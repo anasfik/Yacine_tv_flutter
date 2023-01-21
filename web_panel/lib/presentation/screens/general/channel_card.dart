@@ -96,12 +96,10 @@ class ChannelCard extends StatelessWidget {
                                     ),
                                   );
                             },
-                            child: Expanded(
-                              child: AutoSizeText(
-                                L10n.delete,
-                                style: theme.textTheme.labelSmall?.copyWith(
-                                  color: theme.primaryColor,
-                                ),
+                            child: AutoSizeText(
+                              L10n.delete,
+                              style: theme.textTheme.labelSmall?.copyWith(
+                                color: theme.primaryColor,
                               ),
                             ),
                           ),

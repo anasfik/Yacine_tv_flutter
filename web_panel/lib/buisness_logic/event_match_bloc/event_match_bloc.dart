@@ -188,8 +188,8 @@ class EventMatchBloc extends Bloc<EventMatchEvent, EventMatchState> {
   FutureOr<void> _deleteEventMatch(
     DeleteEventMatch event,
     Emitter<EventMatchState> emit,
-  ) {
-    matchEventsRepository.deleteMatchEvent(event.eventMatchId);
+  ) async {
+    await matchEventsRepository.deleteMatchEvent(event.eventMatchId);
     event.onSuccess();
   }
 
