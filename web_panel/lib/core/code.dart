@@ -12,7 +12,6 @@ class Core {
   /// ```
   static Future<void> init() async {
     await dotenv.load(fileName: "env");
+    print(dotenv.env['API_URL']!);
   }
-
-
 }
