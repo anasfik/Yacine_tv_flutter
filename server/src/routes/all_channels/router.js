@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { categoriesCollection } = require("../../MangoDB/db");
-// const ObjectId = require("mongodb").ObjectId;
 
 router.get("/all_channels", async (req, res) => {
   try {
