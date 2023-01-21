@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class AuthProvider {
   static login(String username, String password) async {
     final a = await http.post(
-      Uri.https(dotenv.env['API_URL']!, '/login'),
+      Uri.parse(dotenv.env['API_URL']! + '/login'),
       body: jsonEncode(
         {
           'username': username,

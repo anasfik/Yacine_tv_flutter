@@ -13,9 +13,8 @@ class CategoriesProvider implements DataTypeInterface {
   /// Get a response from the server and return it as a string (JSON).
   static Future<String> get() async {
     http.Response res = await http.get(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
     );
 
@@ -25,9 +24,8 @@ class CategoriesProvider implements DataTypeInterface {
   /// Post a response from the server and return the result as a string (JSON).
   static Future<String> post(ChannelsCategory category) async {
     http.Response res = await http.post(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -44,9 +42,8 @@ class CategoriesProvider implements DataTypeInterface {
     String categoryId,
   ) async {
     http.Response res = await http.delete(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId',
+      Uri.parse(
+        dotenv.env['API_URL']! + '$endPoint/$categoryId',
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -60,9 +57,8 @@ class CategoriesProvider implements DataTypeInterface {
   /// Update a category by it's id and return the result as a string (JSON).
   static Future<String> put(ChannelsCategory channelsCategory) async {
     http.Response res = await http.put(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        '$endPoint/${channelsCategory.id}',
+      Uri.parse(
+        dotenv.env['API_URL']! + '$endPoint/${channelsCategory.id}',
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -77,9 +73,8 @@ class CategoriesProvider implements DataTypeInterface {
   /// Delete a channel of a category by their ids and return the result as a string (JSON).
   static deleteChannel(String categoryId, String channelId) async {
     http.Response res = await http.delete(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId/channels/$channelId',
+      Uri.parse(
+        dotenv.env['API_URL']! + '$endPoint/$categoryId/channels/$channelId',
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -95,9 +90,8 @@ class CategoriesProvider implements DataTypeInterface {
   static putChannel(String categoryId, Channel channel) async {
     final channelId = channel.id;
     http.Response res = await http.put(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId/channels/$channelId',
+      Uri.parse(
+        dotenv.env['API_URL']! + '$endPoint/$categoryId/channels/$channelId',
       ),
       body: jsonEncode(channel.toMap()),
       headers: {
@@ -115,9 +109,8 @@ class CategoriesProvider implements DataTypeInterface {
     Channel channel,
   ) async {
     http.Response res = await http.post(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        '$endPoint/$categoryId/channels',
+      Uri.parse(
+        dotenv.env['API_URL']! + '$endPoint/$categoryId/channels',
       ),
       body: jsonEncode(channel.toMap()),
       headers: {

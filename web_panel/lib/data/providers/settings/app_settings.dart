@@ -12,29 +12,29 @@ class SettingsProvider extends DataTypeInterface {
 
   static Future<String> get() async {
     http.Response response = await http.get(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
     );
+
     return response.body;
   }
 
   static Future put(AppSettings settings) async {
     http.Response response = await http.put(
-        Uri.https(
-          dotenv.env['API_URL']!,
-          endPoint,
+        Uri.parse(
+          dotenv.env['API_URL']! + endPoint,
         ),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
         body: jsonEncode(settings.toMap()));
+
     return response.body;
   }
 }

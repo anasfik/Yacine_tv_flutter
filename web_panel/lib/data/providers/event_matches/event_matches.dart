@@ -13,9 +13,8 @@ class MatchEventsProvider implements DataTypeInterface {
 
   static Future<String> get() async {
     http.Response response = await http.get(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -27,9 +26,8 @@ class MatchEventsProvider implements DataTypeInterface {
 
   static Future<String> post(EventMatch eventMatch) async {
     http.Response response = await http.post(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -42,9 +40,8 @@ class MatchEventsProvider implements DataTypeInterface {
 
   static Future<String> put(EventMatch eventMatch, String id) async {
     http.Response response = await http.put(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        "$endPoint/$id",
+      Uri.parse(
+        dotenv.env['API_URL']! + "$endPoint/$id",
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -58,9 +55,8 @@ class MatchEventsProvider implements DataTypeInterface {
 
   static Future<String> delete(String id) async {
     http.Response response = await http.delete(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        "$endPoint/$id",
+      Uri.parse(
+        dotenv.env['API_URL']! + "$endPoint/$id",
       ),
       headers: {
         'Content-Type': 'application/json',

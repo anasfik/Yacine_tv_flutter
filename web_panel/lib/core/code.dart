@@ -14,7 +14,5 @@ class Core {
     await dotenv.load(fileName: "env");
   }
 
-  Uri apiLinkHttps(String enpoint) {
-    return Uri.https(dotenv.env['API_LINK']!, enpoint);
-  }
+
 }

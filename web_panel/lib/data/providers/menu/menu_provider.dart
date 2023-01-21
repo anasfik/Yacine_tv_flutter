@@ -11,9 +11,8 @@ class MenuProvider implements DataTypeInterface {
 
   static Future<String> get() async {
     http.Response response = await http.get(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -25,9 +24,8 @@ class MenuProvider implements DataTypeInterface {
 
   static post(MenuItem item) async {
     http.Response response = await http.post(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -41,9 +39,8 @@ class MenuProvider implements DataTypeInterface {
 
   static put(MenuItem item, String id) async {
     http.Response response = await http.put(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        "$endPoint/$id",
+      Uri.parse(
+        dotenv.env['API_URL']! + "$endPoint/$id",
       ),
       headers: {
         'Content-Type': 'application/json',
@@ -57,15 +54,15 @@ class MenuProvider implements DataTypeInterface {
 
   static Future<String> delete(String id) async {
     final res = await http.delete(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        "$endPoint/$id",
+      Uri.parse(
+        dotenv.env['API_URL']! + "$endPoint/$id",
       ),
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
     );
+
     return res.body;
   }
 }
