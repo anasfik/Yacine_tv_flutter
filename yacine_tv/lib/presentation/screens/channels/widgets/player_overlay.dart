@@ -19,8 +19,6 @@ class PlayerOverlay extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
 
-    print("a");
-
     return GestureDetector(
       onTap: () {
         cubit.togglePlayerOverlay();
@@ -28,7 +26,7 @@ class PlayerOverlay extends StatelessWidget {
       child: Container(
         width: mq.size.width,
         height: mq.size.height,
-        color: Colors.blue.withOpacity(0.5),
+        color: Colors.blue.withOpacity(0),
         child: AnimatedOpacity(
           opacity: cubit.state.showPlayerOverlay ? 1 : 0,
           duration: animationDuration,

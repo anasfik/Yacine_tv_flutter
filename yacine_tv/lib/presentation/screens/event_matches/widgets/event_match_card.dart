@@ -38,9 +38,9 @@ class EventMatchCard extends StatelessWidget {
                     name: eventMatch.firstTeam,
                     logoUrl: eventMatch.firstTeamLogo,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   MatchTimeInfo(date: eventMatch.dateOfMatchWithTime),
-                  Spacer(),
+                  const Spacer(),
                   TeamInfo(
                     name: eventMatch.secondTeam,
                     logoUrl: eventMatch.secondTeamLogo,

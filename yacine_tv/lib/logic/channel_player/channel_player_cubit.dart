@@ -21,19 +21,13 @@ class ChannelPlayerCubit extends Cubit<ChannelPlayerState> {
     );
 
     _initializeController(autoPlay: Configs.autoPlay);
-    _controller.addListener(() {
-      if (_controller.value.isBuffering) {
-        emit(const ChannelPlayerBuffering());
-      }
-    });
   }
 
   /// This function is used to dispose the [VideoPlayerController] object, and free resources.
   @override
   Future<void> close() async {
-    _controller.pause();
-    _controller.removeListener(() {});
-    _controller.dispose();
+    await _controller.pause();
+    await _controller.dispose();
     super.close();
   }
 

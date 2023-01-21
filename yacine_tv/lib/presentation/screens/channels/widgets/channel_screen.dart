@@ -43,6 +43,8 @@ class _ChannelScreenState extends State<ChannelScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("sssY");
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocBuilder<ChannelPlayerCubit, ChannelPlayerState>(
@@ -70,7 +72,12 @@ class _ChannelScreenState extends State<ChannelScreen> {
           } else {
             final error = state.error;
 
-            return const Center(child: Text(L10n.error));
+            return Center(
+              child: Text(
+                error ?? L10n.error,
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           }
         },
       ),

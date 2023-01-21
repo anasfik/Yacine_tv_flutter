@@ -12,7 +12,6 @@ abstract class ChannelPlayerState extends Equatable {
   final PlayingStatus playingStatus;
   final bool showPlayerOverlay;
   final bool isBuffering;
-
   final String? error;
 
   @override
@@ -76,8 +75,6 @@ class ChannelPlayerOverlayHidden extends ChannelPlayerState {
     super.showPlayerOverlay = false,
   });
 }
-
-
 
 class ChannelPlayerBuffering extends ChannelPlayerState {
   const ChannelPlayerBuffering({

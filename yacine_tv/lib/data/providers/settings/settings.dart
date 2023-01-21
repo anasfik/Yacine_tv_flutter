@@ -24,9 +24,8 @@ class SettingsProvider extends DataTypeInterface {
   /// ```
   static Future<String> get() async {
     http.Response response = await http.get(
-      Uri.https(
-        dotenv.env['API_URL']!,
-        endPoint,
+      Uri.parse(
+        dotenv.env['API_URL']! + endPoint,
       ),
       headers: {
         'Content-Type': 'application/json',
