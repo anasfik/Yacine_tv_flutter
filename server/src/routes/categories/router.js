@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { categoriesCollection } = require("../../MangoDB/db");
 const ObjectId = require("mongodb").ObjectId;
-const { checkCategoryBody, checkChannelBody } = require("./validation");
+const { checkCategoryBody } = require("./validation");
 const channelsRouter = require("./channels/router");
+
 router.get("/", async (req, res) => {
   try {
     const categories = await categoriesCollection.find().toArray();
@@ -178,6 +179,11 @@ router.delete("/:id", async (req, res) => {
       message: "Internal Server Error",
     });
   }
+});
+
+router.use("/:id/channels", (req, res, next) => {
+  req.categoryId = req.params.id;
+  next();
 });
 
 router.use("/:id/channels", channelsRouter);

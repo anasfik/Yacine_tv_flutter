@@ -5,7 +5,8 @@ const ObjectId = require("mongodb").ObjectId;
 const { checkChannelBody } = require("../validation");
 
 router.post("/", async (req, res) => {
-  if (checkChannelBody(channelBody)) {
+  console.log(req.body);
+  if (checkChannelBody(req.body)) {
     res.status(400).json({
       status: 400,
       message: "Bad Request",
@@ -14,7 +15,7 @@ router.post("/", async (req, res) => {
   }
 
   try {
-    const categoryId = req.params.id;
+    const categoryId = req.categoryId;
 
     const channelBody = req.body;
     const insertionResult = await categoriesCollection.updateOne(
@@ -47,7 +48,7 @@ router.post("/", async (req, res) => {
 
 router.delete("/:channelId", async (req, res) => {
   try {
-    const categoryId = req.params.id;
+    const categoryId = req.categoryId;
     const channelId = req.params.channelId;
 
     const deleteResult = await categoriesCollection.updateOne(
@@ -83,10 +84,10 @@ router.put("/:channelId", async (req, res) => {
   }
 
   try {
-    const id = req.params.id;
+    const categoryId = req.categoryId;
     const channelId = req.params.channelId;
     const updateResult = await categoriesCollection.updateOne(
-      { _id: ObjectId(id), "channels._id": ObjectId(channelId) },
+      { _id: ObjectId(categoryId), "channels._id": ObjectId(channelId) },
       { $set: { "channels.$": { _id: ObjectId(channelId), ...channelBody } } }
     );
 
