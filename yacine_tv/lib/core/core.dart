@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:yacine_tv/data/models/channel.dart';
 
 import '../config/general.dart';
@@ -119,5 +120,21 @@ class Core {
   /// It uses the [SystemChrome] to set the preferred orientations to portrait.
   static void setScreenOrientationToPortrait() {
     SystemChrome.setPreferredOrientations(_portraitOrientations);
+  }
+
+  /// This functions shares the app.
+  /// It uses the [Share] package to share the app's share message.
+  /// It takes an optional named argument [onError] as a [Function] that takes a [String] as the argument.
+  /// The function is called when an error occurs while sharing the app.
+  static Future<void> shareApp({
+    void Function(String)? onError,
+  }) async {
+    try {
+      await Share.share(
+        Configs.appShareMessage,
+      );
+    } catch (e) {
+      onError?.call(e.toString());
+    }
   }
 }

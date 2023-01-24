@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yacine_tv/data/models/menu_item.dart' as mi;
 import 'package:yacine_tv/logic/settings_cubit/settings_cubit.dart';
 import 'package:yacine_tv/presentation/screens/bottom_navigation_screens_handler/widgets/drawer/widgets/menu_tile.dart';
+import 'package:yacine_tv/presentation/screens/bottom_navigation_screens_handler/widgets/drawer/widgets/share_tile.dart';
 import 'package:yacine_tv/presentation/screens/bottom_navigation_screens_handler/widgets/drawer/widgets/top_spacing.dart';
 
 import '../../../../general/divider.dart';
@@ -60,6 +61,7 @@ class ItemsListView extends StatelessWidget {
           MenuTile(
             item: privacy,
           ),
+          ShareItem(),
         ],
       ),
     );

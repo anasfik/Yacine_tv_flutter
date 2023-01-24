@@ -28,4 +28,6 @@ class Configs {
     showAds: false,
     showShare: true,
   );
+
+  static const appShareMessage = "YOUR SHARE TEXT HERE";
 }
