@@ -1,0 +1,31 @@
+import 'package:yacine_tv/data/models/app_settings.dart';
+
+class Configs {
+  static String environmentFilePath = '.env';
+  static String lightThemePath = 'assets/theme.json';
+  static String menuImageCoverToShowWhenOriginalOneFails =
+      'assets/YOUR_IMAGE.png';
+
+  static String backgroundAsset = "assets/background.jpg";
+  static bool loadMenuItemsLazily = false;
+  static bool loadAppSettingsLazily = false;
+  static bool loadEventMatchesLazily = false;
+
+  static bool filterOnlyTodayEventMatches = true;
+
+  static bool autoPlay = true;
+
+  static const AppSettings initialSettings = AppSettings(
+    appEmail: '',
+    appAuthor: '',
+    appLogoCover: '',
+    appPrivacyPolicy: '',
+    appVersion: '',
+    appWebsite: '',
+    admobAppId: '',
+    admobBannerId: '',
+    admobInterstitialId: '',
+    showAds: false,
+    showShare: true,
+  );
+}
