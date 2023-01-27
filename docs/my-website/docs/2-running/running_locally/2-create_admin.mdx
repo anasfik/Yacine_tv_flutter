@@ -2,22 +2,39 @@
 
 ## Creation
 
-In order to create a new account which you will let you authenticate to access the Admin Panel, you will need to follow these steps:
+In order to create a new admin account which you will let you authenticate to access the Admin Panel, you will need to follow these steps:
 
-1. open the .env file that you've created from the previous section
-2. Add your desirer username and password as environment variables, like this :
+1. Open the `server/` folder.
+
+2. Open the `.env` file that you've worked with from the [previous section](./1-backend.mdx).
+
+:::note
+at this point, the `.env` file should contains already the `MANGODB_URI` and `PORT` variables.
+:::
+
+3. Add your desired username and password to authenticate with as environment variables, like this:
 
 ```
-ADMIN_USERNAME : the desired admin username.
-ADMIN_PASSWORD : the desired admin password.
+ADMIN_USERNAME=myUserName
+ADMIN_PASSWORD=myPassword
 ```
 
-3. Run the command `npm run create_admin` to create the admin credential using the ADMIN_USERNAME and ADMIN_PASSWORD information you did put inside the .env file.
+4. Now, from the `/server` folder, Run the command `npm run create_admin`.
+
+5. this will create a new admin credential using the `ADMIN_USERNAME` and `ADMIN_PASSWORD` information you did put inside the `.env` file.
 
 ## Verification
 
-1.  if the operation did executed successfully, your console should print:
+1. If the operation did executed successfully and an account admin is created successfully, your command line console should show this:
 
 ```
 Admin with username <ADMIN_USERNAME> created successfully
 ```
+
+:::tip
+For Security, after creating the admin account successfully, you can delete the `ADMIN_USERNAME` and `ADMIN_PASSWORD` from the `.env` since they are only used in order to create the account, after that, those credentials will be saved in the MangoDB database and can be used every time you want to access the Admin Panel.
+:::
+
+## When I should Go To Next Step ?
+
+When you [verify](#verification) that the username and password did created successfully, ** congratulations**, you can pass to the next step where you will run the Admin Panel on your browser using those credentials.

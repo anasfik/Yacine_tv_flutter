@@ -2,27 +2,47 @@
 
 ## Installation
 
-1. Open the server folder.
+1. Open the `/server` folder.
 
-2. Open a terminal (cmd or powershell..) in the path of that folder.
+2. Open a terminal (cmd or powershell..) in the path of that folder (`/server`).
 
 3. Run the command `npm install` to install the required dependencies.
 
-4. Create a new file in the root of the project called `.env` and add the following environment variables:
+:::note
+This will install the rest of the required dependencies for the server such as Express.js, MangoDB Driver...
+:::
+
+4. Now, look inside the `/server` that you did opened, you should find a `.env.example` file which contains those variables:
 
 ```JS
-DB_URL : the MongoDB connection string.
-PORT : the port on which the server will run.
+MANGODB_URI=YOUR_MANGODB_CLUSTER_URI
+PORT=8080
 ```
 
-5. Run the command `npm start` to start the Express.js server.
+5. Replace `YOUR_MANGODB_CLUSTER_URI` with your MangoDB cluster URI.
+
+:::tip
+The MangoDB cluster URI looks something like : `mongodb+srv://gwhyyy:password@cluster0.ktg0sfb.mongodb.net/...`.
+:::
+
+:::tip
+If you don't know how to get your cluster, please give a quick look over [`How To`](../../how_to) section, it contains many short tutorials related to configuring this project.
+:::
+
+6. Optional: Replace the `PORT` with that you want to open a localhost with, Example when running the server locally, it's url will be `localhost:8080`.
+
+7. Rename the `.env.example` file name to `.env`.
+
+8. Run the command `npm start` to run the Express.js server.
 
 ## Verification
 
 To ensure that the backend server is running correctly, you can perform the following verification steps:
 
-1. Open a browser and navigate to `http://localhost:<port>` (replace `<port>` with the port number specified in the .env file).
+1. Open a browser and navigate to `http://localhost:<port>` (replace `<port>` with the port number specified in the `.env` file).
 
 2. You should see a message indicating that the server is running.
 
-3. Test the API endpoints by making a request to them, you should see the data in the response if the server is running correctly and the connection to the database is successful.
+## When I should Go To Next Step ?
+
+When you have in your hands the `localhost:<PORT>` running successfully, then **congratulations**, you can now pass to the next step where you will learn how to create an admin account to use it.

@@ -2,22 +2,44 @@
 
 ## Installation
 
-1. Open the application folder.
+1. Open the `/application` folder.
 
-2. Open a terminal in that folder path.
+2. Open a terminal in that folder path (`/application`).
 
-3. Run the command `flutter pub get` to install the required dependencies.
+3. Run the command `flutter pub get` to download the required dependencies.
 
-4. Create a new file in the root of the project called .env and add the following environment variable:
+4. in that `/application` folder, you should find a `.env.example` containing the following environment variable:
 
 ```
-API_URL: the URL of the backend server API.
+API_URL=your_server_url
 ```
 
-5. Connect your device or start an emulator.
+4.1. Replace `your_server_url` with the server url.
 
-6. Run the command `flutter run` to start the app.
+:::tip
+Following the [`Running Backend Server`](./1-backend.mdx), you should get the server url as `localhost:<Port>`, replace with it.
+:::
+
+:::tip
+When deploying your app to production, after deploying the server to some cloud-based service, you will need simply to replace it with your production server url.
+:::
+
+:::danger
+Your server url should not end with a `/`:
+Invalid: localhost:3000/
+Valid: localhost:3000
+:::
+
+5. Replace the `.env.example` file name to `.env`
+
+6. Connect your device or start an emulator.
+
+7. Run the command `flutter run` to start the app.
 
 ## Verification
 
 1.After the app code get compiled, The app should now be running on your device or emulator in the debug mode, connecting to the API using the URL specified in the .env file.
+
+## When I should Go To Next Steps ?
+
+When you do have a fully running application that is connected successfully to the server you did run, then Congratulations, the main configurations are done, and you can get the full experience of managing the Application from the Admin Panel.

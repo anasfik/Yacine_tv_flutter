@@ -16,7 +16,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "Ghwyyy", // Usually your GitHub org/user name.
+  organizationName: "Gwhyyy", // Usually your GitHub org/user name.
   projectName: "PLACEHOLDER", // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -52,22 +52,25 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "My Site",
         logo: {
-          alt: "My Site Logo",
-          src: "img/logo.svg",
+          alt: "TV Logo",
+          src: "img/yacine-tv.png",
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
+            href: "/",
+            label: "Full Documentation",
             position: "left",
-            label: "Tutorial",
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/Gwhyyy",
             label: "GitHub",
             position: "right",
+          },
+          {
+            href: "https://codecanyon.net/item/yacine-tv-flutter-live-streaming-sport-events-app-with-admin-panel-built-with-nodejs-mangodb/43194412",
+            label: "CodeCanyon",
+            position: "left",
           },
         ],
       },
@@ -75,42 +78,33 @@ const config = {
         style: "dark",
         links: [
           {
-            title: "Docs",
+            title: "Full Documentation",
             items: [
               {
-                label: "Tutorial",
+                label: "Full Documentation",
                 to: "/docs/intro",
               },
             ],
           },
           {
-            title: "Community",
+            title: "About",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
+                label: "CodeCanyon",
+                href: "https://codecanyon.net/item/yacine-tv-flutter-live-streaming-sport-events-app-with-admin-panel-built-with-nodejs-mangodb/43194412",
               },
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                label: "Developer",
+                href: "https://codecanyon.net/user/gwhyyy",
               },
               {
-                label: "Twitter",
+                label: "Facebook",
                 href: "https://twitter.com/docusaurus",
               },
             ],
           },
-          {
-            title: "More",
-            items: [
-              {
-                label: "GitHub",
-                href: "https://github.com/Gwhyyy/",
-              },
-            ],
-          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Gwhyyy, Inc. All rights reserved.`,
       },
       prism: {
         theme: darkCodeTheme,

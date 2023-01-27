@@ -2,21 +2,49 @@
 
 ## Installation
 
-1. open the Admin Panel folder.
+1. open the `/web_panel` folder.
 
-2. Open a terminal inside the path of that folder.
+2. Open a terminal (cmd or a powershell) inside the path of that opened folder (`/web_panel`).
 
-3. Run the command `flutter pub get` to install the required dependencies.
+3. Run the command `flutter pub get` to download the required Flutter dependencies.
 
-4. Create a new file in the root of the project called `.env` and add the following environment variable:
+4. In that opened directory (`/web_panel`), you should find a `env.example` file containing:
 
 ```
-API_URL: the URL of the server you did got following the Backend section steps.
+API_URL=your_server_url
 ```
 
-5. Run the project in the browser (Google Chrome or Microsoft Edge) and wait until it compile, alternatively run the command `flutter run --web-browser` from the folder path.
+4.1. Replace `your_server_url` with the server url.
 
-Verification:
+:::tip
+Following the [`Running Backend Server`]("./1-backend.mdx"), you should get the server url as `localhost:<Port>`, replace with it.
+:::
+
+:::tip
+When deploying your app to production, after deploying the server to some cloud-based service, you will need simply to replace it with your production server url.
+:::
+
+:::danger
+Your server url should not end with a `/`:
+Invalid: localhost:3000/
+Valid: localhost:3000
+:::
+
+5. Replace the `env.example` file name to `env`
+
+:::danger
+Pay attention that the final file name should be `env`.
+:::
+
+6. Run the project in the browser (Google Chrome or Microsoft Edge) and wait until it compile, alternatively run the command `flutter run --web-browser` from the folder path.
+
+7. wait until the Admin Panel runs.
+
+## Verification:
 
 1. The admin panel should be opened automatically on the browser properly.
 2. You can then authenticate with the username and password you did create in the previous guide.
+
+## When I should Go To Next Step ?
+
+When the Admin Panel is opened successfully, you will see the authentication page shown to you, **congratulations**, now you can authenticate/login with the username and password you did created from the [previous step](./2-create_admin.mdx), and then the Admin Panel where you can manage your app will be opened.
