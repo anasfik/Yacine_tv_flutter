@@ -12,7 +12,7 @@ Below is an explanation of each variable and its purpose.
 
 ## `environmentFilePath`
 
-```dart
+```dart title=application/lib/config/config.dart
 static String environmentFilePath = '.env';
 ```
 
@@ -24,7 +24,7 @@ Well you don't need to change this if you did followed this documentation exactl
 
 ## `lightThemePath`
 
-```dart
+```dart title=application/lib/config/config.dart
 static String lightThemePath = 'assets/theme.json';
 ```
 
@@ -34,7 +34,7 @@ This variable specifies the path of the JSON file that contains the light theme 
 
 ## `menuImageCoverToShowWhenOriginalOneFails`
 
-```dart
+```dart title=application/lib/config/config.dart
 static String menuImageCoverToShowWhenOriginalOneFails = 'assets/YOUR_IMAGE.png';
 ```
 
@@ -54,7 +54,7 @@ This variable specifies the path of the background image that is used in the app
 
 ## `loadMenuItemsLazily`
 
-```dart
+```dart title=application/lib/config/config.dart
 static bool loadMenuItemsLazily = false;
 ```
 
@@ -64,7 +64,7 @@ This variable is a boolean that determine whether the menu items should be loade
 
 ## `loadAppSettingsLazily`
 
-```dart
+```dart title=application/lib/config/config.dart
 static bool loadAppSettingsLazily = false;
 ```
 
@@ -74,7 +74,7 @@ This variable is a boolean that determine whether the App settings should be loa
 
 ## `loadEventMatchesLazily`
 
-```dart
+```dart title=application/lib/config/config.dart
 static bool loadEventMatchesLazily = false;
 ```
 
@@ -84,7 +84,7 @@ This variable is a boolean that determine whether the event matches should be lo
 
 ## `filterOnlyTodayEventMatches`
 
-```dart
+```dart title=application/lib/config/config.dart
 static bool filterOnlyTodayEventMatches = true;
 ```
 
@@ -106,7 +106,7 @@ This variable is a boolean that determine whether the player should be play the 
 
 This variable is an instance of the AppSettings class that contains initial settings for the app. It includes information such as the app's email, author, logo cover, privacy policy, version, website, and Admob settings. You can configure these settings to match your app's information.
 
-```dart
+```dart title=application/lib/config/config.dart
 static const AppSettings initialSettings = AppSettings(
     appEmail: '',
     appAuthor: '',

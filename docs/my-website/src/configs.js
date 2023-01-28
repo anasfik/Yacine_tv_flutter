@@ -1,3 +1,2 @@
-
-exports.appName = 'Example App';
-exports.siteDescription = 'My Site Description';
+exports.appName = "Yacine TV";
+exports.siteDescription = "Documentation";

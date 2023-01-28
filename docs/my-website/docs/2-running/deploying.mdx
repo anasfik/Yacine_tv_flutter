@@ -1,0 +1,37 @@
+---
+sidebar_position: 3
+---
+
+# Running for Production
+
+When all things are set up and working as you expect for the whole project when you run locally, finally, you will need to deploy to production, right?
+
+For this, it's not really such a big work to do at this point, all what you need is:
+
+1. Deploy the `server/` folder to your cloud-based service, there is many options and choosing one of them in your personal choice and up to you
+
+2. After the deployment, you should get the url for your api, as example, let's say after you did deployed the server, you got this api url:
+
+```
+https://yourserverlink.com
+```
+
+<br />
+
+3. take that url, and simply under both, the `.env` file inside the `/application` and the `env` file inside the `/web_panel` folder, set that url to the `API_URL` environment variable:
+
+```dart title=application/.env
+API_URL=https://yourserverlink.com
+```
+
+```dart title=web_panel/env
+API_URL=https://yourserverlink.com `
+```
+
+<br />
+
+4. That's it, now you can build both the admin panel and the application by running `flutter build` on both folders and get the production-ready outputs.
+
+# Congratulations
+
+reaching this point means that you did followed all steps and did build production-ready versions of this product, keep in mind that we are available to assist you in case you need any help, don't hesitate to reach us.

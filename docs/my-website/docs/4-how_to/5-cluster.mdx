@@ -1,0 +1,39 @@
+# Get MangoDB Cluster URI
+
+<br />
+<img alt="MangoDB" src="/img/mango.png" width="200" />
+<br />
+<br />
+
+After following with MangoDB instructions, to create a MangoDB database, you will be able to authenticate to your Atlas Dashboard where you will get a interactive user-interface to manage the database, all what is required from this is getting the MangoDB database URI which you will use in [configuring the server & backend](../2-running/running_locally/1-backend.mdx)
+
+1. Open your MangoDB Atlas Dashboard, you will see a page like this.
+2. Click the **connect** button.
+
+<br />
+<img alt="MangoDB-dashboard-connect" src="/img/mango-1.png" />
+<br />
+
+3. Choose **Connect Your Application** item from the options list.
+
+<br />
+<img alt="MangoDB-dashboard-app" src="/img/mango-2.png" />
+<br />
+
+4. The MangoDB database cluster URI will be shown to you.
+
+<br />
+<img alt="MangoDB-dashboard-URI" src="/img/mango-3.png" />
+<br />
+
+5. Modify the `<username>` and `<password>` with yours that you set while creating the MangoDB cluster.
+
+6. That's it, now you have it, get back and continue the set-up of your project.
+
+:::note
+The MangoDB cluster username and password doesn't relate on any way from the product Admin Panel's.
+:::
+
+:::danger
+Pay attention to the **network access** in your **Security** setting (you can find it in the left menu) of your database, so that includes your device ip.
+:::
