@@ -9,8 +9,8 @@ const oembed = require("remark-oembed");
 const config = {
   title: "Yacine TV",
   tagline: "Documentation",
-  url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  url: "https://gwhyyy.github.io",
+  baseUrl: "/yacine-tv-docs",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -18,7 +18,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "Gwhyyy", // Usually your GitHub org/user name.
-  projectName: "PLACEHOLDER", // Usually your repo name.
+  projectName: "yacine-tv-docs", // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -83,7 +83,7 @@ const config = {
             items: [
               {
                 label: "Full Documentation",
-                to: "/docs/intro",
+                to: "/",
               },
             ],
           },
