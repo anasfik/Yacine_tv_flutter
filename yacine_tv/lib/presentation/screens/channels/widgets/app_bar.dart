@@ -4,7 +4,7 @@ import 'package:yacine_tv/presentation/screens/general/app_bar_title.dart';
 import '../../../../data/models/channel.dart';
 import 'channels_search_delegate.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar(
     this.title, {
     super.key,

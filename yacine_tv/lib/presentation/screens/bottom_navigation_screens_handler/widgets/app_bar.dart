@@ -7,7 +7,7 @@ import 'package:yacine_tv/presentation/screens/home/widgets/search_delegate.dart
 import '../../../../data/models/channels_category.dart';
 import '../../../../logic/channels_categories_cubit/channels_categories_cubit.dart';
 
-class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
   });
