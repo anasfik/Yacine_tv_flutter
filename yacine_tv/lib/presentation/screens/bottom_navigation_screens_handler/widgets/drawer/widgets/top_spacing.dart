@@ -21,7 +21,7 @@ class Cover extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<SettingsCubit>().state.settings;
     print(bloc?.appLogoCover);
-    
+
     return Container(
       margin: EdgeInsets.only(
         top: spacing + MediaQuery.of(context).padding.top,

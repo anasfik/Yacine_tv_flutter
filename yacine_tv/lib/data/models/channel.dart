@@ -60,6 +60,4 @@ class Channel {
   bool tagsContains(String query) {
     return tags.any((tag) => tag.toLowerCase().contains(query.toLowerCase()));
   }
-
-  
 }

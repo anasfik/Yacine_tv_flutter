@@ -23,7 +23,7 @@ class MatchEventsProvider implements DataTypeInterface {
   /// ```
   static Future<String> get() async {
     http.Response response = await http.get(
-           Uri.parse(
+      Uri.parse(
         dotenv.env['API_URL']! + endPoint,
       ),
       headers: {

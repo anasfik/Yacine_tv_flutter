@@ -18,7 +18,7 @@ class ShareItem extends StatelessWidget {
         Icons.share,
         color: Colors.white,
       ),
-      title: MenuTileTitle(
+      title: const MenuTileTitle(
         title: "Share",
       ),
       onTap: () {

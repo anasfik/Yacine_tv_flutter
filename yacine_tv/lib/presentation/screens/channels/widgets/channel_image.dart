@@ -19,7 +19,7 @@ class ChannelImage extends StatelessWidget {
         height: 50,
         width: double.infinity,
         progressIndicatorBuilder: (context, url, downloadProgress) => Center(
-          child: Container(
+          child: SizedBox(
             width: 20,
             height: 20,
             child: CircularProgressIndicator(

@@ -19,6 +19,7 @@ class AdmobSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<SettingsBloc>();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: BlocBuilder<SettingsBloc, SettingsState>(
@@ -59,10 +60,10 @@ class AdmobSettings extends StatelessWidget {
                         hint: "Admob banner id",
                         controller: bloc.admobBannerIdController,
                       ),
-                      DataField(
-                        hint: "Admob interstitial id",
-                        controller: bloc.admobInterstitialIdController,
-                      ),
+                      // DataField(
+                      //   hint: "Admob interstitial id",
+                      //   controller: bloc.admobInterstitialIdController,
+                      // ),
                     ],
                     const SizedBox(
                       height: 30,

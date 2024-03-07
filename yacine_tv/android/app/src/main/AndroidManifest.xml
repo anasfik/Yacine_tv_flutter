@@ -1,32 +1,15 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.yacine_tv">
-    <queries>
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="sms" />
-  </intent>
-    <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="mailto" />
-  </intent>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="https" />
-  </intent>
-  <intent>
-    <action android:name="android.intent.action.VIEW" />
-    <data android:scheme="tel" />
-  </intent>
-</queries>
-      <uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.INTERNET"/>
 
-      <application
+    <application
         android:label="yacine_tv"
         android:name="${applicationName}"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
-
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2761860682313828~3485925574"/>
+            
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -53,6 +36,45 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility?hl=en and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
-        </application>
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+
+    <!-- Provide required visibility configuration for API level 30 and above -->
+<queries>
+  
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="sms" />
+  </intent>
+  
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="tel" />
+  </intent>
+  
+  <intent>
+    <action android:name="android.support.customtabs.action.CustomTabsService" />
+  </intent>
+
+  <intent>
+      <action android:name="android.intent.action.DIAL" />
+      <data android:scheme="https" />
+  </intent>
+  
+  <intent>
+      <action android:name="android.intent.action.DIAL" />
+      <data android:scheme="mailto" />
+  </intent>
+        
+</queries>
 </manifest>

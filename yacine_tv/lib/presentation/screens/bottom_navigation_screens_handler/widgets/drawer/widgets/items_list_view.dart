@@ -61,7 +61,7 @@ class ItemsListView extends StatelessWidget {
           MenuTile(
             item: privacy,
           ),
-          if (bloc.state.settings?.showShare ?? false) ShareItem(),
+          if (bloc.state.settings?.showShare ?? false) const ShareItem(),
         ],
       ),
     );

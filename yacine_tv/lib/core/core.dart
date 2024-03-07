@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:yacine_tv/data/models/channel.dart';
 
@@ -79,6 +80,8 @@ class Core {
   ///
   static Future<void> init() async {
     await dotenv.load(fileName: Configs.environmentFilePath);
+    WidgetsFlutterBinding.ensureInitialized();
+    await MobileAds.instance.initialize();
   }
 
   /// This function sets the screen orientation to landscape.

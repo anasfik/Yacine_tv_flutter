@@ -30,6 +30,7 @@ router.get("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   const appSettingsBody = req.body;
+
   if (checkAppSettingsBody(appSettingsBody)) {
     res.status(400).send(
       JSON.stringify({

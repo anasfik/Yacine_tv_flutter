@@ -31,6 +31,7 @@ class Themes {
     String themeAssesJson = await rootBundle.loadString(Configs.lightThemePath);
     Map<String, dynamic> decodedTheme = json.decode(themeAssesJson);
 
+    return ThemeData();
     return ThemeDecoder.decodeThemeData(decodedTheme);
   }
 }

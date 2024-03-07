@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:yacine_tv/core/lang/en.dart';
@@ -75,7 +74,7 @@ class _ChannelScreenState extends State<ChannelScreen> {
             return Center(
               child: Text(
                 error ?? L10n.error,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ),
             );
           }

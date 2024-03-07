@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ADAppBar extends StatelessWidget with PreferredSizeWidget {
+class ADAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ADAppBar({super.key});
 
   @override

@@ -16,7 +16,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   late final TextEditingController privacyController;
   late final TextEditingController admobAppIdController;
   late final TextEditingController admobBannerIdController;
-  late final TextEditingController admobInterstitialIdController;
+  // late final TextEditingController admobInterstitialIdController;
   late final TextEditingController logoCoverController;
   late final TextEditingController emailController;
   late final TextEditingController websiteController;
@@ -39,6 +39,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     try {
       emit(state.copyWith(isLoading: true));
       final settings = await settingsRepository.getSettings();
+
+      if (settings == null) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            settings: AppSettings.initial(),
+          ),
+        );
+
+        return;
+      }
+
       _updateControllers(settings);
 
       emit(state.copyWith(
@@ -81,7 +93,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       appPrivacyPolicy: privacyController.text,
       admobAppId: admobAppIdController.text,
       admobBannerId: admobBannerIdController.text,
-      admobInterstitialId: admobInterstitialIdController.text,
+      admobInterstitialId: "" /* admobInterstitialIdController.text */,
       appLogoCover: logoCoverController.text,
       appEmail: emailController.text,
       appWebsite: websiteController.text,
@@ -107,7 +119,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     privacyController.text = settings.appPrivacyPolicy;
     admobAppIdController.text = settings.admobAppId;
     admobBannerIdController.text = settings.admobBannerId;
-    admobInterstitialIdController.text = settings.admobInterstitialId;
+    // admobInterstitialIdController.text = settings.admobInterstitialId;
     logoCoverController.text = settings.appLogoCover;
     emailController.text = settings.appEmail;
     websiteController.text = settings.appWebsite;
@@ -119,7 +131,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     privacyController = TextEditingController(text: "");
     admobAppIdController = TextEditingController(text: "");
     admobBannerIdController = TextEditingController(text: "");
-    admobInterstitialIdController = TextEditingController(text: "");
+    // admobInterstitialIdController = TextEditingController(text: "");
     logoCoverController = TextEditingController(text: "");
     emailController = TextEditingController(text: "");
     websiteController = TextEditingController(text: "");

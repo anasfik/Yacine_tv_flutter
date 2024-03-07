@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DSAppBar extends StatelessWidget with PreferredSizeWidget {
+class DSAppBar extends StatelessWidget implements PreferredSizeWidget {
   const DSAppBar({
     super.key,
     required this.title,
@@ -10,7 +10,7 @@ class DSAppBar extends StatelessWidget with PreferredSizeWidget {
 
   final String title;
   final double height;
-final List<Widget>? actions;
+  final List<Widget>? actions;
   @override
   Widget build(BuildContext context) {
     return AppBar(

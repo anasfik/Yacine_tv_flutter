@@ -85,4 +85,20 @@ class AppSettings {
         admobBannerId.hashCode ^
         admobInterstitialId.hashCode;
   }
+
+  static AppSettings initial() {
+    return AppSettings(
+      appLogoCover: "",
+      appVersion: "",
+      appAuthor: "",
+      appEmail: "",
+      appWebsite: "",
+      appPrivacyPolicy: "",
+      showAds: false,
+      showShare: false,
+      admobAppId: "",
+      admobBannerId: "",
+      admobInterstitialId: "",
+    );
+  }
 }

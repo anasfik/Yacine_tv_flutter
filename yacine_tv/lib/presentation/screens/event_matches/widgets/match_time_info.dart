@@ -19,7 +19,7 @@ class MatchTimeInfo extends StatelessWidget {
       ),
       child: AutoSizeText(
         date.timeFormatted(),
-        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontSize: 17.0,
               color: Colors.black,
               fontWeight: FontWeight.bold,

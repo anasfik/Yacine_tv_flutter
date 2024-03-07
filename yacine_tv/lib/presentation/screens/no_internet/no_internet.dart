@@ -1,11 +1,9 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yacine_tv/core/extensions/context.dart';
 import 'package:yacine_tv/core/lang/en.dart';
 import 'package:yacine_tv/logic/connectivity_cubit/connectivity_cubit.dart';
 import 'package:yacine_tv/presentation/config/colors.dart';
-import 'package:yacine_tv/presentation/screens/bottom_navigation_screens_handler/widgets/drawer/widgets/top_spacing.dart';
 import 'package:yacine_tv/presentation/screens/general/loading.dart';
 import 'package:yacine_tv/presentation/screens/general/margined_body.dart';
 
@@ -36,7 +34,7 @@ class NoInternetScreen extends StatelessWidget {
                       Text(
                         L10n.noInternet,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 20),
                       BlocBuilder<ConnectivityCubit, ConnectivityState>(
@@ -63,11 +61,15 @@ class NoInternetScreen extends StatelessWidget {
                                   ? SizedBox(
                                       width: textPaintWidth(
                                         L10n.retry,
-                                        Theme.of(context).textTheme.subtitle1!,
+                                        Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!,
                                       ).height,
                                       height: textPaintWidth(
                                         L10n.retry,
-                                        Theme.of(context).textTheme.subtitle1!,
+                                        Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!,
                                       ).height,
                                       child: Center(
                                         child: LoadingWidget(
@@ -80,7 +82,7 @@ class NoInternetScreen extends StatelessWidget {
                                       L10n.retry,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .subtitle1
+                                          .titleMedium
                                           ?.copyWith(
                                             color: Theme.of(context)
                                                 .colorScheme

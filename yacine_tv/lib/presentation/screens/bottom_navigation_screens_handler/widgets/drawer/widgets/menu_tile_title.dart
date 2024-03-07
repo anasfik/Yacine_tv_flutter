@@ -14,7 +14,7 @@ class MenuTileTitle extends StatelessWidget {
     return AutoSizeText(
       title,
       maxLines: 1,
-      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: MainColors.white,
           ),
     );

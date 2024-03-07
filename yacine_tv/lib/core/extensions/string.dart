@@ -1,5 +1,5 @@
 extension StringExtension on String {
-    String capitalizeAllWordsFirstLetter() {
+  String capitalizeAllWordsFirstLetter() {
     String lowerCasedString = toLowerCase();
     String stringWithoutExtraSpaces = lowerCasedString.trim();
 

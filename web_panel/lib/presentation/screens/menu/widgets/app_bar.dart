@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MAppBar extends StatelessWidget with PreferredSizeWidget {
+class MAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MAppBar({super.key});
 
   @override

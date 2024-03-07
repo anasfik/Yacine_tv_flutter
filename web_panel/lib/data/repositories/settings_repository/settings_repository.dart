@@ -6,10 +6,16 @@ import '../../providers/settings/app_settings.dart';
 class SettingsRepository {
   SettingsRepository();
 
-  Future<AppSettings> getSettings() async {
+  Future<AppSettings?> getSettings() async {
     final resBody = await SettingsProvider.get();
     final res = jsonDecode(resBody) as Map<String, dynamic>;
-    final result = AppSettings.fromMap(Map.from(res["data"]));
+    final data = res["data"];
+
+    if (data == null) {
+      return null;
+    }
+
+    final result = AppSettings.fromMap(Map.from(data));
 
     return result;
   }

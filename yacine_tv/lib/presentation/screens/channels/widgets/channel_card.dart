@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:yacine_tv/core/extensions/context.dart';
 
 import '../../../../data/models/channel.dart';
-import '../../general/margined_body.dart';
 import 'channel_image.dart';
 import 'channel_screen.dart';
 

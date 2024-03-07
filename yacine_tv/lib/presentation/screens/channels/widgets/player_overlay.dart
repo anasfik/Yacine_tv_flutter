@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/channel.dart';
 import '../../../../logic/channel_player/channel_player_cubit.dart';
 import 'play_button.dart';

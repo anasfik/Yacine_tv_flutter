@@ -37,7 +37,7 @@ class CategoryCard extends StatelessWidget {
             child: Center(
               child: AutoSizeText(
                 category.categoryTitle,
-                style: theme.textTheme.headline5?.copyWith(
+                style: theme.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: theme.primaryColor,
                 ),
